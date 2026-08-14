@@ -19,7 +19,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -30,7 +29,7 @@
       overflow-x: hidden;
     }
 
-    /* 🌟 背景アニメーション（動きをスピーディーに変更） */
+    /* 🌟 背景アニメーション */
     .animated-bg {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       z-index: 1; filter: blur(80px); opacity: 0.75; pointer-events: none;
@@ -52,31 +51,53 @@
       background-size: 48px 48px; pointer-events: none;
     }
 
-    /* 🌟 最前面固定ヘッダー（重なり完全修正） */
+    /* 🌟 最前面固定ヘッダー (Miro風レイアウト & スマホハンバーガー化) */
     header {
-      position: fixed; top: 0; left: 0; right: 0;
-      z-index: 1000; /* 重なり順を最前面に設定 */
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; justify-content: space-between; align-items: center;
       padding: 12px 5%; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--glass-border); box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .logo { font-size: 16px; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-    .nav-links { display: flex; gap: 10px; align-items: center; list-style: none; }
-    .lang-btn {
-      background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid var(--glass-border);
-      padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; transition: all 0.2s;
-    }
-    .lang-btn:hover { background: rgba(255, 255, 255, 0.25); }
-    .btn-header { background: var(--primary); color: #fff !important; padding: 6px 12px; border-radius: 6px; font-size: 11px !important; white-space: nowrap; text-decoration: none; }
+    .logo { font-size: 18px; font-weight: 800; color: #38bdf8; text-decoration: none; display: flex; align-items: center; gap: 6px; }
 
-    /* 🌟 メインコンテンツの位置調整（ヘッダー被り防止） */
+    .nav-container { display: flex; align-items: center; gap: 20px; }
+    .nav-links { display: flex; gap: 18px; align-items: center; list-style: none; }
+    
+    /* 文字色を完全な白色(#ffffff)に指定 */
+    .nav-links a { text-decoration: none; color: #ffffff !important; font-size: 14px; font-weight: 600; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 0.8; }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    
+    .btn-login { background: transparent; color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; }
+    .btn-contact-header { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
+    .btn-start-free { background: var(--primary); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; }
+
+    .lang-btn { background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid var(--glass-border); padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
+
+    /* 🍔 ハンバーガーボタン (デフォルト非表示、スマホ表示時のみ出現) */
+    .hamburger-btn { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .hamburger-btn { display: block; }
+      .nav-container {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(10, 15, 29, 0.98); backdrop-filter: blur(20px);
+        flex-direction: column; padding: 20px; border-bottom: 1px solid var(--glass-border); gap: 16px;
+      }
+      .nav-container.active { display: flex; }
+      .nav-links { flex-direction: column; width: 100%; gap: 12px; text-align: center; }
+      .header-actions { flex-direction: column; width: 100%; gap: 10px; }
+      .header-actions button, .header-actions a { width: 100%; text-align: center; }
+    }
+
     section, footer { position: relative; z-index: 10; }
 
     /* 🌟 ヒーローエリア */
-    .hero { padding: 110px 5% 35px; text-align: center; } /* 上部paddingを広げてヘッダー被りを回避 */
+    .hero { padding: 120px 5% 40px; text-align: center; }
     .hero-badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-weight: bold; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
-    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.25; margin-bottom: 16px; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 14.5px; color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
+    .hero h1 { font-size: 34px; font-weight: 800; line-height: 1.25; margin-bottom: 16px; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 15px; color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
     .hero-cta { display: flex; gap: 14px; justify-content: center; align-items: center; }
     .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; }
     .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
@@ -101,10 +122,10 @@
     .feature-card h3 { font-size: 17px; color: #fff; }
     .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
-    /* 🎬 ビジュアルビューポート */
+    /* ビジュアルビューポート */
     .demo-viewport { width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 
-    /* 1. 右開き/左開き */
+    /* デモ用各種アニメーション */
     .demo-book-wrapper { display: flex; gap: 10px; position: relative; }
     .demo-page-box { width: 65px; height: 90px; background: #fff; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 12px; color: #1e293b; font-weight: bold; position: relative; }
     .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
@@ -112,69 +133,38 @@
     @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(75px); } 100% { transform: translateX(0); } }
     @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-75px); } 100% { transform: translateX(0); } }
 
-    /* 2. 自動繰り下げ */
     .demo-grid { display: flex; gap: 10px; position: relative; }
     .demo-card-slot { width: 52px; height: 72px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.2); border-radius: 4px; position: relative; }
     .demo-card-item { width: 52px; height: 72px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; }
     .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
     .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
-    @keyframes dropAndShift {
-      0% { transform: translate(-62px, -35px) scale(1.05); opacity: 0; }
-      25% { transform: translate(-62px, 0) scale(1); opacity: 1; }
-      75%, 100% { transform: translate(0, 0); }
-    }
+    @keyframes dropAndShift { 0% { transform: translate(-62px, -35px) scale(1.05); opacity: 0; } 25% { transform: translate(-62px, 0) scale(1); opacity: 1; } 75%, 100% { transform: translate(0, 0); } }
     @keyframes shiftRight { 0%, 30% { transform: translateX(0); } 65%, 100% { transform: translateX(62px); } }
-    .demo-cursor {
-      width: 14px; height: 14px; position: absolute; z-index: 20;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain;
-      animation: cursorMoveFixed 3.5s infinite ease-in-out;
-    }
-    @keyframes cursorMoveFixed {
-      0% { transform: translate(-42px, -20px); }
-      25% { transform: translate(-42px, 15px); }
-      75%, 100% { transform: translate(20px, 15px); }
-    }
+    .demo-cursor { width: 14px; height: 14px; position: absolute; z-index: 20; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain; animation: cursorMoveFixed 3.5s infinite ease-in-out; }
+    @keyframes cursorMoveFixed { 0% { transform: translate(-42px, -20px); } 25% { transform: translate(-42px, 15px); } 75%, 100% { transform: translate(20px, 15px); } }
 
-    /* 3. PDF/JPG/PNGドロップ */
     .drop-box { width: 120px; height: 90px; border: 2px dashed rgba(56, 189, 248, 0.5); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.05); position: relative; gap: 4px; }
     .file-icon { font-size: 24px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
     .thumb-gen { width: 90px; height: 65px; background: #0079bf; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 10px; animation: thumbAppear 3s infinite ease-in-out; }
     @keyframes fileDrop { 0% { transform: translateY(-50px) scale(1.2); opacity: 0; } 30% { transform: translateY(0) scale(1); opacity: 1; } 45%, 100% { transform: translateY(0) scale(0); opacity: 0; } }
     @keyframes thumbAppear { 0%, 40% { opacity: 0; transform: scale(0.6); } 55%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.6); } }
 
-    /* 4. コメント・資料添付 */
     .chat-demo-box { width: 150px; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 6px; border: 1px solid rgba(255,255,255,0.15); }
     .chat-msg { background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 9px; color: #fff; }
     .chat-msg-new { background: #0079bf; animation: msgPop 3s infinite ease-in-out; }
     .attach-tag { font-size: 8px; background: #2ed573; color: #fff; padding: 2px 6px; border-radius: 10px; display: inline-block; width: fit-content; }
     @keyframes msgPop { 0%, 30% { opacity: 0; transform: translateY(10px); } 45%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
 
-    /* 5. ステータスタグ進捗 */
     .card-tag-demo { width: 85px; height: 105px; background: #fff; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
     .status-badge-anim { padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; color: #fff; width: fit-content; }
 
-    /* 6. リアルな本めくり風アニメーション（1P->2P->3P） */
     .flip-book-container { width: 120px; height: 85px; position: relative; perspective: 600px; }
-    .flip-page {
-      width: 100%; height: 100%; background: #fff; border-radius: 4px; position: absolute; top: 0; left: 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center;
-      font-size: 14px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center;
-    }
+    .flip-page { width: 100%; height: 100%; background: #fff; border-radius: 4px; position: absolute; top: 0; left: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center; }
     .page-leaf-1 { animation: flipPage3D-1 4.5s infinite ease-in-out; }
     .page-leaf-2 { animation: flipPage3D-2 4.5s infinite ease-in-out; }
+    @keyframes flipPage3D-1 { 0%, 25% { transform: rotateY(0deg); z-index: 3; } 35%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 3; } }
+    @keyframes flipPage3D-2 { 0%, 55% { transform: rotateY(0deg); z-index: 2; } 65%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 2; } }
 
-    @keyframes flipPage3D-1 {
-      0%, 25% { transform: rotateY(0deg); z-index: 3; }
-      35%, 90% { transform: rotateY(-180deg); z-index: 1; }
-      100% { transform: rotateY(0deg); z-index: 3; }
-    }
-    @keyframes flipPage3D-2 {
-      0%, 55% { transform: rotateY(0deg); z-index: 2; }
-      65%, 90% { transform: rotateY(-180deg); z-index: 1; }
-      100% { transform: rotateY(0deg); z-index: 2; }
-    }
-
-    /* 7. リアルタイム共同編集 */
     .collab-wrapper-multi { display: flex; align-items: center; gap: 12px; position: relative; }
     .collab-avatars-group { display: flex; flex-direction: column; gap: 6px; }
     .collab-avatar-small { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 8px rgba(0,0,0,0.4); }
@@ -185,13 +175,11 @@
     @keyframes moveCursorA { 0%, 100% { top: 10px; left: 10px; } 50% { top: 60px; left: 50px; } }
     @keyframes moveCursorB { 0%, 100% { top: 70px; left: 40px; } 50% { top: 20px; left: 60px; } }
 
-    /* 8. リスト並び替え */
     .list-container { display: flex; flex-direction: column; gap: 6px; width: 140px; }
     .list-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
     .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: #0079bf; border-color: #38bdf8; z-index: 5; }
     @keyframes listReorder { 0%, 20% { transform: translateY(0); } 50%, 80% { transform: translateY(28px); } 100% { transform: translateY(0); } }
 
-    /* 9. データ出力 */
     .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .export-card { width: 70px; height: 50px; background: rgba(255,255,255,0.1); border: 1px solid #38bdf8; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #38bdf8; }
     .export-arrow { font-size: 18px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
@@ -210,6 +198,33 @@
     .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
     .pricing-features li { font-size: 13px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 
+    /* 🌟 モーダル共通スタイル */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 2000;
+      display: none; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: #0f172a; border: 1px solid var(--glass-border); border-radius: 16px;
+      padding: 30px; width: 100%; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      position: relative; display: flex; flex-direction: column; gap: 20px; color: #fff;
+    }
+    .modal-close-btn { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; }
+    .modal-box h3 { font-size: 20px; font-weight: bold; color: #38bdf8; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 12px; font-weight: bold; color: #cbd5e1; }
+    .form-group input, .form-group textarea {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
+      border-radius: 6px; padding: 10px; color: #fff; font-size: 13px; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: #38bdf8; }
+
+    /* マイページ用メーター表示 */
+    .mypage-info-card { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 14px; border-radius: 8px; display: flex; flex-direction: column; gap: 6px; }
+    .mypage-meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+    .mypage-meter-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, #2ed573); border-radius: 4px; }
+
     /* 🌟 TOPへ戻るフローティングボタン */
     .back-to-top {
       position: fixed; bottom: 24px; right: 24px; z-index: 999;
@@ -221,7 +236,6 @@
     }
     .back-to-top:hover { background: #0284c7; transform: translateY(-3px); }
 
-    /* 🌟 フッター */
     footer { background: rgba(5, 8, 16, 0.95); border-top: 1px solid var(--glass-border); color: var(--text-muted); padding: 32px 4%; text-align: center; font-size: 12px; }
     footer p { margin-top: 6px; }
   </style>
@@ -236,15 +250,27 @@
   </div>
   <div class="grid-overlay"></div>
 
-  <!-- 最前面固定ヘッダー -->
+  <!-- 最前面固定ヘッダー (白色テキスト・Miro風ヘッダー) -->
   <header>
-    <div class="logo">📖 PageLayout</div>
-    <ul class="nav-links">
-      <li><a href="#features" data-ja="機能" data-en="Features">機能</a></li>
-      <li><a href="#pricing" data-ja="料金" data-en="Pricing">料金</a></li>
-      <li><button id="langToggleBtn" class="lang-btn">🌐 EN</button></li>
-      <li><a href="app.html" class="btn-header" data-ja="アプリ起動" data-en="Launch App">アプリ起動</a></li>
-    </ul>
+    <a href="#top" class="logo">📖 PageLayout</a>
+    
+    <!-- 🍔 ハンバーガーボタン -->
+    <button class="hamburger-btn" id="hamburgerBtn">☰</button>
+
+    <div class="nav-container" id="navContainer">
+      <ul class="nav-links">
+        <li><a href="#features" data-ja="機能" data-en="Features">機能</a></li>
+        <li><a href="#pricing" data-ja="料金" data-en="Pricing">料金</a></li>
+        <li><a href="javascript:void(0)" id="openMypageBtn" data-ja="マイページ" data-en="My Page">マイページ</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button id="langToggleBtn" class="lang-btn">🌐 EN</button>
+        <button class="btn-contact-header" id="openContactBtn" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</button>
+        <a href="app.html" class="btn-login" data-ja="ログイン" data-en="Log In">ログイン</a>
+        <a href="app.html" class="btn-start-free" data-ja="無料で始める" data-en="Start Free">無料で始める</a>
+      </div>
+    </div>
   </header>
 
   <!-- ヒーロー -->
@@ -451,19 +477,96 @@
     </div>
   </section>
 
-  <!-- フローティング TOPへ戻るボタン -->
+  <!-- 📩 お問い合わせモーダル -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="closeContactBtn">&times;</button>
+      <h3 data-ja="📩 お問い合わせ" data-en="📩 Contact Us">📩 お問い合わせ</h3>
+      <p style="font-size:12px; color:#94a3b8;" data-ja="ご質問や導入のご相談など、お気軽にお問い合わせください。" data-en="Please feel free to contact us with any questions or consultations.">ご質問や導入のご相談など、お気軽にお問い合わせください。</p>
+      
+      <form onsubmit="event.preventDefault(); alert('お問い合わせを送信しました！'); document.getElementById('contactModal').classList.remove('active');">
+        <div class="form-group">
+          <label data-ja="お名前" data-en="Your Name">お名前</label>
+          <input type="text" required placeholder="例: 尾田 孝">
+        </div>
+        <div class="form-group" style="margin-top:10px;">
+          <label data-ja="メールアドレス" data-en="Email Address">メールアドレス</label>
+          <input type="email" required placeholder="example@company.com">
+        </div>
+        <div class="form-group" style="margin-top:10px;">
+          <label data-ja="お問い合わせ内容" data-en="Message">お問い合わせ内容</label>
+          <textarea rows="4" required placeholder="ご質問やご要望をご記入ください..."></textarea>
+        </div>
+        <button type="submit" class="btn-main" style="width:100%; margin-top:16px;" data-ja="送信する" data-en="Send Message">送信する</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 👤 マイページモーダル -->
+  <div class="modal-overlay" id="mypageModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="closeMypageBtn">&times;</button>
+      <h3 data-ja="👤 マイページ / アカウント状態" data-en="👤 My Page / Status">👤 マイページ / アカウント状態</h3>
+
+      <div class="mypage-info-card">
+        <span style="font-size:11px; color:#94a3b8;" data-ja="現在の契約プラン" data-en="Current Plan">現在の契約プラン</span>
+        <strong style="font-size:16px; color:#38bdf8;" data-ja="フリープラン（無料）" data-en="Free Plan">フリープラン（無料）</strong>
+      </div>
+
+      <div class="mypage-info-card">
+        <span style="font-size:11px; color:#94a3b8;" data-ja="アクティブな台割ボード数" data-en="Active Boards">アクティブな台割ボード数</span>
+        <strong style="font-size:15px;" data-ja="1 / 3 ボード使用中" data-en="1 / 3 Boards Used">1 / 3 ボード使用中</strong>
+      </div>
+
+      <div class="mypage-info-card">
+        <span style="font-size:11px; color:#94a3b8;" data-ja="共同作業メンバー枠" data-en="Collaborators">共同作業メンバー枠</span>
+        <strong style="font-size:15px;" data-ja="3名（上限達してます）" data-en="3 Members (Max Reached)">3名（上限達してます）</strong>
+      </div>
+
+      <div class="mypage-info-card">
+        <div style="display:flex; justify-shadow:space-between; font-size:11px; color:#94a3b8;">
+          <span data-ja="クラウド画像使用容量" data-en="Cloud Storage Usage">クラウド画像使用容量</span>
+          <span>12.4 MB / 50 MB</span>
+        </div>
+        <div class="mypage-meter-bg">
+          <div class="mypage-meter-fill" style="width: 25%;"></div>
+        </div>
+      </div>
+
+      <a href="#pricing" onclick="document.getElementById('mypageModal').classList.remove('active');" class="btn-main" style="text-align:center;" data-ja="プレミアムプランにアップグレード" data-en="Upgrade to Premium">プレミアムプランにアップグレード</a>
+    </div>
+  </div>
+
+  <!-- 🌟 フローティング TOPへ戻るボタン -->
   <a href="#top" class="back-to-top" title="Top">▲</a>
 
   <footer>
     <p>© 2026 PageLayout App. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 言語切替＆アニメーション連動スクリプト -->
+  <!-- 🌐 各種インタラクションスクリプト -->
   <script>
+    // 🍔 ハンバーガーメニュー開閉
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    hamburgerBtn.addEventListener('click', () => {
+      navContainer.classList.toggle('active');
+    });
+
+    // モーダル開閉制御
+    const contactModal = document.getElementById('contactModal');
+    const mypageModal = document.getElementById('mypageModal');
+
+    document.getElementById('openContactBtn').addEventListener('click', () => contactModal.classList.add('active'));
+    document.getElementById('closeContactBtn').addEventListener('click', () => contactModal.classList.remove('active'));
+
+    document.getElementById('openMypageBtn').addEventListener('click', () => mypageModal.classList.add('active'));
+    document.getElementById('closeMypageBtn').addEventListener('click', () => mypageModal.classList.remove('active'));
+
+    // 🌐 言語切替＆アニメーション連動スクリプト
     const langBtn = document.getElementById('langToggleBtn');
     let currentLang = 'ja';
 
-    // ステータスタグのリアルタイムアニメーション用リスト
     const statusDemo = document.getElementById('statusBadgeDemo');
     const statusTextList = {
       ja: [
@@ -492,13 +595,11 @@
       currentLang = currentLang === 'ja' ? 'en' : 'ja';
       langBtn.innerText = currentLang === 'ja' ? '🌐 EN' : '🌐 JP';
 
-      // 本文テキストの切り替え
       document.querySelectorAll('[data-ja]').forEach(el => {
         const text = el.getAttribute(`data-${currentLang}`);
         if (text) el.innerHTML = text;
       });
 
-      // アニメーション内部テキストの切り替え
       document.querySelectorAll('[data-anim-ja]').forEach(el => {
         const text = el.getAttribute(`data-anim-${currentLang}`);
         if (text) el.innerText = text;
