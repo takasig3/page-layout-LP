@@ -5,15 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageLayout - 編集・出版のためのスマート台割・レイアウトツール</title>
   <style>
-    /* 基本スタイル */
+    /* 🌟 カラーパレット＆基本設定 */
     :root {
+      --bg-dark: #0a0f1d;
       --primary: #0079bf;
       --primary-hover: #005a8f;
-      --accent: #2ed573;
-      --bg-dark: #1e293b;
-      --text-main: #334155;
-      --text-muted: #64748b;
-      --bg-light: #f8fafc;
+      --accent-purple: #764ba2;
+      --accent-cyan: #2ed573;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.12);
     }
 
     * {
@@ -25,8 +27,87 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--text-main);
-      background-color: #ffffff;
+      background-color: var(--bg-dark);
       line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* --------------------------------------------------
+       🌟 1. 動くメッシュオーロラ背景 & デジタルグリッド
+    -------------------------------------------------- */
+    .animated-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      filter: blur(90px); /* ぼかしを強くして滑らかなグラデーションに */
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatAround 20s infinite alternate ease-in-out;
+    }
+
+    .blob-1 {
+      top: -10%;
+      left: 10%;
+      width: 550px;
+      height: 550px;
+      background: linear-gradient(135deg, var(--primary), #667eea);
+    }
+
+    .blob-2 {
+      bottom: 10%;
+      right: 5%;
+      width: 600px;
+      height: 600px;
+      background: linear-gradient(135deg, var(--accent-purple), #f3a683);
+      animation-duration: 25s;
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      top: 40%;
+      left: 35%;
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, var(--accent-cyan), #11998e);
+      animation-duration: 18s;
+      animation-delay: -10s;
+    }
+
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(140px, 90px) scale(1.15) rotate(180deg); }
+      100% { transform: translate(-90px, 160px) scale(0.85) rotate(360deg); }
+    }
+
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 2;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* --------------------------------------------------
+       🌟 2. コンテンツエリア（グラスモフィズム仕上げ）
+    -------------------------------------------------- */
+    header, section, footer {
+      position: relative;
+      z-index: 10;
     }
 
     /* ヘッダー */
@@ -35,18 +116,18 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 8%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
+      background: rgba(10, 15, 29, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--glass-border);
     }
 
     .logo {
       font-size: 20px;
       font-weight: 800;
-      color: var(--primary);
+      color: #38bdf8;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -68,7 +149,7 @@
     }
 
     .nav-links a:hover {
-      color: var(--primary);
+      color: #38bdf8;
     }
 
     .btn-header {
@@ -85,35 +166,37 @@
 
     /* ヒーローセクション */
     .hero {
-      padding: 80px 8% 60px;
+      padding: 100px 8% 80px;
       text-align: center;
-      background: linear-gradient(180deg, #f1f5f9 0%, #ffffff 100%);
     }
 
     .hero-badge {
       display: inline-block;
-      background: #e0f2fe;
-      color: var(--primary);
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
       font-weight: bold;
       font-size: 13px;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .hero h1 {
-      font-size: 42px;
+      font-size: 48px;
       font-weight: 800;
       line-height: 1.25;
-      color: #0f172a;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       font-size: 18px;
       color: var(--text-muted);
       max-width: 680px;
-      margin: 0 auto 36px;
+      margin: 0 auto 40px;
     }
 
     .hero-cta {
@@ -124,27 +207,28 @@
     }
 
     .btn-main {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), #0284c7);
       color: #fff;
-      padding: 14px 32px;
+      padding: 14px 36px;
       font-size: 16px;
       font-weight: bold;
       border-radius: 8px;
       text-decoration: none;
-      box-shadow: 0 4px 14px rgba(0, 121, 191, 0.35);
+      box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4);
       transition: all 0.2s;
     }
 
     .btn-main:hover {
-      background: var(--primary-hover);
       transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 121, 191, 0.6);
     }
 
     .btn-secondary {
-      background: #fff;
+      background: var(--glass-bg);
       color: var(--text-main);
-      border: 1px solid #cbd5e0;
-      padding: 14px 28px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      padding: 14px 30px;
       font-size: 16px;
       font-weight: bold;
       border-radius: 8px;
@@ -153,77 +237,78 @@
     }
 
     .btn-secondary:hover {
-      background: #f1f5f9;
+      background: rgba(255, 255, 255, 0.12);
     }
 
-    /* ビジュアルプレビュー mockup */
+    /* UIモックアップ */
     .hero-mockup {
-      margin: 50px auto 0;
+      margin: 60px auto 0;
       max-width: 960px;
-      background: #cbd5e0;
-      border-radius: 12px;
-      padding: 12px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
     }
 
     .mockup-window {
-      background: #b0b3b8;
-      border-radius: 8px;
-      padding: 20px;
-      min-height: 320px;
+      background: rgba(15, 23, 42, 0.8);
+      border-radius: 10px;
+      padding: 24px;
+      min-height: 280px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
     }
 
     .mockup-header {
-      background: rgba(255, 255, 255, 0.9);
-      height: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      height: 42px;
       border-radius: 6px;
       display: flex;
       align-items: center;
       padding: 0 16px;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: bold;
-      color: var(--primary);
+      color: #38bdf8;
       justify-content: space-between;
     }
 
     .mockup-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 14px;
     }
 
     .mockup-card {
-      background: rgba(255, 255, 255, 0.9);
-      border: 2px solid var(--primary);
-      border-radius: 6px;
-      height: 100px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 8px;
+      height: 110px;
       display: flex;
       flex-direction: column;
-      padding: 8px;
-      gap: 6px;
+      padding: 10px;
+      gap: 8px;
     }
 
     .mockup-card-title {
-      height: 12px;
-      width: 60%;
-      background: #e2e8f0;
+      height: 10px;
+      width: 50%;
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 3px;
     }
 
     .mockup-card-body {
       flex: 1;
-      background: #f1f5f9;
+      background: rgba(255, 255, 255, 0.02);
       border-radius: 4px;
-      border: 1px dashed #cbd5e0;
+      border: 1px dashed rgba(255, 255, 255, 0.15);
     }
 
     /* 機能特徴セクション */
     .features {
-      padding: 90px 8%;
-      background: #ffffff;
+      padding: 100px 8%;
     }
 
     .section-title {
@@ -232,60 +317,62 @@
     }
 
     .section-title h2 {
-      font-size: 32px;
-      color: #0f172a;
+      font-size: 36px;
       font-weight: 800;
+      color: #ffffff;
     }
 
     .section-title p {
       color: var(--text-muted);
-      margin-top: 8px;
+      margin-top: 10px;
+      font-size: 16px;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .feature-card {
-      background: var(--bg-light);
-      padding: 32px 24px;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      padding: 36px 28px;
+      border-radius: 16px;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .feature-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+      transform: translateY(-6px);
+      border-color: rgba(56, 189, 248, 0.5);
     }
 
     .feature-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
+      font-size: 36px;
+      margin-bottom: 18px;
       display: inline-block;
     }
 
     .feature-card h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #0f172a;
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #ffffff;
     }
 
     .feature-card p {
       font-size: 14px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* 料金プラン */
     .pricing {
-      padding: 90px 8%;
-      background: var(--bg-light);
-      border-top: 1px solid #e2e8f0;
+      padding: 100px 8%;
+      background: rgba(0, 0, 0, 0.2);
     }
 
     .pricing-cards {
@@ -298,11 +385,12 @@
     }
 
     .pricing-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e0;
-      border-radius: 12px;
-      padding: 36px 28px;
-      width: 320px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 40px 32px;
+      width: 340px;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -310,31 +398,33 @@
 
     .pricing-card.popular {
       border: 2px solid var(--primary);
-      box-shadow: 0 10px 30px rgba(0,121,191,0.15);
+      box-shadow: 0 0 30px rgba(0, 121, 191, 0.3);
+      background: rgba(0, 121, 191, 0.08);
     }
 
     .popular-tag {
       position: absolute;
       top: -14px;
-      right: 20px;
+      right: 24px;
       background: var(--primary);
       color: #fff;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: bold;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 12px;
     }
 
     .pricing-card h3 {
-      font-size: 20px;
+      font-size: 22px;
       margin-bottom: 8px;
+      color: #ffffff;
     }
 
     .price {
-      font-size: 36px;
+      font-size: 40px;
       font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 20px;
+      color: #ffffff;
+      margin-bottom: 24px;
     }
 
     .price span {
@@ -345,22 +435,24 @@
 
     .pricing-features {
       list-style: none;
-      margin-bottom: 30px;
+      margin-bottom: 32px;
       flex: 1;
     }
 
     .pricing-features li {
       font-size: 14px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      color: var(--text-muted);
     }
 
     /* フッター */
     footer {
-      background: var(--bg-dark);
-      color: #94a3b8;
+      background: rgba(5, 8, 16, 0.95);
+      border-top: 1px solid var(--glass-border);
+      color: var(--text-muted);
       padding: 40px 8%;
       text-align: center;
       font-size: 13px;
@@ -373,7 +465,15 @@
 </head>
 <body>
 
-  <!-- ヘッダー -->
+  <!-- 🌟 1. 動的背景 & グリッド -->
+  <div class="animated-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="grid-overlay"></div>
+
+  <!-- 🌟 2. メインコンテンツ -->
   <header>
     <div class="logo">📖 PageLayout</div>
     <ul class="nav-links">
@@ -383,93 +483,77 @@
     </ul>
   </header>
 
-  <!-- ヒーローエリア -->
   <section class="hero">
     <span class="hero-badge">次世代の台割・進行管理ツール</span>
-    <h1>本・冊子づくりを、<br>もっとスマート＆直感的に。</h1>
-    <p>ドラッグ＆ドロップでページ構成を自由自在に再配置。PDF・画像プレビュー、見開き・縦積み設定、クラウドリアルタイム共同編集に対応したオールインワン台割ツールです。</p>
+    <h1>無限のレイアウトを、<br>この場所から生み出す。</h1>
+    <p>直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的なグリッド構造で、あなたのクリエイティビティを拡大します。</p>
     
     <div class="hero-cta">
       <a href="app.html" class="btn-main">無料で今すぐ始める</a>
       <a href="#features" class="btn-secondary">詳しく見る</a>
     </div>
 
-    <!-- UIイメージのモックアップ -->
     <div class="hero-mockup">
       <div class="mockup-window">
         <div class="mockup-header">
-          <span>📖 漫画誌・パンフレット台割 (24P / 右開き)</span>
-          <span>👥 共同編集メンバー: 3名</span>
+          <span>📖 24P / 右開き（マンガ・同人誌）</span>
+          <span>👥 リアルタイム共同編集: 3名</span>
         </div>
         <div class="mockup-grid">
-          <div class="mockup-card">
-            <div class="mockup-card-title"></div>
-            <div class="mockup-card-body"></div>
-          </div>
-          <div class="mockup-card">
-            <div class="mockup-card-title"></div>
-            <div class="mockup-card-body"></div>
-          </div>
-          <div class="mockup-card">
-            <div class="mockup-card-title"></div>
-            <div class="mockup-card-body"></div>
-          </div>
-          <div class="mockup-card">
-            <div class="mockup-card-title"></div>
-            <div class="mockup-card-body"></div>
-          </div>
+          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
+          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
+          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
+          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 機能特徴 -->
   <section class="features" id="features">
     <div class="section-title">
-      <h2>編集現場の「欲しい」をすべて凝縮</h2>
-      <p>紙やExcelでの台割作成から解放され、直感的なデジタル操作へ移行できます。</p>
+      <h2>編集現場の「欲しい」を直感的なUIへ</h2>
+      <p>紙やExcelの台割管理から解放され、より自由でスマートな制作環境へ。</p>
     </div>
 
     <div class="features-grid">
       <div class="feature-card">
         <span class="feature-icon">📑</span>
         <h3>右開き・左開き＆見開き対応</h3>
-        <p>同人誌・漫画の「右開き」、カタログ・パンフの「左開き」をワンタップ切替。2Pにまたがる「見開き」配置もスムーズです。</p>
+        <p>同人誌・漫画の「右開き」、カタログ・パンフの「左開き」をワンタップ切替。2Pにまたがる「見開き」配置もシームレスに表現。</p>
       </div>
 
       <div class="feature-card">
         <span class="feature-icon">🔀</span>
         <h3>スマートな自動繰り下げ移動</h3>
-        <p>カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」などの競合解決オプションを完備。</p>
+        <p>カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」など現場に合わせた柔軟な制御が可能です。</p>
       </div>
 
       <div class="feature-card">
         <span class="feature-icon">📄</span>
         <h3>PDF / 画像ドラッグ＆ドロップ</h3>
-        <p>原稿ファイル（PDF/画像）を直接ドロップするだけでサムネイルを自動生成。進行状況（初校・校了など）も一目で把握できます。</p>
+        <p>原稿ファイル（PDF/画像）を直接ドロップするだけでサムネイルを自動生成。進行状況（初校・校了等）も一目で可視化。</p>
       </div>
 
       <div class="feature-card">
         <span class="feature-icon">👥</span>
         <h3>リアルタイム共同編集</h3>
-        <p>クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムに台割状況を共有可能。</p>
+        <p>クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムで台割の最新状態を共有可能。</p>
       </div>
 
       <div class="feature-card">
         <span class="feature-icon">📋</span>
         <h3>リスト表示で一括並び替え</h3>
-        <p>全体のページ順をドラッグ＆ドロップや上下ボタンでまとめて並び替え。大掛かりな構成変更も簡単に行えます。</p>
+        <p>全体のページ順をリスト上でドラッグ＆ドロップや上下ボタンで即座に入れ替え。大幅な構成変更もストレスなく完了。</p>
       </div>
 
       <div class="feature-card">
         <span class="feature-icon">📤</span>
         <h3>PDF・JPG＆データ出力</h3>
-        <p>完成した台割はワンクリックで高解像度PDFやJPG画像としてエクスポート。バックアップ用のJSON保存にも対応。</p>
+        <p>完成した台割はワンクリックで高解像度PDFやJPG画像としてエクスポート。バックアップ用JSONの保管・復元にも完全対応。</p>
       </div>
     </div>
   </section>
 
-  <!-- 料金プラン -->
   <section class="pricing" id="pricing">
     <div class="section-title">
       <h2>シンプルで柔軟な料金体系</h2>
@@ -477,37 +561,34 @@
     </div>
 
     <div class="pricing-cards">
-      <!-- フリープラン -->
       <div class="pricing-card">
         <h3>フリープラン</h3>
         <div class="price">¥0 <span>/ 永久無料</span></div>
         <ul class="pricing-features">
-          <li>✅ 基本的な台割・レイアウト作成</li>
-          <li>✅ 右開き / 左開き対応</li>
-          <li>✅ PDF・JPG出力</li>
-          <li>✅ メンバー招待（最大3名まで）</li>
+          <li>✨ 基本的な台割・レイアウト作成</li>
+          <li>✨ 右開き / 左開き対応</li>
+          <li>✨ PDF・JPG出力</li>
+          <li>✨ メンバー招待（最大3名まで）</li>
         </ul>
         <a href="app.html" class="btn-secondary" style="text-align:center;">無料でスタート</a>
       </div>
 
-      <!-- プレミアムプラン -->
       <div class="pricing-card popular">
         <span class="popular-tag">おすすめ</span>
         <h3>プレミアムプラン</h3>
         <div class="price">¥980 <span>/ 月額</span></div>
         <ul class="pricing-features">
-          <li>✅ フリープランの全機能</li>
-          <li>✅ メンバー無制限招待</li>
-          <li>✅ JSONバックアップ / 復元機能</li>
-          <li>✅ 超大容量クラウドサムネイル保存</li>
-          <li>✅ 優先カスタマーサポート</li>
+          <li>✨ フリープランの全機能</li>
+          <li>✨ メンバー無制限招待</li>
+          <li>✨ JSONバックアップ / 復元機能</li>
+          <li>✨ 超大容量クラウドサムネイル保存</li>
+          <li>✨ 優先カスタマーサポート</li>
         </ul>
         <a href="app.html" class="btn-main" style="text-align:center;">プレミアムを試す</a>
       </div>
     </div>
   </section>
 
-  <!-- フッター -->
   <footer>
     <p>© 2026 PageLayout App. All rights reserved.</p>
     <p>※当アプリケーションのプログラム、デザイン、UI構造の無断転載・無断複製・二次配布を固く禁じます。</p>
