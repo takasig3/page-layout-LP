@@ -80,108 +80,89 @@
     .mockup-card-title { height: 8px; width: 50%; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
     .mockup-card-body { flex: 1; background: rgba(255, 255, 255, 0.02); border-radius: 4px; border: 1px dashed rgba(255, 255, 255, 0.15); }
 
-    /* 🌟 機能カード＆アニメーション設定 */
+    /* 🌟 機能カード＆全デモアニメーション */
     .features { padding: 80px 5%; }
     .section-title { text-align: center; margin-bottom: 50px; }
     .section-title h2 { font-size: 32px; font-weight: 800; color: #fff; }
     .section-title p { color: var(--text-muted); margin-top: 8px; font-size: 15px; }
 
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
     .feature-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 16px; }
     .feature-card h3 { font-size: 18px; color: #fff; }
     .feature-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
 
-    /* 🎬 ビジュアルビューポート */
+    /* 🎬 ビジュアルビューポート共通 */
     .demo-viewport { width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 
-    /* 🎬 アニメーション 1: 開き方向切り替え */
+    /* 🎬 1. 右開き/左開き */
     .demo-book-wrapper { display: flex; gap: 10px; position: relative; }
     .demo-page-box { width: 65px; height: 90px; background: #fff; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 12px; color: #1e293b; font-weight: bold; position: relative; }
     .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
     .page-right { animation: pageSwapRight 4s infinite ease-in-out; }
-    @keyframes pageSwapLeft {
-      0%, 40% { transform: translateX(0); }
-      50%, 90% { transform: translateX(75px); }
-      100% { transform: translateX(0); }
-    }
-    @keyframes pageSwapRight {
-      0%, 40% { transform: translateX(0); }
-      50%, 90% { transform: translateX(-75px); }
-      100% { transform: translateX(0); }
-    }
+    @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(75px); } 100% { transform: translateX(0); } }
+    @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-75px); } 100% { transform: translateX(0); } }
 
-    /* 🎬 アニメーション 2: ドラッグ＆ドロップ ＋ 繰り下げ */
+    /* 🎬 2. 自動繰り下げ */
     .demo-grid { display: flex; gap: 8px; position: relative; }
     .demo-card-slot { width: 50px; height: 70px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.2); border-radius: 4px; position: relative; }
     .demo-card-item { width: 50px; height: 70px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #fff; }
     .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
     .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
-    @keyframes dropAndShift {
-      0% { transform: translate(-55px, -35px) scale(1.1); opacity: 0; }
-      20% { transform: translate(-55px, 0) scale(1); opacity: 1; }
-      80%, 100% { transform: translate(0, 0); }
-    }
-    @keyframes shiftRight {
-      0%, 30% { transform: translateX(0); }
-      60%, 100% { transform: translateX(58px); }
-    }
-    .demo-cursor {
-      width: 14px; height: 14px; position: absolute; z-index: 20;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain;
-      animation: cursorMove 3.5s infinite ease-in-out;
-    }
-    @keyframes cursorMove {
-      0% { transform: translate(-45px, -25px); }
-      20% { transform: translate(-45px, 10px); }
-      80%, 100% { transform: translate(12px, 10px); }
+    @keyframes dropAndShift { 0% { transform: translate(-55px, -35px) scale(1.1); opacity: 0; } 20% { transform: translate(-55px, 0) scale(1); opacity: 1; } 80%, 100% { transform: translate(0, 0); } }
+    @keyframes shiftRight { 0%, 30% { transform: translateX(0); } 60%, 100% { transform: translateX(58px); } }
+    .demo-cursor { width: 14px; height: 14px; position: absolute; z-index: 20; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain; animation: cursorMove 3.5s infinite ease-in-out; }
+    @keyframes cursorMove { 0% { transform: translate(-45px, -25px); } 20% { transform: translate(-45px, 10px); } 80%, 100% { transform: translate(12px, 10px); } }
+
+    /* 🎬 3. PDF / JPG / PNG ドロップ */
+    .drop-box { width: 120px; height: 90px; border: 2px dashed rgba(56, 189, 248, 0.5); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.05); position: relative; gap: 4px; }
+    .file-icon { font-size: 24px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
+    .thumb-gen { width: 90px; height: 65px; background: #0079bf; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 10px; animation: thumbAppear 3s infinite ease-in-out; }
+    @keyframes fileDrop { 0% { transform: translateY(-50px) scale(1.2); opacity: 0; } 30% { transform: translateY(0) scale(1); opacity: 1; } 45%, 100% { transform: translateY(0) scale(0); opacity: 0; } }
+    @keyframes thumbAppear { 0%, 40% { opacity: 0; transform: scale(0.6); } 55%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.6); } }
+
+    /* 🎬 4. コメント・資料添付 */
+    .chat-demo-box { width: 150px; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 6px; border: 1px solid rgba(255,255,255,0.15); }
+    .chat-msg { background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 9px; color: #fff; }
+    .chat-msg-new { background: #0079bf; animation: msgPop 3s infinite ease-in-out; }
+    .attach-tag { font-size: 8px; background: #2ed573; color: #fff; padding: 2px 6px; border-radius: 10px; display: inline-block; width: fit-content; }
+    @keyframes msgPop { 0%, 30% { opacity: 0; transform: translateY(10px); } 45%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
+
+    /* 🎬 5. ステータスタグ進捗 */
+    .card-tag-demo { width: 80px; height: 100px; background: #fff; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .status-badge-anim { padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; color: #fff; width: fit-content; animation: badgeChange 4s infinite step-end; }
+    @keyframes badgeChange {
+      0% { background: #eb3b5a; content: "初校"; }
+      33% { background: #ff9f43; content: "再校"; }
+      66% { background: #0079bf; content: "校了"; }
     }
 
-    /* 🎬 アニメーション 3: PDF/画像ドロップ */
-    .drop-box { width: 100px; height: 80px; border: 2px dashed rgba(56, 189, 248, 0.5); border-radius: 8px; display: flex; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.05); position: relative; }
-    .file-icon { font-size: 28px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
-    .thumb-gen { width: 80px; height: 60px; background: #0079bf; border-radius: 4px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 10px; animation: thumbAppear 3s infinite ease-in-out; }
-    @keyframes fileDrop {
-      0% { transform: translateY(-50px) scale(1.2); opacity: 0; }
-      30% { transform: translateY(0) scale(1); opacity: 1; }
-      45%, 100% { transform: translateY(0) scale(0); opacity: 0; }
-    }
-    @keyframes thumbAppear {
-      0%, 40% { opacity: 0; transform: scale(0.6); }
-      55%, 90% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(0.6); }
-    }
+    /* 🎬 6. 大画面モーダル＆ページめくり */
+    .preview-modal-demo { width: 140px; height: 100px; background: rgba(15, 23, 42, 0.95); border: 1px solid #38bdf8; border-radius: 8px; padding: 6px; display: flex; align-items: center; justify-content: space-between; position: relative; }
+    .modal-nav-btn { width: 16px; height: 16px; background: #0079bf; border-radius: 50%; color: #fff; font-size: 8px; display: flex; justify-content: center; align-items: center; }
+    .modal-page-img { width: 80px; height: 80px; background: #fff; border-radius: 4px; display: flex; justify-content: center; align-items: center; color: #1e293b; font-weight: bold; font-size: 11px; animation: pageTurn 3s infinite ease-in-out; }
+    @keyframes pageTurn { 0%, 20% { transform: scale(1); } 50% { transform: scale(0.9) rotateY(90deg); opacity: 0.5; } 80%, 100% { transform: scale(1) rotateY(0); } }
 
-    /* 🎬 アニメーション 4: リアルタイム共同編集 */
+    /* 🎬 7. リアルタイム共同編集 */
     .collab-wrapper { display: flex; align-items: center; gap: 16px; position: relative; }
     .collab-avatar { width: 36px; height: 36px; border-radius: 50%; background: #2ed573; color: #fff; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 12px; box-shadow: 0 0 12px rgba(46, 213, 115, 0.5); }
     .avatar-2 { background: #764ba2; box-shadow: 0 0 12px rgba(118, 75, 162, 0.5); }
     .collab-card { width: 70px; height: 80px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; display: flex; flex-direction: column; padding: 6px; gap: 4px; }
     .collab-line { height: 6px; background: rgba(255,255,255,0.3); border-radius: 2px; }
     .sync-pulse { animation: syncPulse 2s infinite ease-in-out; }
-    @keyframes syncPulse {
-      0%, 100% { border-color: rgba(255,255,255,0.2); box-shadow: none; }
-      50% { border-color: #38bdf8; box-shadow: 0 0 16px rgba(56, 189, 248, 0.6); }
-    }
+    @keyframes syncPulse { 0%, 100% { border-color: rgba(255,255,255,0.2); box-shadow: none; } 50% { border-color: #38bdf8; box-shadow: 0 0 16px rgba(56, 189, 248, 0.6); } }
 
-    /* 🎬 アニメーション 5: リスト並び替え */
+    /* 🎬 8. リスト並び替え */
     .list-container { display: flex; flex-direction: column; gap: 6px; width: 140px; }
     .list-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
     .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: #0079bf; border-color: #38bdf8; z-index: 5; }
-    @keyframes listReorder {
-      0%, 20% { transform: translateY(0); }
-      50%, 80% { transform: translateY(28px); }
-      100% { transform: translateY(0); }
-    }
+    @keyframes listReorder { 0%, 20% { transform: translateY(0); } 50%, 80% { transform: translateY(28px); } 100% { transform: translateY(0); } }
 
-    /* 🎬 アニメーション 6: データ出力 */
+    /* 🎬 9. データ出力 */
     .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .export-card { width: 70px; height: 50px; background: rgba(255,255,255,0.1); border: 1px solid #38bdf8; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #38bdf8; }
     .export-arrow { font-size: 18px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
     .export-file { background: #2ed573; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
-    @keyframes arrowDown {
-      0%, 100% { transform: translateY(-4px); opacity: 0.3; }
-      50% { transform: translateY(4px); opacity: 1; }
-    }
+    @keyframes arrowDown { 0%, 100% { transform: translateY(-4px); opacity: 0.3; } 50% { transform: translateY(4px); opacity: 1; } }
 
     /* 🌟 料金プラン */
     .pricing { padding: 80px 5%; background: rgba(0, 0, 0, 0.2); }
@@ -256,7 +237,7 @@
     </div>
 
     <div class="features-grid">
-      <!-- 機能1: 開き方向切り替え -->
+      <!-- 1: 開き方向切り替え -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-book-wrapper">
@@ -268,7 +249,7 @@
         <p>同人誌・漫画の「右開き」、カタログの「左開き」をワンタップ切替。2P見開き配置もスムーズに表現。</p>
       </div>
 
-      <!-- 機能2: 自動繰り下げ移動 -->
+      <!-- 2: 自動繰り下げ移動 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-cursor"></div>
@@ -286,19 +267,61 @@
         <p>カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」などの柔軟な制御が可能です。</p>
       </div>
 
-      <!-- 機能3: PDF/画像ドロップ -->
+      <!-- 3: PDF / JPG / PNG ドロップ (更新) -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="drop-box">
-            <span class="file-icon">📄</span>
-            <div class="thumb-gen">サムネイル</div>
+            <span class="file-icon">🖼️</span>
+            <div class="thumb-gen">
+              <span>PDF/JPG/PNG</span>
+              <span style="font-size: 8px; opacity: 0.8;">自動サムネイル</span>
+            </div>
           </div>
         </div>
-        <h3>PDF / 画像ドラッグ＆ドロップ</h3>
-        <p>原稿ファイル（PDF/画像）を直接ドロップするだけでサムネイルを自動生成。進行状況（初校・校了等）も一目で可視化。</p>
+        <h3>PDF / JPG / PNG ドロップ</h3>
+        <p>原稿ファイル（PDF・JPG・PNG画像）を直接ドロップするだけでサムネイルを自動生成。視覚的に全体像を把握できます。</p>
       </div>
 
-      <!-- 機能4: リアルタイム共同編集 -->
+      <!-- 4: コメント＆資料添付 (追加) -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="chat-demo-box">
+            <div class="chat-msg">💬 修正指示を記載...</div>
+            <div class="chat-msg chat-msg-new">💬 「初校確認しました！」</div>
+            <span class="attach-tag">📎 参考資料.pdf</span>
+          </div>
+        </div>
+        <h3>ページコメント＆資料添付</h3>
+        <p>各ページにチャットスレッドで指示事項を残したり、参考Webリンクや資料ファイルを直接ドロップして添付可能。</p>
+      </div>
+
+      <!-- 5: ステータスタグ進行管理 (追加) -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="card-tag-demo">
+            <div class="status-badge-anim">進行状況</div>
+            <div style="font-size:9px; font-weight:bold; color:#1e293b;">1P 表紙</div>
+            <div style="flex:1; background:#f1f5f9; border-radius:3px;"></div>
+          </div>
+        </div>
+        <h3>ステータスタグで進行管理</h3>
+        <p>「ラフ」「初校」「再校」「責了」「校了」などのカラフルなタグで各ページの進捗状況が一目で分かります。</p>
+      </div>
+
+      <!-- 6: 大画面プレビュー＆ページめくり (追加) -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="preview-modal-demo">
+            <div class="modal-nav-btn">◀</div>
+            <div class="modal-page-img">1 P</div>
+            <div class="modal-nav-btn">▶</div>
+          </div>
+        </div>
+        <h3>大画面＆ページめくり確認</h3>
+        <p>詳細モーダルで原稿を大きく表示。左右の矢印ボタンで前後のページをサクサクめくりながらチェックできます。</p>
+      </div>
+
+      <!-- 7: リアルタイム共同編集 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="collab-wrapper">
@@ -314,7 +337,7 @@
         <p>クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムで台割の最新状態を共有可能。</p>
       </div>
 
-      <!-- 機能5: リスト表示で並び替え -->
+      <!-- 8: リスト表示で並び替え -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="list-container">
@@ -326,7 +349,7 @@
         <p>全体のページ順をリスト上でドラッグ＆ドロップや上下ボタンで即座に入れ替え。大幅な構成変更もストレスなく完了。</p>
       </div>
 
-      <!-- 機能6: データ書き出し -->
+      <!-- 9: データ書き出し -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="export-box">
