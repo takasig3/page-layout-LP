@@ -51,7 +51,7 @@
       background-size: 48px 48px; pointer-events: none;
     }
 
-    /* 🌟 最前面固定ヘッダー (Miro風レイアウト & スマホハンバーガー化) */
+    /* 🌟 最前面固定ヘッダー */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; justify-content: space-between; align-items: center;
@@ -62,20 +62,15 @@
 
     .nav-container { display: flex; align-items: center; gap: 20px; }
     .nav-links { display: flex; gap: 18px; align-items: center; list-style: none; }
-    
-    /* 文字色を完全な白色(#ffffff)に指定 */
     .nav-links a { text-decoration: none; color: #ffffff !important; font-size: 14px; font-weight: 600; transition: opacity 0.2s; }
     .nav-links a:hover { opacity: 0.8; }
 
     .header-actions { display: flex; align-items: center; gap: 10px; }
-    
     .btn-login { background: transparent; color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; }
     .btn-contact-header { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
     .btn-start-free { background: var(--primary); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; }
-
     .lang-btn { background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid var(--glass-border); padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
 
-    /* 🍔 ハンバーガーボタン (デフォルト非表示、スマホ表示時のみ出現) */
     .hamburger-btn { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
 
     @media (max-width: 768px) {
@@ -102,14 +97,40 @@
     .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; }
     .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
 
-    /* UIモックアップ */
-    .hero-mockup { margin: 40px auto 0; max-width: 900px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
-    .mockup-window { background: rgba(15, 23, 42, 0.8); border-radius: 10px; padding: 16px; min-height: 200px; display: flex; flex-direction: column; gap: 10px; }
+    /* 🌟 TOPメインアニメーション（カード埋まり＆ポップアップモーダル開閉演出） */
+    .hero-mockup { margin: 40px auto 0; max-width: 900px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); position: relative; }
+    .mockup-window { background: rgba(15, 23, 42, 0.85); border-radius: 10px; padding: 16px; min-height: 220px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
     .mockup-header { background: rgba(255, 255, 255, 0.08); height: 32px; border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 11px; font-weight: bold; color: #38bdf8; justify-content: space-between; }
-    .mockup-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .mockup-card { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 6px; height: 80px; display: flex; flex-direction: column; padding: 6px; gap: 4px; }
-    .mockup-card-title { height: 8px; width: 50%; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
-    .mockup-card-body { flex: 1; background: rgba(255, 255, 255, 0.02); border-radius: 4px; border: 1px dashed rgba(255, 255, 255, 0.15); }
+    .mockup-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    
+    .mockup-card-active {
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(56, 189, 248, 0.5); border-radius: 6px; height: 100px;
+      display: flex; flex-direction: column; padding: 8px; gap: 6px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .card-num-tag { font-size: 9px; font-weight: bold; color: #38bdf8; background: rgba(56,189,248,0.15); padding: 2px 6px; border-radius: 3px; width: fit-content; }
+    .card-img-content { flex: 1; background: #fff; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #0f172a; font-weight: bold; font-size: 11px; box-shadow: inset 0 0 6px rgba(0,0,0,0.1); }
+    
+    /* 2番目のカードが飛び出して大きく開くアニメーション */
+    .opening-card { animation: cardPopOpen 5s infinite ease-in-out; }
+    @keyframes cardPopOpen {
+      0%, 20% { transform: scale(1); border-color: rgba(56, 189, 248, 0.5); z-index: 1; }
+      40%, 80% { transform: scale(1.15) translateY(-8px); border-color: #2ed573; box-shadow: 0 12px 30px rgba(46, 213, 115, 0.4); z-index: 10; }
+      95%, 100% { transform: scale(1); border-color: rgba(56, 189, 248, 0.5); z-index: 1; }
+    }
+
+    /* 開いた時の大画面モーダルオーバーレイ（UIモックアップ内部） */
+    .mockup-modal-preview {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+      width: 80%; height: 80%; background: rgba(15, 23, 42, 0.95); border: 2px solid #38bdf8;
+      border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); z-index: 100;
+      display: flex; flex-direction: column; padding: 12px; gap: 8px; opacity: 0;
+      animation: previewModalZoom 5s infinite ease-in-out;
+    }
+    @keyframes previewModalZoom {
+      0%, 30% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; pointer-events: none; }
+      45%, 75% { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+      85%, 100% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; pointer-events: none; }
+    }
 
     /* 🌟 機能カード＆アニメーション */
     .features { padding: 60px 4%; }
@@ -122,10 +143,8 @@
     .feature-card h3 { font-size: 17px; color: #fff; }
     .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 
-    /* ビジュアルビューポート */
     .demo-viewport { width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 
-    /* デモ用各種アニメーション */
     .demo-book-wrapper { display: flex; gap: 10px; position: relative; }
     .demo-page-box { width: 65px; height: 90px; background: #fff; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 12px; color: #1e293b; font-weight: bold; position: relative; }
     .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
@@ -220,7 +239,6 @@
     }
     .form-group input:focus, .form-group textarea:focus { border-color: #38bdf8; }
 
-    /* マイページ用メーター表示 */
     .mypage-info-card { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 14px; border-radius: 8px; display: flex; flex-direction: column; gap: 6px; }
     .mypage-meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-top: 4px; }
     .mypage-meter-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, #2ed573); border-radius: 4px; }
@@ -250,11 +268,10 @@
   </div>
   <div class="grid-overlay"></div>
 
-  <!-- 最前面固定ヘッダー (白色テキスト・Miro風ヘッダー) -->
+  <!-- 最前面固定ヘッダー -->
   <header>
     <a href="#top" class="logo">📖 PageLayout</a>
     
-    <!-- 🍔 ハンバーガーボタン -->
     <button class="hamburger-btn" id="hamburgerBtn">☰</button>
 
     <div class="nav-container" id="navContainer">
@@ -284,18 +301,43 @@
       <a href="#features" class="btn-secondary" data-ja="詳しく見る" data-en="Learn More">詳しく見る</a>
     </div>
 
-    <!-- UIモックアップ -->
+    <!-- UIモックアップ (カード開閉アニメーション付きメイン画像) -->
     <div class="hero-mockup">
       <div class="mockup-window">
         <div class="mockup-header">
           <span data-ja="📖 24P / 右開き（マンガ・同人誌）" data-en="📖 24P / Right-to-Left">📖 24P / 右開き（マンガ・同人誌）</span>
           <span data-ja="👥 共同編集: 3名" data-en="👥 Collaborators: 3">👥 共同編集: 3名</span>
         </div>
+
+        <!-- 台割カードが並び、カードが開くアニメーション -->
         <div class="mockup-grid">
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
+          <div class="mockup-card-active">
+            <span class="card-num-tag">1 P</span>
+            <div class="card-img-content">🖼️ 表紙</div>
+          </div>
+          <div class="mockup-card-active opening-card">
+            <span class="card-num-tag">2 P</span>
+            <div class="card-img-content" style="background:#f0fdf4;">🖼️ 原稿A</div>
+          </div>
+          <div class="mockup-card-active">
+            <span class="card-num-tag">3 P</span>
+            <div class="card-img-content">🖼️ 原稿B</div>
+          </div>
+          <div class="mockup-card-active">
+            <span class="card-num-tag">4 P</span>
+            <div class="card-img-content">🖼️ 奥付</div>
+          </div>
+        </div>
+
+        <!-- 大画面拡大モーダルプレビュー（自動ズームイン演出） -->
+        <div class="mockup-modal-preview">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:10px; color:#38bdf8; font-weight:bold;">
+            <span>🔍 詳細プレビュー - 2P (原稿A)</span>
+            <span>✕ 閉じる</span>
+          </div>
+          <div style="flex:1; background:#fff; border-radius:6px; display:flex; justify-content:center; align-items:center; color:#0f172a; font-size:16px; font-weight:bold;">
+            📖 2P 原稿拡大表示中
+          </div>
         </div>
       </div>
     </div>
@@ -419,7 +461,7 @@
         <div class="demo-viewport">
           <div class="list-container">
             <div class="list-item item-drag"><span data-anim-ja="≡ 1P 表紙" data-anim-en="≡ 1P Cover">≡ 1P 表紙</span></div>
-            <div class="list-item"><span data-anim-ja="≡ 2P 導入" data-anim-en="≡ 2P Intro">≡ 2P 導入</span></div>
+            <div class="list-item"><span data-anim-ja="≡ 2P 導入" data-anim-en="≡ 2P Intro">≡ 2P Intro</span></div>
           </div>
         </div>
         <h3 data-ja="リスト表示で一括並び替え" data-en="List View Reordering">リスト表示で一括並び替え</h3>
@@ -477,7 +519,7 @@
     </div>
   </section>
 
-  <!-- 📩 お問い合わせモーダル -->
+  <!-- 📩 お問い合わせモーダル (例テキストを山田太郎に変更) -->
   <div class="modal-overlay" id="contactModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeContactBtn">&times;</button>
@@ -487,7 +529,7 @@
       <form onsubmit="event.preventDefault(); alert('お問い合わせを送信しました！'); document.getElementById('contactModal').classList.remove('active');">
         <div class="form-group">
           <label data-ja="お名前" data-en="Your Name">お名前</label>
-          <input type="text" required placeholder="例: 尾田 孝">
+          <input type="text" required placeholder="例: 山田 太郎">
         </div>
         <div class="form-group" style="margin-top:10px;">
           <label data-ja="メールアドレス" data-en="Email Address">メールアドレス</label>
