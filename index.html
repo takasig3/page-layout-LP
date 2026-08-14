@@ -50,7 +50,7 @@
       background-size: 48px 48px; pointer-events: none;
     }
 
-    /* 🌟 ヘッダー（重なり防止修正） */
+    /* 🌟 ヘッダー */
     header, section, footer { position: relative; z-index: 10; }
     header {
       display: flex; justify-content: space-between; align-items: center;
@@ -80,7 +80,7 @@
     .mockup-card-title { height: 8px; width: 50%; background: rgba(255, 255, 255, 0.2); border-radius: 2px; }
     .mockup-card-body { flex: 1; background: rgba(255, 255, 255, 0.02); border-radius: 4px; border: 1px dashed rgba(255, 255, 255, 0.15); }
 
-    /* 🌟 機能カード＆全デモアニメーション */
+    /* 🌟 機能カード＆アニメーション設定 */
     .features { padding: 80px 5%; }
     .section-title { text-align: center; margin-bottom: 50px; }
     .section-title h2 { font-size: 32px; font-weight: 800; color: #fff; }
@@ -94,15 +94,14 @@
     /* 🎬 ビジュアルビューポート */
     .demo-viewport { width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
 
-    /* 🎬 アニメーション1: 右開き / 左開き（文字反転なし修正版） */
+    /* 🎬 アニメーション 1: 開き方向切り替え */
     .demo-book-wrapper { display: flex; gap: 10px; position: relative; }
     .demo-page-box { width: 65px; height: 90px; background: #fff; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 12px; color: #1e293b; font-weight: bold; position: relative; }
     .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
     .page-right { animation: pageSwapRight 4s infinite ease-in-out; }
-
     @keyframes pageSwapLeft {
       0%, 40% { transform: translateX(0); }
-      50%, 90% { transform: translateX(75px); } /* 文字反転させず左右を物理移動 */
+      50%, 90% { transform: translateX(75px); }
       100% { transform: translateX(0); }
     }
     @keyframes pageSwapRight {
@@ -111,13 +110,12 @@
       100% { transform: translateX(0); }
     }
 
-    /* 🎬 アニメーション2: ドラッグ＆ドロップ ＋ 繰り下げ */
+    /* 🎬 アニメーション 2: ドラッグ＆ドロップ ＋ 繰り下げ */
     .demo-grid { display: flex; gap: 8px; position: relative; }
     .demo-card-slot { width: 50px; height: 70px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.2); border-radius: 4px; position: relative; }
     .demo-card-item { width: 50px; height: 70px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #fff; }
     .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
     .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
-
     @keyframes dropAndShift {
       0% { transform: translate(-55px, -35px) scale(1.1); opacity: 0; }
       20% { transform: translate(-55px, 0) scale(1); opacity: 1; }
@@ -127,7 +125,6 @@
       0%, 30% { transform: translateX(0); }
       60%, 100% { transform: translateX(58px); }
     }
-
     .demo-cursor {
       width: 14px; height: 14px; position: absolute; z-index: 20;
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain;
@@ -137,6 +134,53 @@
       0% { transform: translate(-45px, -25px); }
       20% { transform: translate(-45px, 10px); }
       80%, 100% { transform: translate(12px, 10px); }
+    }
+
+    /* 🎬 アニメーション 3: PDF/画像ドロップ */
+    .drop-box { width: 100px; height: 80px; border: 2px dashed rgba(56, 189, 248, 0.5); border-radius: 8px; display: flex; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.05); position: relative; }
+    .file-icon { font-size: 28px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
+    .thumb-gen { width: 80px; height: 60px; background: #0079bf; border-radius: 4px; display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 10px; animation: thumbAppear 3s infinite ease-in-out; }
+    @keyframes fileDrop {
+      0% { transform: translateY(-50px) scale(1.2); opacity: 0; }
+      30% { transform: translateY(0) scale(1); opacity: 1; }
+      45%, 100% { transform: translateY(0) scale(0); opacity: 0; }
+    }
+    @keyframes thumbAppear {
+      0%, 40% { opacity: 0; transform: scale(0.6); }
+      55%, 90% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.6); }
+    }
+
+    /* 🎬 アニメーション 4: リアルタイム共同編集 */
+    .collab-wrapper { display: flex; align-items: center; gap: 16px; position: relative; }
+    .collab-avatar { width: 36px; height: 36px; border-radius: 50%; background: #2ed573; color: #fff; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 12px; box-shadow: 0 0 12px rgba(46, 213, 115, 0.5); }
+    .avatar-2 { background: #764ba2; box-shadow: 0 0 12px rgba(118, 75, 162, 0.5); }
+    .collab-card { width: 70px; height: 80px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; display: flex; flex-direction: column; padding: 6px; gap: 4px; }
+    .collab-line { height: 6px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+    .sync-pulse { animation: syncPulse 2s infinite ease-in-out; }
+    @keyframes syncPulse {
+      0%, 100% { border-color: rgba(255,255,255,0.2); box-shadow: none; }
+      50% { border-color: #38bdf8; box-shadow: 0 0 16px rgba(56, 189, 248, 0.6); }
+    }
+
+    /* 🎬 アニメーション 5: リスト並び替え */
+    .list-container { display: flex; flex-direction: column; gap: 6px; width: 140px; }
+    .list-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
+    .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: #0079bf; border-color: #38bdf8; z-index: 5; }
+    @keyframes listReorder {
+      0%, 20% { transform: translateY(0); }
+      50%, 80% { transform: translateY(28px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* 🎬 アニメーション 6: データ出力 */
+    .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .export-card { width: 70px; height: 50px; background: rgba(255,255,255,0.1); border: 1px solid #38bdf8; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #38bdf8; }
+    .export-arrow { font-size: 18px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
+    .export-file { background: #2ed573; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+    @keyframes arrowDown {
+      0%, 100% { transform: translateY(-4px); opacity: 0.3; }
+      50% { transform: translateY(4px); opacity: 1; }
     }
 
     /* 🌟 料金プラン */
@@ -212,7 +256,7 @@
     </div>
 
     <div class="features-grid">
-      <!-- 機能1: 開き方向切り替え（文字反転修正版） -->
+      <!-- 機能1: 開き方向切り替え -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-book-wrapper">
@@ -242,28 +286,41 @@
         <p>カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」などの柔軟な制御が可能です。</p>
       </div>
 
-      <!-- 機能3: ファイル添付 -->
+      <!-- 機能3: PDF/画像ドロップ -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div style="font-size:32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">📄 ➔ 🖼️</div>
+          <div class="drop-box">
+            <span class="file-icon">📄</span>
+            <div class="thumb-gen">サムネイル</div>
+          </div>
         </div>
         <h3>PDF / 画像ドラッグ＆ドロップ</h3>
         <p>原稿ファイル（PDF/画像）を直接ドロップするだけでサムネイルを自動生成。進行状況（初校・校了等）も一目で可視化。</p>
       </div>
 
-      <!-- 機能4: 共同編集 -->
+      <!-- 機能4: リアルタイム共同編集 -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div style="font-size:32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">👥 ⚡️ 👥</div>
+          <div class="collab-wrapper">
+            <div class="collab-avatar">A</div>
+            <div class="collab-card sync-pulse">
+              <div class="collab-line"></div>
+              <div class="collab-line" style="width: 70%;"></div>
+            </div>
+            <div class="collab-avatar avatar-2">B</div>
+          </div>
         </div>
         <h3>リアルタイム共同編集</h3>
         <p>クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムで台割の最新状態を共有可能。</p>
       </div>
 
-      <!-- 機能5: リスト並び替え -->
+      <!-- 機能5: リスト表示で並び替え -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div style="font-size:32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">📋 ⇅</div>
+          <div class="list-container">
+            <div class="list-item item-drag"><span>≡ 1P 表紙</span></div>
+            <div class="list-item"><span>≡ 2P 導入</span></div>
+          </div>
         </div>
         <h3>リスト表示で一括並び替え</h3>
         <p>全体のページ順をリスト上でドラッグ＆ドロップや上下ボタンで即座に入れ替え。大幅な構成変更もストレスなく完了。</p>
@@ -272,7 +329,11 @@
       <!-- 機能6: データ書き出し -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div style="font-size:32px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));">📤 💾</div>
+          <div class="export-box">
+            <div class="export-card">台割データ</div>
+            <div class="export-arrow">↓</div>
+            <div class="export-file">PDF / JPG</div>
+          </div>
         </div>
         <h3>PDF・JPG＆データ出力</h3>
         <p>完成した台割はワンクリックで高解像度PDFやJPG画像としてエクスポート。バックアップ用JSONの保管・復元にも完全対応。</p>
