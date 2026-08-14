@@ -20,6 +20,8 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: var(--text-main);
@@ -28,20 +30,20 @@
       overflow-x: hidden;
     }
 
-    /* 🌟 背景アニメーション & グリッド */
+    /* 🌟 背景アニメーション（動きをスピーディーに変更） */
     .animated-bg {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      z-index: 1; filter: blur(90px); opacity: 0.65; pointer-events: none;
+      z-index: 1; filter: blur(80px); opacity: 0.75; pointer-events: none;
     }
-    .blob { position: absolute; border-radius: 50%; animation: floatAround 20s infinite alternate ease-in-out; }
+    .blob { position: absolute; border-radius: 50%; animation: floatAround 8s infinite alternate ease-in-out; }
     .blob-1 { top: -10%; left: 10%; width: 550px; height: 550px; background: linear-gradient(135deg, var(--primary), #667eea); }
-    .blob-2 { bottom: 10%; right: 5%; width: 600px; height: 600px; background: linear-gradient(135deg, var(--accent-purple), #f3a683); animation-duration: 25s; animation-delay: -5s; }
-    .blob-3 { top: 40%; left: 35%; width: 400px; height: 400px; background: linear-gradient(135deg, var(--accent-cyan), #11998e); animation-duration: 18s; animation-delay: -10s; }
+    .blob-2 { bottom: 10%; right: 5%; width: 600px; height: 600px; background: linear-gradient(135deg, var(--accent-purple), #f3a683); animation-duration: 10s; animation-delay: -2s; }
+    .blob-3 { top: 30%; left: 30%; width: 450px; height: 450px; background: linear-gradient(135deg, var(--accent-cyan), #11998e); animation-duration: 7s; animation-delay: -4s; }
 
     @keyframes floatAround {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(100px, 80px) scale(1.15); }
-      100% { transform: translate(-80px, 120px) scale(0.9); }
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(140px, 100px) scale(1.25) rotate(180deg); }
+      100% { transform: translate(-100px, 140px) scale(0.85) rotate(360deg); }
     }
 
     .grid-overlay {
@@ -50,24 +52,28 @@
       background-size: 48px 48px; pointer-events: none;
     }
 
-    /* 🌟 ヘッダー & 言語切替ボタン */
-    header, section, footer { position: relative; z-index: 10; }
+    /* 🌟 最前面固定ヘッダー（重なり完全修正） */
     header {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000; /* 重なり順を最前面に設定 */
       display: flex; justify-content: space-between; align-items: center;
-      padding: 12px 4%; background: rgba(10, 15, 29, 0.9); backdrop-filter: blur(12px);
-      position: sticky; top: 0; border-bottom: 1px solid var(--glass-border); gap: 8px;
+      padding: 12px 5%; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border); box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .logo { font-size: 16px; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
     .nav-links { display: flex; gap: 10px; align-items: center; list-style: none; }
     .lang-btn {
-      background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.12); color: #fff; border: 1px solid var(--glass-border);
       padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; transition: all 0.2s;
     }
-    .lang-btn:hover { background: rgba(255, 255, 255, 0.2); }
+    .lang-btn:hover { background: rgba(255, 255, 255, 0.25); }
     .btn-header { background: var(--primary); color: #fff !important; padding: 6px 12px; border-radius: 6px; font-size: 11px !important; white-space: nowrap; text-decoration: none; }
 
+    /* 🌟 メインコンテンツの位置調整（ヘッダー被り防止） */
+    section, footer { position: relative; z-index: 10; }
+
     /* 🌟 ヒーローエリア */
-    .hero { padding: 45px 5% 35px; text-align: center; }
+    .hero { padding: 110px 5% 35px; text-align: center; } /* 上部paddingを広げてヘッダー被りを回避 */
     .hero-badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-weight: bold; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
     .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.25; margin-bottom: 16px; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero p { font-size: 14.5px; color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
@@ -85,7 +91,7 @@
     .mockup-card-body { flex: 1; background: rgba(255, 255, 255, 0.02); border-radius: 4px; border: 1px dashed rgba(255, 255, 255, 0.15); }
 
     /* 🌟 機能カード＆アニメーション */
-    .features { padding: 70px 4%; }
+    .features { padding: 60px 4%; }
     .section-title { text-align: center; margin-bottom: 40px; }
     .section-title h2 { font-size: 28px; font-weight: 800; color: #fff; }
     .section-title p { color: var(--text-muted); margin-top: 6px; font-size: 14px; }
@@ -106,7 +112,7 @@
     @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(75px); } 100% { transform: translateX(0); } }
     @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-75px); } 100% { transform: translateX(0); } }
 
-    /* 2. 自動繰り下げ（カーソル位置修正） */
+    /* 2. 自動繰り下げ */
     .demo-grid { display: flex; gap: 10px; position: relative; }
     .demo-card-slot { width: 52px; height: 72px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.2); border-radius: 4px; position: relative; }
     .demo-card-item { width: 52px; height: 72px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; }
@@ -125,7 +131,7 @@
     }
     @keyframes cursorMoveFixed {
       0% { transform: translate(-42px, -20px); }
-      25% { transform: translate(-42px, 15px); } /* 緑カードの真上にぴったり追従 */
+      25% { transform: translate(-42px, 15px); }
       75%, 100% { transform: translate(20px, 15px); }
     }
 
@@ -144,18 +150,31 @@
     @keyframes msgPop { 0%, 30% { opacity: 0; transform: translateY(10px); } 45%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
 
     /* 5. ステータスタグ進捗 */
-    .card-tag-demo { width: 80px; height: 100px; background: #fff; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .status-badge-anim { padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; color: #fff; width: fit-content; animation: badgeChange 4s infinite step-end; }
-    @keyframes badgeChange { 0% { background: #eb3b5a; content: "初校"; } 33% { background: #ff9f43; content: "再校"; } 66% { background: #0079bf; content: "校了"; } }
+    .card-tag-demo { width: 85px; height: 105px; background: #fff; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .status-badge-anim { padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; color: #fff; width: fit-content; }
 
-    /* 6. 大画面モーダル＆ページ数字繰り上げ（1P->2P->3P） */
-    .preview-modal-demo { width: 145px; height: 105px; background: rgba(15, 23, 42, 0.95); border: 1px solid #38bdf8; border-radius: 8px; padding: 6px; display: flex; align-items: center; justify-content: space-between; position: relative; }
-    .modal-nav-btn { width: 18px; height: 18px; background: #0079bf; border-radius: 50%; color: #fff; font-size: 9px; display: flex; justify-content: center; align-items: center; }
-    .modal-page-img { width: 85px; height: 85px; background: #fff; border-radius: 4px; display: flex; justify-content: center; align-items: center; color: #1e293b; font-weight: bold; font-size: 13px; position: relative; }
-    .modal-page-text::after { content: "1 P"; animation: pageNumUp 4.5s infinite step-end; }
-    @keyframes pageNumUp { 0% { content: "1 P"; } 33% { content: "2 P"; } 66% { content: "3 P"; } }
+    /* 6. リアルな本めくり風アニメーション（1P->2P->3P） */
+    .flip-book-container { width: 120px; height: 85px; position: relative; perspective: 600px; }
+    .flip-page {
+      width: 100%; height: 100%; background: #fff; border-radius: 4px; position: absolute; top: 0; left: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center;
+      font-size: 14px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center;
+    }
+    .page-leaf-1 { animation: flipPage3D-1 4.5s infinite ease-in-out; }
+    .page-leaf-2 { animation: flipPage3D-2 4.5s infinite ease-in-out; }
 
-    /* 7. リアルタイム共同編集（参加人数アップ：3人＋リアルタイムカーソル） */
+    @keyframes flipPage3D-1 {
+      0%, 25% { transform: rotateY(0deg); z-index: 3; }
+      35%, 90% { transform: rotateY(-180deg); z-index: 1; }
+      100% { transform: rotateY(0deg); z-index: 3; }
+    }
+    @keyframes flipPage3D-2 {
+      0%, 55% { transform: rotateY(0deg); z-index: 2; }
+      65%, 90% { transform: rotateY(-180deg); z-index: 1; }
+      100% { transform: rotateY(0deg); z-index: 2; }
+    }
+
+    /* 7. リアルタイム共同編集 */
     .collab-wrapper-multi { display: flex; align-items: center; gap: 12px; position: relative; }
     .collab-avatars-group { display: flex; flex-direction: column; gap: 6px; }
     .collab-avatar-small { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 8px rgba(0,0,0,0.4); }
@@ -191,6 +210,17 @@
     .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
     .pricing-features li { font-size: 13px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 
+    /* 🌟 TOPへ戻るフローティングボタン */
+    .back-to-top {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 44px; height: 44px; background: var(--primary); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      text-decoration: none; font-size: 16px; font-weight: bold;
+      box-shadow: 0 4px 16px rgba(0,121,191,0.5); transition: all 0.2s;
+    }
+    .back-to-top:hover { background: #0284c7; transform: translateY(-3px); }
+
     /* 🌟 フッター */
     footer { background: rgba(5, 8, 16, 0.95); border-top: 1px solid var(--glass-border); color: var(--text-muted); padding: 32px 4%; text-align: center; font-size: 12px; }
     footer p { margin-top: 6px; }
@@ -206,7 +236,7 @@
   </div>
   <div class="grid-overlay"></div>
 
-  <!-- ヘッダー（言語切替ボタン追加） -->
+  <!-- 最前面固定ヘッダー -->
   <header>
     <div class="logo">📖 PageLayout</div>
     <ul class="nav-links">
@@ -218,7 +248,7 @@
   </header>
 
   <!-- ヒーロー -->
-  <section class="hero">
+  <section class="hero" id="top">
     <span class="hero-badge" data-ja="次世代の台割・進行管理ツール" data-en="Next-Gen Page Layout Tool">次世代の台割・進行管理ツール</span>
     <h1 data-ja="無限のレイアウトを、<br>この場所から生み出す。" data-en="Create Infinite Layouts,<br>All in One Place.">無限のレイアウトを、<br>この場所から生み出す。</h1>
     <p data-ja="直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。" data-en="Assemble page layouts seamlessly with intuitive drag-and-drop. Boost productivity with real-time collaboration.">直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。</p>
@@ -245,7 +275,7 @@
     </div>
   </section>
 
-  <!-- 全機能紹介（アニメーション演出付き） -->
+  <!-- 全機能紹介 -->
   <section class="features" id="features">
     <div class="section-title">
       <h2 data-ja="編集現場の「欲しい」を直感的なUIへ" data-en="Empowering Publishing Workflows">編集現場の「欲しい」を直感的なUIへ</h2>
@@ -265,13 +295,13 @@
         <p data-ja="同人誌・漫画の「右開き」、カタログの「左開き」をワンタップ切替。2P見開き配置もスムーズに表現。" data-en="Switch easily between Right-to-Left and Left-to-Right bindings, with full 2P spread layouts.">同人誌・漫画の「右開き」、カタログの「左開き」をワンタップ切替。2P見開き配置もスムーズに表現。</p>
       </div>
 
-      <!-- 2: 自動繰り下げ移動（カーソル位置修正済） -->
+      <!-- 2: 自動繰り下げ移動 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-cursor"></div>
           <div class="demo-grid">
             <div class="demo-card-slot">
-              <div class="demo-card-item demo-drag-card">新 P</div>
+              <div class="demo-card-item demo-drag-card" data-anim-ja="新 P" data-anim-en="New P">新 P</div>
             </div>
             <div class="demo-card-slot">
               <div class="demo-card-item demo-shift-card">1 P</div>
@@ -290,7 +320,7 @@
             <span class="file-icon">🖼️</span>
             <div class="thumb-gen">
               <span>PDF/JPG/PNG</span>
-              <span style="font-size: 8px; opacity: 0.8;">Auto Thumbnail</span>
+              <span style="font-size: 8px; opacity: 0.8;" data-anim-ja="自動サムネイル" data-anim-en="Auto Thumbnail">自動サムネイル</span>
             </div>
           </div>
         </div>
@@ -302,9 +332,9 @@
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="chat-demo-box">
-            <div class="chat-msg">💬 修正指示を記載...</div>
-            <div class="chat-msg chat-msg-new">💬 「初校確認しました！」</div>
-            <span class="attach-tag">📎 参考資料.pdf</span>
+            <div class="chat-msg" data-anim-ja="💬 修正指示を記載..." data-anim-en="💬 Add fix notes...">💬 修正指示を記載...</div>
+            <div class="chat-msg chat-msg-new" data-anim-ja="💬 「初校確認しました！」" data-anim-en="💬 '1st proof checked!'">💬 「初校確認しました！」</div>
+            <span class="attach-tag" data-anim-ja="📎 参考資料.pdf" data-anim-en="📎 Reference.pdf">📎 参考資料.pdf</span>
           </div>
         </div>
         <h3 data-ja="ページコメント＆資料添付" data-en="Page Comments & Attachments">ページコメント＆資料添付</h3>
@@ -315,8 +345,8 @@
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="card-tag-demo">
-            <div class="status-badge-anim">進行状況</div>
-            <div style="font-size:9px; font-weight:bold; color:#1e293b;">1P 表紙</div>
+            <div id="statusBadgeDemo" class="status-badge-anim" style="background:#0079bf;">1st Proof</div>
+            <div style="font-size:9px; font-weight:bold; color:#1e293b;" data-anim-ja="1P 表紙" data-anim-en="1P Cover">1P 表紙</div>
             <div style="flex:1; background:#f1f5f9; border-radius:3px;"></div>
           </div>
         </div>
@@ -324,20 +354,20 @@
         <p data-ja="「ラフ」「初校」「再校」「責了」「校了」などのカラフルなタグで各ページの進捗状況が一目で分かります。" data-en="Track progress at a glance with colorful customizable status tags like Rough, 1st Proof, and Approved.">「ラフ」「初校」「再校」「責了」「校了」などのカラフルなタグで各ページの進捗状況が一目で分かります。</p>
       </div>
 
-      <!-- 6: 大画面プレビュー＆ページめくり（1P->2P->3P修正済） -->
+      <!-- 6: 3Dページめくり機能（1P->2P->3P） -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div class="preview-modal-demo">
-            <div class="modal-nav-btn">◀</div>
-            <div class="modal-page-img"><span class="modal-page-text"></span></div>
-            <div class="modal-nav-btn">▶</div>
+          <div class="flip-book-container">
+            <div class="flip-page page-leaf-2">3 P</div>
+            <div class="flip-page page-leaf-1">2 P</div>
+            <div class="flip-page" style="z-index: 0;">1 P</div>
           </div>
         </div>
         <h3 data-ja="大画面＆ページめくり確認" data-en="Full Preview & Flip Mode">大画面＆ページめくり確認</h3>
         <p data-ja="詳細モーダルで原稿を大きく表示。左右の矢印ボタンで前後のページをサクサクめくりながらチェックできます。" data-en="Enlarge previews in a detailed modal and flip through pages consecutively using side arrows.">詳細モーダルで原稿を大きく表示。左右の矢印ボタンで前後のページをサクサクめくりながらチェックできます。</p>
       </div>
 
-      <!-- 7: リアルタイム共同編集（3人＋複数カーソル修正済） -->
+      <!-- 7: リアルタイム共同編集 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="collab-wrapper-multi">
@@ -346,7 +376,7 @@
               <div class="collab-avatar-small av-2">B</div>
               <div class="collab-avatar-small av-3">C</div>
             </div>
-            <div class="collab-card-multi sync-pulse">
+            <div class="collab-card-multi">
               <div style="height:6px; background:rgba(255,255,255,0.3); border-radius:2px; margin-bottom:4px;"></div>
               <div style="height:6px; background:rgba(255,255,255,0.2); border-radius:2px; width:70%;"></div>
               <span class="live-cursor-a">🖱️A</span>
@@ -362,8 +392,8 @@
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="list-container">
-            <div class="list-item item-drag"><span>≡ 1P 表紙</span></div>
-            <div class="list-item"><span>≡ 2P 導入</span></div>
+            <div class="list-item item-drag"><span data-anim-ja="≡ 1P 表紙" data-anim-en="≡ 1P Cover">≡ 1P 表紙</span></div>
+            <div class="list-item"><span data-anim-ja="≡ 2P 導入" data-anim-en="≡ 2P Intro">≡ 2P 導入</span></div>
           </div>
         </div>
         <h3 data-ja="リスト表示で一括並び替え" data-en="List View Reordering">リスト表示で一括並び替え</h3>
@@ -374,7 +404,7 @@
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="export-box">
-            <div class="export-card">台割データ</div>
+            <div class="export-card" data-anim-ja="台割データ" data-anim-en="Layout Data">台割データ</div>
             <div class="export-arrow">↓</div>
             <div class="export-file">PDF / JPG</div>
           </div>
@@ -421,28 +451,57 @@
     </div>
   </section>
 
+  <!-- フローティング TOPへ戻るボタン -->
+  <a href="#top" class="back-to-top" title="Top">▲</a>
+
   <footer>
     <p>© 2026 PageLayout App. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 言語切り替えスクリプト -->
+  <!-- 🌐 言語切替＆アニメーション連動スクリプト -->
   <script>
     const langBtn = document.getElementById('langToggleBtn');
     let currentLang = 'ja';
+
+    // ステータスタグのリアルタイムアニメーション用リスト
+    const statusDemo = document.getElementById('statusBadgeDemo');
+    const statusTextList = {
+      ja: [
+        { label: "初校", bg: "#eb3b5a" },
+        { label: "再校", bg: "#ff9f43" },
+        { label: "校了", bg: "#0079bf" }
+      ],
+      en: [
+        { label: "1st Proof", bg: "#eb3b5a" },
+        { label: "2nd Proof", bg: "#ff9f43" },
+        { label: "Approved", bg: "#0079bf" }
+      ]
+    };
+    let statusIdx = 0;
+
+    setInterval(() => {
+      statusIdx = (statusIdx + 1) % 3;
+      const item = statusTextList[currentLang][statusIdx];
+      if (statusDemo) {
+        statusDemo.innerText = item.label;
+        statusDemo.style.background = item.bg;
+      }
+    }, 1500);
 
     langBtn.addEventListener('click', () => {
       currentLang = currentLang === 'ja' ? 'en' : 'ja';
       langBtn.innerText = currentLang === 'ja' ? '🌐 EN' : '🌐 JP';
 
+      // 本文テキストの切り替え
       document.querySelectorAll('[data-ja]').forEach(el => {
         const text = el.getAttribute(`data-${currentLang}`);
-        if (text) {
-          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-            el.placeholder = text;
-          } else {
-            el.innerHTML = text;
-          }
-        }
+        if (text) el.innerHTML = text;
+      });
+
+      // アニメーション内部テキストの切り替え
+      document.querySelectorAll('[data-anim-ja]').forEach(el => {
+        const text = el.getAttribute(`data-anim-${currentLang}`);
+        if (text) el.innerText = text;
       });
     });
   </script>
