@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageLayout - 編集・出版のためのスマート台割・レイアウトツール</title>
   <style>
-    /* 🌟 カラーパレット＆基本設定 */
+    /* 🌟 基本設定 & カラーパレット */
     :root {
       --bg-dark: #0a0f1d;
       --primary: #0079bf;
@@ -18,11 +18,7 @@
       --glass-border: rgba(255, 255, 255, 0.12);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -30,442 +26,122 @@
       background-color: var(--bg-dark);
       line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* --------------------------------------------------
-       🌟 1. 動くメッシュオーロラ背景 & デジタルグリッド
-    -------------------------------------------------- */
+    /* 🌟 背景アニメーション & グリッド */
     .animated-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 1;
-      filter: blur(90px); /* ぼかしを強くして滑らかなグラデーションに */
-      opacity: 0.65;
-      pointer-events: none;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1; filter: blur(90px); opacity: 0.65; pointer-events: none;
     }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      animation: floatAround 20s infinite alternate ease-in-out;
-    }
-
-    .blob-1 {
-      top: -10%;
-      left: 10%;
-      width: 550px;
-      height: 550px;
-      background: linear-gradient(135deg, var(--primary), #667eea);
-    }
-
-    .blob-2 {
-      bottom: 10%;
-      right: 5%;
-      width: 600px;
-      height: 600px;
-      background: linear-gradient(135deg, var(--accent-purple), #f3a683);
-      animation-duration: 25s;
-      animation-delay: -5s;
-    }
-
-    .blob-3 {
-      top: 40%;
-      left: 35%;
-      width: 400px;
-      height: 400px;
-      background: linear-gradient(135deg, var(--accent-cyan), #11998e);
-      animation-duration: 18s;
-      animation-delay: -10s;
-    }
+    .blob { position: absolute; border-radius: 50%; animation: floatAround 20s infinite alternate ease-in-out; }
+    .blob-1 { top: -10%; left: 10%; width: 550px; height: 550px; background: linear-gradient(135deg, var(--primary), #667eea); }
+    .blob-2 { bottom: 10%; right: 5%; width: 600px; height: 600px; background: linear-gradient(135deg, var(--accent-purple), #f3a683); animation-duration: 25s; animation-delay: -5s; }
+    .blob-3 { top: 40%; left: 35%; width: 400px; height: 400px; background: linear-gradient(135deg, var(--accent-cyan), #11998e); animation-duration: 18s; animation-delay: -10s; }
 
     @keyframes floatAround {
-      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-      50% { transform: translate(140px, 90px) scale(1.15) rotate(180deg); }
-      100% { transform: translate(-90px, 160px) scale(0.85) rotate(360deg); }
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(100px, 80px) scale(1.15); }
+      100% { transform: translate(-80px, 120px) scale(0.9); }
     }
 
     .grid-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 2;
-      background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
     }
 
-    /* --------------------------------------------------
-       🌟 2. コンテンツエリア（グラスモフィズム仕上げ）
-    -------------------------------------------------- */
-    header, section, footer {
-      position: relative;
-      z-index: 10;
-    }
-
-    /* ヘッダー */
+    /* 🌟 ヘッダー（スマホ対応・崩れ防止） */
+    header, section, footer { position: relative; z-index: 10; }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 8%;
-      background: rgba(10, 15, 29, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      border-bottom: 1px solid var(--glass-border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 5%; background: rgba(10, 15, 29, 0.85); backdrop-filter: blur(12px);
+      position: sticky; top: 0; border-bottom: 1px solid var(--glass-border);
     }
+    .logo { font-size: 18px; font-weight: 800; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; gap: 16px; align-items: center; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-main); font-size: 13px; font-weight: 600; }
+    .btn-header { background: var(--primary); color: #fff !important; padding: 6px 14px; border-radius: 6px; font-size: 12px !important; }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 800;
-      color: #38bdf8;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    /* 🌟 ヒーローエリア */
+    .hero { padding: 60px 6% 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-weight: bold; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.3; margin-bottom: 16px; background: linear-gradient(135deg, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto 28px; }
+    .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; }
 
-    .nav-links {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      list-style: none;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-main);
-      font-weight: 600;
-      font-size: 14px;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: #38bdf8;
-    }
-
-    .btn-header {
-      background: var(--primary);
-      color: #fff !important;
-      padding: 8px 18px;
-      border-radius: 6px;
-      transition: background 0.2s !important;
-    }
-
-    .btn-header:hover {
-      background: var(--primary-hover) !important;
-    }
-
-    /* ヒーローセクション */
-    .hero {
-      padding: 100px 8% 80px;
-      text-align: center;
-    }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.15);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-weight: bold;
-      font-size: 13px;
-      padding: 6px 18px;
-      border-radius: 20px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 {
-      font-size: 48px;
-      font-weight: 800;
-      line-height: 1.25;
-      margin-bottom: 24px;
-      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--text-muted);
-      max-width: 680px;
-      margin: 0 auto 40px;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .btn-main {
-      background: linear-gradient(135deg, var(--primary), #0284c7);
-      color: #fff;
-      padding: 14px 36px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4);
-      transition: all 0.2s;
-    }
-
-    .btn-main:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 121, 191, 0.6);
-    }
-
-    .btn-secondary {
-      background: var(--glass-bg);
-      color: var(--text-main);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(8px);
-      padding: 14px 30px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    /* UIモックアップ */
-    .hero-mockup {
-      margin: 60px auto 0;
-      max-width: 960px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(16px);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-    }
-
-    .mockup-window {
-      background: rgba(15, 23, 42, 0.8);
-      border-radius: 10px;
-      padding: 24px;
-      min-height: 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .mockup-header {
-      background: rgba(255, 255, 255, 0.08);
-      height: 42px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      font-size: 13px;
-      font-weight: bold;
-      color: #38bdf8;
-      justify-content: space-between;
-    }
-
-    .mockup-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .mockup-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      border-radius: 8px;
-      height: 110px;
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      gap: 8px;
-    }
-
-    .mockup-card-title {
-      height: 10px;
-      width: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 3px;
-    }
-
-    .mockup-card-body {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 4px;
-      border: 1px dashed rgba(255, 255, 255, 0.15);
-    }
-
-    /* 機能特徴セクション */
-    .features {
-      padding: 100px 8%;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-
-    .section-title h2 {
-      font-size: 36px;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .section-title p {
-      color: var(--text-muted);
-      margin-top: 10px;
-      font-size: 16px;
-    }
+    /* 🌟 機能カード＆デモアニメーション */
+    .features { padding: 60px 5%; }
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-size: 26px; color: #fff; }
 
     .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 28px;
-      max-width: 1100px;
-      margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 1000px; margin: 0 auto;
     }
 
     .feature-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      padding: 36px 28px;
-      border-radius: 16px;
-      transition: transform 0.2s, border-color 0.2s;
+      background: var(--glass-bg); backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border); padding: 20px; border-radius: 16px;
+      display: flex; flex-direction: column; gap: 16px;
     }
 
-    .feature-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(56, 189, 248, 0.5);
+    .feature-card h3 { font-size: 18px; color: #fff; }
+    .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* 🎬 ミニ動画（CSSデモ画面）の枠組み */
+    .demo-viewport {
+      width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px;
+      position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
     }
 
-    .feature-icon {
-      font-size: 36px;
-      margin-bottom: 18px;
-      display: inline-block;
+    /* 🎬 アニメーション 1: 右開き / 左開き 切り替えデモ */
+    .demo-book-container { display: flex; gap: 4px; transition: transform 0.6s ease; animation: switchBinding 4s infinite ease-in-out; }
+    .demo-page { width: 65px; height: 90px; background: #fff; border-radius: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 10px; color: #333; font-weight: bold; }
+    
+    @keyframes switchBinding {
+      0%, 40% { transform: scaleX(1); }
+      50%, 90% { transform: scaleX(-1); } /* 左右反転で開きの変化を自動表現 */
     }
 
-    .feature-card h3 {
-      font-size: 20px;
-      margin-bottom: 12px;
-      color: #ffffff;
+    /* 🎬 アニメーション 2: ドラッグ＆ドロップ ＋ 繰り下げデモ */
+    .demo-grid { display: flex; gap: 8px; position: relative; }
+    .demo-card-box { width: 50px; height: 70px; background: rgba(255,255,255,0.1); border: 1px stroke rgba(255,255,255,0.3); border-radius: 4px; position: relative; }
+    .demo-card-item { width: 50px; height: 70px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #fff; }
+    
+    /* 挿入されるカードのアニメーション */
+    .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
+    /* 後ろにずれるカード */
+    .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
+
+    @keyframes dropAndShift {
+      0% { transform: translate(-60px, -40px) scale(1.1); opacity: 0; }
+      20% { transform: translate(-60px, 0) scale(1); opacity: 1; }
+      80%, 100% { transform: translate(0, 0); }
+    }
+    @keyframes shiftRight {
+      0%, 30% { transform: translateX(0); }
+      60%, 100% { transform: translateX(58px); }
     }
 
-    .feature-card p {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.7;
+    /* カーソルアニメーション */
+    .demo-cursor {
+      width: 14px; height: 14px; position: absolute; z-index: 20;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain;
+      animation: cursorMove 3.5s infinite ease-in-out;
+    }
+    @keyframes cursorMove {
+      0% { transform: translate(-50px, -30px); }
+      20% { transform: translate(-50px, 10px); }
+      80%, 100% { transform: translate(10px, 10px); }
     }
 
-    /* 料金プラン */
-    .pricing {
-      padding: 100px 8%;
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .pricing-cards {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .pricing-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 40px 32px;
-      width: 340px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .pricing-card.popular {
-      border: 2px solid var(--primary);
-      box-shadow: 0 0 30px rgba(0, 121, 191, 0.3);
-      background: rgba(0, 121, 191, 0.08);
-    }
-
-    .popular-tag {
-      position: absolute;
-      top: -14px;
-      right: 24px;
-      background: var(--primary);
-      color: #fff;
-      font-size: 12px;
-      font-weight: bold;
-      padding: 4px 14px;
-      border-radius: 12px;
-    }
-
-    .pricing-card h3 {
-      font-size: 22px;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .price {
-      font-size: 40px;
-      font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 24px;
-    }
-
-    .price span {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: normal;
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 32px;
-      flex: 1;
-    }
-
-    .pricing-features li {
-      font-size: 14px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-muted);
-    }
-
-    /* フッター */
-    footer {
-      background: rgba(5, 8, 16, 0.95);
-      border-top: 1px solid var(--glass-border);
-      color: var(--text-muted);
-      padding: 40px 8%;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    footer p {
-      margin-top: 8px;
-    }
+    /* 🌟 フッター */
+    footer { background: rgba(5, 8, 16, 0.95); border-top: 1px solid var(--glass-border); color: var(--text-muted); padding: 30px 5%; text-align: center; font-size: 12px; }
   </style>
 </head>
 <body>
 
-  <!-- 🌟 1. 動的背景 & グリッド -->
   <div class="animated-bg">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
@@ -473,125 +149,64 @@
   </div>
   <div class="grid-overlay"></div>
 
-  <!-- 🌟 2. メインコンテンツ -->
+  <!-- ヘッダー -->
   <header>
     <div class="logo">📖 PageLayout</div>
     <ul class="nav-links">
-      <li><a href="#features">機能・特徴</a></li>
-      <li><a href="#pricing">料金プラン</a></li>
-      <li><a href="app.html" class="btn-header">アプリを起動</a></li>
+      <li><a href="#features">機能</a></li>
+      <li><a href="app.html" class="btn-header">アプリ起動</a></li>
     </ul>
   </header>
 
+  <!-- ヒーロー -->
   <section class="hero">
-    <span class="hero-badge">次世代の台割・進行管理ツール</span>
-    <h1>無限のレイアウトを、<br>この場所から生み出す。</h1>
-    <p>直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的なグリッド構造で、あなたのクリエイティビティを拡大します。</p>
-    
-    <div class="hero-cta">
-      <a href="app.html" class="btn-main">無料で今すぐ始める</a>
-      <a href="#features" class="btn-secondary">詳しく見る</a>
-    </div>
-
-    <div class="hero-mockup">
-      <div class="mockup-window">
-        <div class="mockup-header">
-          <span>📖 24P / 右開き（マンガ・同人誌）</span>
-          <span>👥 リアルタイム共同編集: 3名</span>
-        </div>
-        <div class="mockup-grid">
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-          <div class="mockup-card"><div class="mockup-card-title"></div><div class="mockup-card-body"></div></div>
-        </div>
-      </div>
-    </div>
+    <span class="hero-badge">次世代の台割ツール</span>
+    <h1>本・冊子づくりを、<br>もっとスマートに。</h1>
+    <p>直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。</p>
+    <a href="app.html" class="btn-main">無料で今すぐ試す</a>
   </section>
 
+  <!-- 機能紹介（ムービー演出付き） -->
   <section class="features" id="features">
     <div class="section-title">
-      <h2>編集現場の「欲しい」を直感的なUIへ</h2>
-      <p>紙やExcelの台割管理から解放され、より自由でスマートな制作環境へ。</p>
+      <h2>操作感がひと目でわかる機能</h2>
     </div>
 
     <div class="features-grid">
+      <!-- 機能1: 開き方向切り替えムービー -->
       <div class="feature-card">
-        <span class="feature-icon">📑</span>
+        <div class="demo-viewport">
+          <div class="demo-book-container">
+            <div class="demo-page">1 P</div>
+            <div class="demo-page">2 P</div>
+          </div>
+        </div>
         <h3>右開き・左開き＆見開き対応</h3>
-        <p>同人誌・漫画の「右開き」、カタログ・パンフの「左開き」をワンタップ切替。2Pにまたがる「見開き」配置もシームレスに表現。</p>
+        <p>同人誌・漫画の「右開き」、カタログの「左開き」をワンタップ切替。2P見開き配置もスムーズに動きます。</p>
       </div>
 
+      <!-- 機能2: ドラッグ＆ドロップ挿入ムービー -->
       <div class="feature-card">
-        <span class="feature-icon">🔀</span>
+        <div class="demo-viewport">
+          <div class="demo-cursor"></div>
+          <div class="demo-grid">
+            <div class="demo-card-box">
+              <div class="demo-card-item demo-drag-card">新 P</div>
+            </div>
+            <div class="demo-card-box">
+              <div class="demo-card-item demo-shift-card">1 P</div>
+            </div>
+            <div class="demo-card-box"></div>
+          </div>
+        </div>
         <h3>スマートな自動繰り下げ移動</h3>
-        <p>カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」など現場に合わせた柔軟な制御が可能です。</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">📄</span>
-        <h3>PDF / 画像ドラッグ＆ドロップ</h3>
-        <p>原稿ファイル（PDF/画像）を直接ドロップするだけでサムネイルを自動生成。進行状況（初校・校了等）も一目で可視化。</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">👥</span>
-        <h3>リアルタイム共同編集</h3>
-        <p>クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムで台割の最新状態を共有可能。</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">📋</span>
-        <h3>リスト表示で一括並び替え</h3>
-        <p>全体のページ順をリスト上でドラッグ＆ドロップや上下ボタンで即座に入れ替え。大幅な構成変更もストレスなく完了。</p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-icon">📤</span>
-        <h3>PDF・JPG＆データ出力</h3>
-        <p>完成した台割はワンクリックで高解像度PDFやJPG画像としてエクスポート。バックアップ用JSONの保管・復元にも完全対応。</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="pricing" id="pricing">
-    <div class="section-title">
-      <h2>シンプルで柔軟な料金体系</h2>
-      <p>まずはフリープランで使い心地をお試しいただけます。</p>
-    </div>
-
-    <div class="pricing-cards">
-      <div class="pricing-card">
-        <h3>フリープラン</h3>
-        <div class="price">¥0 <span>/ 永久無料</span></div>
-        <ul class="pricing-features">
-          <li>✨ 基本的な台割・レイアウト作成</li>
-          <li>✨ 右開き / 左開き対応</li>
-          <li>✨ PDF・JPG出力</li>
-          <li>✨ メンバー招待（最大3名まで）</li>
-        </ul>
-        <a href="app.html" class="btn-secondary" style="text-align:center;">無料でスタート</a>
-      </div>
-
-      <div class="pricing-card popular">
-        <span class="popular-tag">おすすめ</span>
-        <h3>プレミアムプラン</h3>
-        <div class="price">¥980 <span>/ 月額</span></div>
-        <ul class="pricing-features">
-          <li>✨ フリープランの全機能</li>
-          <li>✨ メンバー無制限招待</li>
-          <li>✨ JSONバックアップ / 復元機能</li>
-          <li>✨ 超大容量クラウドサムネイル保存</li>
-          <li>✨ 優先カスタマーサポート</li>
-        </ul>
-        <a href="app.html" class="btn-main" style="text-align:center;">プレミアムを試す</a>
+        <p>カードを割り込ませると、以降のページが「自動で後ろへスライド」。ページ順の調整も一瞬で完了します。</p>
       </div>
     </div>
   </section>
 
   <footer>
     <p>© 2026 PageLayout App. All rights reserved.</p>
-    <p>※当アプリケーションのプログラム、デザイン、UI構造の無断転載・無断複製・二次配布を固く禁じます。</p>
   </footer>
 
 </body>
