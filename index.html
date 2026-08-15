@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageLayout - 編集・出版のためのスマート台割・レイアウトツール</title>
+  
+  <!-- 🌟 ブラウザタブ（Favicon）ロゴ設定 -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0f1d' stroke='%2338bdf8' stroke-width='3'/%3E%3Cpolygon points='50,18 82,50 50,82 18,50' fill='%2338bdf8'/%3E%3C/svg%3E">
+
+  <!-- Supabase Client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     /* 🌟 基本設定 & カラーパレット */
     :root {
@@ -221,7 +227,7 @@
     .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
     .pricing-features li { font-size: 13px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 
-    /* 🌟 モーダル共通スタイル */
+    /* 🌟 モーダル共通スタイル (z-indexを10000に強化) */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 10000;
@@ -286,7 +292,7 @@
       </ul>
 
       <div class="header-actions">
-        <!-- 問い合わせボタン -->
+        <!-- 問い合わせボタン（立ち上がり修復済み） -->
         <button class="btn-contact-header" id="openContactBtn" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</button>
         <!-- ✨ 外部Webアプリ（https://pagelayout.pages.dev/）へ直直接遷移 -->
         <a href="https://pagelayout.pages.dev/" target="_blank" class="btn-app-launch" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
@@ -610,7 +616,7 @@
     <p>© 2026 PageLayout App. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 インタラクション・イベント制御スクリプト -->
+  <!-- 🌐 各種インタラクション・イベント制御スクリプト -->
   <script>
     // 🍔 ハンバーガーメニュー開閉
     const hamburgerBtn = document.getElementById('hamburgerBtn');
