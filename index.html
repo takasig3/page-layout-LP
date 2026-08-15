@@ -104,7 +104,7 @@
     .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; border: none; cursor: pointer; }
     .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
 
-    /* 🌟 3段構成＆リアルタイム操作・アニメーション付きメイン台割モックアップ */
+    /* 🌟 3段構成モックアップ */
     .hero-mockup { margin: 36px auto 0; max-width: 960px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
     .mockup-window { background: rgba(15, 23, 42, 0.9); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; position: relative; }
     .mockup-header { background: rgba(255, 255, 255, 0.08); height: 32px; border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 11px; font-weight: bold; color: #38bdf8; justify-content: space-between; }
@@ -127,7 +127,7 @@
       display: flex; justify-content: center; align-items: center; color: #fff; font-size: 10px; font-weight: bold;
     }
 
-    /* 💡 クリック時に開くミニ詳細ポップアップ */
+    /* クリック時に開くミニ詳細ポップアップ */
     .interactive-detail-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 29, 0.92);
       border-radius: 10px; display: none; flex-direction: column; padding: 16px; gap: 10px; z-index: 50;
@@ -221,7 +221,7 @@
     .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
     .pricing-features li { font-size: 13px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 
-    /* 🌟 モーダル共通スタイル (z-indexを10000に強化) */
+    /* 🌟 モーダル共通スタイル */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 10000;
@@ -286,10 +286,10 @@
       </ul>
 
       <div class="header-actions">
-        <!-- 問い合わせボタン（立ち上がり修復済み） -->
+        <!-- 問い合わせボタン -->
         <button class="btn-contact-header" id="openContactBtn" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</button>
-        <!-- アプリ起動ボタン -->
-        <a href="index.html" class="btn-app-launch" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+        <!-- ✨ 外部Webアプリ（https://pagelayout.pages.dev/）へ直直接遷移 -->
+        <a href="https://pagelayout.pages.dev/" target="_blank" class="btn-app-launch" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
     </div>
   </header>
@@ -301,9 +301,8 @@
     <p data-ja="直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。" data-en="Assemble page layouts seamlessly with intuitive drag-and-drop. Boost productivity with real-time collaboration.">直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。</p>
     
     <div class="hero-cta">
-      <!-- 内部リンクボタンへ変更 -->
-      <a href="#features" class="btn-main" data-ja="機能を見る" data-en="View Features">機能を見る</a>
-      <a href="#pricing" class="btn-secondary" data-ja="料金を見る" data-en="View Pricing">料金を見る</a>
+      <a href="https://pagelayout.pages.dev/" target="_blank" class="btn-main" data-ja="アプリを開く" data-en="Open App">アプリを開く ➔</a>
+      <a href="#features" class="btn-secondary" data-ja="機能を見る" data-en="View Features">機能を見る</a>
     </div>
 
     <!-- 🌟 3段構成＆リアルタイム操作・アニメーション付きメイン台割モックアップ -->
@@ -543,7 +542,7 @@
     </div>
   </section>
 
-  <!-- 料金プラン (★500円/月額に修正済み) -->
+  <!-- 料金プラン (★500円/月額) -->
   <section class="pricing" id="pricing">
     <div class="section-title">
       <h2 data-ja="シンプルで柔軟な料金体系" data-en="Simple Pricing Plans">シンプルで柔軟な料金体系</h2>
@@ -560,13 +559,12 @@
           <li data-ja="✨ PDF・JPG出力" data-en="✨ PDF & JPG export">✨ PDF・JPG出力</li>
           <li data-ja="✨ メンバー招待（最大3名まで）" data-en="✨ Up to 3 collaborators">✨ メンバー招待（最大3名まで）</li>
         </ul>
-        <a href="index.html" class="btn-secondary" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+        <a href="https://pagelayout.pages.dev/" target="_blank" class="btn-secondary" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
 
       <div class="pricing-card popular">
         <span class="popular-tag" data-ja="おすすめ" data-en="Recommended">おすすめ</span>
         <h3 data-ja="プレミアムプラン" data-en="Premium Plan">プレミアムプラン</h3>
-        <!-- ✨ 500円表示に更新 -->
         <div class="price">¥500 <span data-ja="/ 月額" data-en="/ Month">/ Month</span></div>
         <ul class="pricing-features">
           <li data-ja="✨ フリープランの全機能" data-en="✨ All Free plan features">✨ フリープランの全機能</li>
@@ -575,7 +573,7 @@
           <li data-ja="✨ 超大容量クラウドサムネイル保存" data-en="✨ Unlimited cloud thumbnail storage">✨ 超大容量クラウドサムネイル保存</li>
           <li data-ja="✨ 優先カスタマーサポート" data-en="✨ Priority customer support">✨ 優先カスタマーサポート</li>
         </ul>
-        <a href="index.html" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+        <a href="https://pagelayout.pages.dev/" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
     </div>
   </section>
@@ -612,7 +610,7 @@
     <p>© 2026 PageLayout App. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 各種インタラクション・イベント制御スクリプト -->
+  <!-- 🌐 インタラクション・イベント制御スクリプト -->
   <script>
     // 🍔 ハンバーガーメニュー開閉
     const hamburgerBtn = document.getElementById('hamburgerBtn');
