@@ -51,14 +51,21 @@
       background-size: 48px 48px; pointer-events: none;
     }
 
-    /* 🌟 最前面固定ヘッダー */
+    /* 🌟 最前面固定ヘッダー (ネオンブルーのロゴ適用) */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; justify-content: space-between; align-items: center;
       padding: 12px 4%; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--glass-border); box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .logo { font-size: 18px; font-weight: 800; color: #38bdf8; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    
+    .logo-img-wrapper { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    /* ご提示いただいたネオンブルーのロゴ画像スタイル */
+    .custom-logo-icon {
+      width: 32px; height: 32px; border-radius: 6px; object-fit: cover;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6); border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+    .logo-text { font-size: 18px; font-weight: 800; color: #38bdf8; letter-spacing: 0.5px; }
 
     .header-right-group { display: flex; align-items: center; gap: 10px; }
     .lang-btn { background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; white-space: nowrap; }
@@ -99,9 +106,9 @@
     .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; border: none; cursor: pointer; }
     .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
 
-    /* 🌟 台割モックアップ */
+    /* 🌟 3段構成＆リアルタイム操作・アニメーション付きメイン台割モックアップ */
     .hero-mockup { margin: 36px auto 0; max-width: 960px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
-    .mockup-window { background: rgba(15, 23, 42, 0.9); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .mockup-window { background: rgba(15, 23, 42, 0.9); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; position: relative; }
     .mockup-header { background: rgba(255, 255, 255, 0.08); height: 32px; border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 11px; font-weight: bold; color: #38bdf8; justify-content: space-between; }
     
     .mockup-grid-3tier { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
@@ -109,10 +116,10 @@
 
     .mockup-card-page {
       background: #ffffff; border-radius: 6px; height: 110px; padding: 6px; display: flex; flex-direction: column; gap: 4px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative; overflow: hidden; transition: transform 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: all 0.2s;
     }
-    .mockup-card-page:hover { transform: translateY(-3px); }
-    .card-top-tag { font-size: 8px; font-weight: bold; color: #fff; background: var(--primary); padding: 1px 5px; border-radius: 3px; width: fit-content; }
+    .mockup-card-page:hover { transform: translateY(-3px); border-color: #38bdf8; }
+    .card-top-tag { font-size: 8px; font-weight: bold; color: #fff; background: var(--primary); padding: 1px 5px; border-radius: 3px; width: fit-content; display: flex; justify-content: space-between; align-items: center; gap: 4px; }
     
     .p-title-line { height: 6px; background: #1e293b; border-radius: 2px; width: 70%; margin-bottom: 2px; }
     .p-text-block { display: flex; flex-direction: column; gap: 2px; flex: 1; }
@@ -121,6 +128,15 @@
       width: 100%; height: 42px; border-radius: 4px; background-size: cover; background-position: center;
       display: flex; justify-content: center; align-items: center; color: #fff; font-size: 10px; font-weight: bold;
     }
+
+    /* クリック時に開くミニ詳細ポップアップ（UIモックアップ内蔵） */
+    .interactive-detail-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 29, 0.92);
+      border-radius: 10px; display: none; flex-direction: column; padding: 16px; gap: 10px; z-index: 50;
+      backdrop-filter: blur(8px); animation: fadeInZoom 0.3s ease-out;
+    }
+    .interactive-detail-overlay.active { display: flex; }
+    @keyframes fadeInZoom { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
     /* 🌟 機能カード＆アニメーション */
     .features { padding: 60px 4%; }
@@ -258,9 +274,12 @@
   </div>
   <div class="grid-overlay"></div>
 
-  <!-- 最前面固定ヘッダー -->
+  <!-- 最前面固定ヘッダー (ご提示いただいたネオンブルーのロゴマークを設置) -->
   <header>
-    <a href="#top" class="logo">📖 PageLayout</a>
+    <a href="#top" class="logo-img-wrapper">
+      <img src="https://i.imgur.com/your_logo_placeholder.png" alt="Logo" class="custom-logo-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%2338bdf8\'><path d=\'M10 50 L50 10 L90 50 L50 90 Z\'/></svg>'">
+      <span class="logo-text">PageLayout</span>
+    </a>
     
     <div class="header-right-group">
       <button id="langToggleBtn" class="lang-btn">🌐 EN</button>
@@ -293,87 +312,108 @@
       <a href="#features" class="btn-secondary" data-ja="詳しく見る" data-en="Learn More">詳しく見る</a>
     </div>
 
-    <!-- 🌟 3段構成＆リアル原稿写真・テキスト配置のメイン台割モックアップ -->
+    <!-- 🌟 3段構成＆インタラクティブ操作可能な台割モックアップ -->
     <div class="hero-mockup">
       <div class="mockup-window">
         <div class="mockup-header">
-          <span data-ja="📖 24P / 右開き（誌面台割ビュー）" data-en="📖 24P / Right-to-Left Layout View">📖 24P / 右開き（誌面台割ビュー）</span>
+          <span data-ja="📖 24P / 右開き（誌面台割ビュー）✨クリックしてカード詳細・コメント確認" data-en="📖 24P / RTL Layout View (Click card for details)">📖 24P / 右開き（誌面台割ビュー）💡カードをクリックすると詳細・コメントを開けます</span>
           <span data-ja="👥 リアルタイム共同編集: 3名参加中" data-en="👥 Live Collaborators: 3">👥 リアルタイム共同編集: 3名参加中</span>
         </div>
 
+        <!-- 3段構成（12P） -->
         <div class="mockup-grid-3tier">
-          <div class="mockup-card-page">
-            <span class="card-top-tag">1 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(1, '表紙イラスト')">
+            <span class="card-top-tag"><span>1 P</span><span>💬2</span></span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #0079bf, #764ba2);">🖼️ 表紙イラスト</div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">2 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(2, '導入テキスト')">
+            <span class="card-top-tag"><span>2 P</span><span>📎1</span></span>
             <div class="p-title-line"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line"></div><div class="p-line" style="width: 80%;"></div>
             </div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">3 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(3, '山岳写真ページ')">
+            <span class="card-top-tag"><span>3 P</span><span>✨校了</span></span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #2ed573, #11998e);">🖼️ 山岳写真</div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">4 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(4, 'コラム記事')">
+            <span class="card-top-tag"><span>4 P</span><span>💬1</span></span>
             <div class="p-title-line" style="width: 50%;"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line"></div><div class="p-line"></div>
             </div>
           </div>
 
-          <div class="mockup-card-page">
-            <span class="card-top-tag">5 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(5, 'デザイングラフィック')">
+            <span class="card-top-tag"><span>5 P</span><span>💬4</span></span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #f3a683, #eb3b5a);">🖼️ デザイングラフィック</div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">6 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(6, '特集記事前半')">
+            <span class="card-top-tag"><span>6 P</span><span>📎2</span></span>
             <div class="p-title-line"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line"></div>
             </div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">7 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(7, '特集記事後半')">
+            <span class="card-top-tag"><span>7 P</span><span>✨初校</span></span>
             <div class="p-title-line" style="width:60%;"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line"></div><div class="p-line" style="width:50%;"></div>
             </div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">8 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(8, '水辺風景')">
+            <span class="card-top-tag"><span>8 P</span><span>💬1</span></span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #38bdf8, #0079bf);">🖼️ 水辺・風景写真</div>
           </div>
 
-          <div class="mockup-card-page">
-            <span class="card-top-tag">9 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(9, 'インタビュー')">
+            <span class="card-top-tag"><span>9 P</span><span>📎1</span></span>
             <div class="p-title-line"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line"></div><div class="p-line"></div>
             </div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">10 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(10, 'キャラクター原稿')">
+            <span class="card-top-tag"><span>10 P</span><span>✨再校</span></span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #ff9f43, #ee5253);">🖼️ キャラクター原稿</div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">11 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(11, 'あとがき')">
+            <span class="card-top-tag"><span>11 P</span><span>💬0</span></span>
             <div class="p-title-line" style="width: 40%;"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line"></div>
             </div>
           </div>
-          <div class="mockup-card-page">
-            <span class="card-top-tag">12 P</span>
+          <div class="mockup-card-page" onclick="openMockupDetail(12, '奥付・裏表紙')">
+            <span class="card-top-tag"><span>12 P</span><span>✨校了</span></span>
             <div class="p-title-line" style="width: 80%;"></div>
             <div class="p-text-block">
               <div class="p-line"></div><div class="p-line" style="width:60%;"></div>
             </div>
           </div>
         </div>
+
+        <!-- 💡 カードをクリックした時に飛び出す「詳細・コメント・ファイル添付」ポップアッププレビュー -->
+        <div class="interactive-detail-overlay" id="mockupDetailPopup">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:8px;">
+            <strong id="popupPageTitle" style="color:#38bdf8; font-size:14px;">📖 ページ詳細 & コメント</strong>
+            <button onclick="closeMockupDetail()" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
+          </div>
+          <div style="display:flex; gap:12px; flex:1; align-items:center;">
+            <div style="width:110px; height:80px; background:#fff; border-radius:4px; display:flex; justify-content:center; align-items:center; color:#0f172a; font-weight:bold; font-size:11px;" id="popupThumb">
+              原稿プレビュー
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:6px; font-size:11px;">
+              <div>💬 編集コメント: 「色彩のトーンをもう少し明るく調整お願いします」</div>
+              <div>📎 添付ファイル: <span style="color:#2ed573;">photo_master_v2.psd</span></div>
+              <div>🏷️ ステータス: <span style="background:#eb3b5a; color:#fff; padding:1px 6px; border-radius:3px;">初校確認中</span></div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:#94a3b8; text-align:center;">💡 左右の矢印でページをめくって次ページを確認できます</div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -545,14 +585,13 @@
     </div>
   </section>
 
-  <!-- 📩 お問い合わせモーダル (Formspree ID組み込み完了版) -->
+  <!-- 📩 お問い合わせモーダル -->
   <div class="modal-overlay" id="contactModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeContactBtn">&times;</button>
       <h3 data-ja="📩 お問い合わせ" data-en="📩 Contact Us">📩 お問い合わせ</h3>
       <p style="font-size:12px; color:#94a3b8;" data-ja="ご質問や導入のご相談など、お気軽にお問い合わせください。" data-en="Please feel free to contact us with any questions or consultations.">ご質問や導入のご相談など、お気軽にお問い合わせください。</p>
       
-      <!-- 発行された Formspree URL を組み込み済み -->
       <form action="https://formspree.io/f/xoealopw" method="POST" id="contactForm">
         <div class="form-group">
           <label data-ja="お名前" data-en="Your Name">お名前</label>
@@ -571,7 +610,7 @@
     </div>
   </div>
 
-  <!-- 👤 マイページモーダル (動的データ連携) -->
+  <!-- 👤 マイページモーダル -->
   <div class="modal-overlay" id="mypageModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeMypageBtn">&times;</button>
@@ -634,6 +673,17 @@
       mypageModal.classList.add('active');
     });
     document.getElementById('closeMypageBtn').addEventListener('click', () => mypageModal.classList.remove('active'));
+
+    // 💡 モックアップカード詳細ポップアップ開閉関数
+    function openMockupDetail(pageNum, title) {
+      const popup = document.getElementById('mockupDetailPopup');
+      document.getElementById('popupPageTitle').innerText = `📖 ${pageNum}P ページ詳細: ${title}`;
+      document.getElementById('popupThumb').innerText = `${pageNum}P プレビュー`;
+      popup.classList.add('active');
+    }
+    function closeMockupDetail() {
+      document.getElementById('mockupDetailPopup').classList.remove('active');
+    }
 
     // 👤 マイページ動的反映
     function updateMypageData() {
