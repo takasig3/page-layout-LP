@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageLayout - 編集・出版のためのスマート台割・レイアウトツール</title>
-  <!-- Supabase Client CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     /* 🌟 基本設定 & カラーパレット */
     :root {
@@ -77,9 +75,8 @@
     .nav-links a:hover { opacity: 0.8; }
 
     .header-actions { display: flex; align-items: center; gap: 10px; }
-    .btn-login { background: transparent; color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; text-decoration: none; }
     .btn-contact-header { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
-    .btn-start-free { background: var(--primary); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; }
+    .btn-app-launch { background: var(--primary); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; }
 
     .hamburger-btn { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
 
@@ -130,7 +127,7 @@
       display: flex; justify-content: center; align-items: center; color: #fff; font-size: 10px; font-weight: bold;
     }
 
-    /* クリック時に開くミニ詳細ポップアップ（UIモックアップ内蔵） */
+    /* 💡 クリック時に開くミニ詳細ポップアップ */
     .interactive-detail-overlay {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 29, 0.92);
       border-radius: 10px; display: none; flex-direction: column; padding: 16px; gap: 10px; z-index: 50;
@@ -224,13 +221,13 @@
     .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
     .pricing-features li { font-size: 13px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 
-    /* 🌟 モーダル共通スタイル */
+    /* 🌟 モーダル共通スタイル (z-indexを10000に強化) */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 2000;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 10000;
       display: none; justify-content: center; align-items: center; padding: 20px;
     }
-    .modal-overlay.active { display: flex; }
+    .modal-overlay.active { display: flex !important; }
     .modal-box {
       background: #0f172a; border: 1px solid var(--glass-border); border-radius: 16px;
       padding: 28px; width: 100%; max-width: 440px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
@@ -244,11 +241,7 @@
       background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
       border-radius: 6px; padding: 10px; color: #fff; font-size: 13px; outline: none;
     }
-    .form-group input:focus { border-color: #38bdf8; }
-
-    .mypage-info-card { background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border); padding: 12px; border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
-    .mypage-meter-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-top: 4px; }
-    .mypage-meter-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, #2ed573); border-radius: 4px; }
+    .form-group input:focus, .form-group textarea:focus { border-color: #38bdf8; }
 
     /* 🌟 TOPへ戻るフローティングボタン */
     .back-to-top {
@@ -290,14 +283,13 @@
       <ul class="nav-links">
         <li><a href="#features" data-ja="機能" data-en="Features">機能</a></li>
         <li><a href="#pricing" data-ja="料金" data-en="Pricing">料金</a></li>
-        <li><a href="javascript:void(0)" id="openMypageBtn" data-ja="マイページ" data-en="My Page">マイページ</a></li>
       </ul>
 
       <div class="header-actions">
+        <!-- 問い合わせボタン（立ち上がり修復済み） -->
         <button class="btn-contact-header" id="openContactBtn" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</button>
-        <!-- ✨ ログイン・登録モーダル起動ボタン -->
-        <button class="btn-login" id="openAuthModalBtn" data-ja="ログイン" data-en="Log In">ログイン</button>
-        <button class="btn-start-free" id="openSignUpModalBtn" data-ja="無料で始める" data-en="Start Free">無料で始める</button>
+        <!-- アプリ起動ボタン -->
+        <a href="index.html" class="btn-app-launch" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
     </div>
   </header>
@@ -309,8 +301,9 @@
     <p data-ja="直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。" data-en="Assemble page layouts seamlessly with intuitive drag-and-drop. Boost productivity with real-time collaboration.">直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。</p>
     
     <div class="hero-cta">
-      <button class="btn-main" id="heroStartBtn" data-ja="無料で今すぐ始める" data-en="Start Free Now">無料で今すぐ始める</button>
-      <a href="#features" class="btn-secondary" data-ja="詳しく見る" data-en="Learn More">詳しく見る</a>
+      <!-- 内部リンクボタンへ変更 -->
+      <a href="#features" class="btn-main" data-ja="機能を見る" data-en="View Features">機能を見る</a>
+      <a href="#pricing" class="btn-secondary" data-ja="料金を見る" data-en="View Pricing">料金を見る</a>
     </div>
 
     <!-- 🌟 3段構成＆リアルタイム操作・アニメーション付きメイン台割モックアップ -->
@@ -321,6 +314,7 @@
           <span data-ja="👥 リアルタイム共同編集: 3名参加中" data-en="👥 Live Collaborators: 3">👥 リアルタイム共同編集: 3名参加中</span>
         </div>
 
+        <!-- 3段構成（12P） -->
         <div class="mockup-grid-3tier">
           <div class="mockup-card-page" onclick="openMockupDetail(1, '表紙イラスト')">
             <span class="card-top-tag"><span>1 P</span><span>💬2</span></span>
@@ -395,7 +389,7 @@
           </div>
         </div>
 
-        <!-- 💡 カードをクリックした時に飛び出す「詳細・コメント・ファイル添付」ポップアッププレビュー -->
+        <!-- 💡 カードをクリックした時に飛び出すポップアッププレビュー -->
         <div class="interactive-detail-overlay" id="mockupDetailPopup">
           <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:8px;">
             <strong id="popupPageTitle" style="color:#38bdf8; font-size:14px;">📖 ページ詳細 & コメント</strong>
@@ -549,7 +543,7 @@
     </div>
   </section>
 
-  <!-- 料金プラン (★500円/月額に修正完了) -->
+  <!-- 料金プラン (★500円/月額に修正済み) -->
   <section class="pricing" id="pricing">
     <div class="section-title">
       <h2 data-ja="シンプルで柔軟な料金体系" data-en="Simple Pricing Plans">シンプルで柔軟な料金体系</h2>
@@ -566,13 +560,13 @@
           <li data-ja="✨ PDF・JPG出力" data-en="✨ PDF & JPG export">✨ PDF・JPG出力</li>
           <li data-ja="✨ メンバー招待（最大3名まで）" data-en="✨ Up to 3 collaborators">✨ メンバー招待（最大3名まで）</li>
         </ul>
-        <button class="btn-secondary" onclick="openAuthModal('signup')" style="text-align:center; width:100%; cursor:pointer;" data-ja="無料でスタート" data-en="Start Free">無料でスタート</button>
+        <a href="index.html" class="btn-secondary" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
 
       <div class="pricing-card popular">
         <span class="popular-tag" data-ja="おすすめ" data-en="Recommended">おすすめ</span>
         <h3 data-ja="プレミアムプラン" data-en="Premium Plan">プレミアムプラン</h3>
-        <!-- ✨ 料金を「¥500/月額」に修正 -->
+        <!-- ✨ 500円表示に更新 -->
         <div class="price">¥500 <span data-ja="/ 月額" data-en="/ Month">/ Month</span></div>
         <ul class="pricing-features">
           <li data-ja="✨ フリープランの全機能" data-en="✨ All Free plan features">✨ フリープランの全機能</li>
@@ -581,44 +575,12 @@
           <li data-ja="✨ 超大容量クラウドサムネイル保存" data-en="✨ Unlimited cloud thumbnail storage">✨ 超大容量クラウドサムネイル保存</li>
           <li data-ja="✨ 優先カスタマーサポート" data-en="✨ Priority customer support">✨ 優先カスタマーサポート</li>
         </ul>
-        <button class="btn-main" onclick="openAuthModal('signup')" style="text-align:center; width:100%; cursor:pointer;" data-ja="プレミアムを試す" data-en="Try Premium">プレミアムを試す</button>
+        <a href="index.html" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
     </div>
   </section>
 
-  <!-- 🔐 ログイン / 新規会員登録 モーダル -->
-  <div class="modal-overlay" id="authModal">
-    <div class="modal-box">
-      <button class="modal-close-btn" id="closeAuthBtn">&times;</button>
-      <h3 id="authModalTitle" data-ja="📖 PageLayout にログイン" data-en="📖 Log in to PageLayout">📖 PageLayout にログイン</h3>
-      <p style="font-size: 12px; color: #94a3b8; text-align: center;" id="authModalDesc">
-        メールアドレスとパスワードを入力してください。<br>アカウントをお持ちでない場合は入力して登録できます。
-      </p>
-
-      <div class="form-group">
-        <label data-ja="メールアドレス" data-en="Email Address">メールアドレス</label>
-        <input type="email" id="authEmail" placeholder="example@company.com">
-      </div>
-
-      <div class="form-group">
-        <label data-ja="パスワード (6文字以上)" data-en="Password (6+ chars)">パスワード (6文字以上)</label>
-        <input type="password" id="authPassword" placeholder="••••••••">
-      </div>
-
-      <div style="display: flex; gap: 10px; margin-top: 8px;">
-        <button type="button" id="signUpBtn" class="btn-secondary" style="flex:1; font-size: 12px; padding: 10px;" data-ja="新規アカウント登録" data-en="Sign Up">新規アカウント登録</button>
-        <button type="button" id="signInBtn" class="btn-main" style="flex:1; font-size: 12px; padding: 10px;" data-ja="ログイン" data-en="Log In">ログイン</button>
-      </div>
-
-      <div style="text-align: center; margin: 6px 0; font-size: 11px; color: #64748b;">または</div>
-
-      <button type="button" id="googleAuthBtn" class="btn-secondary" style="width: 100%; font-size: 12px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-        🌐 Googleアカウントでログイン
-      </button>
-    </div>
-  </div>
-
-  <!-- 📩 お問い合わせモーダル -->
+  <!-- 📩 お問い合わせモーダル (機能修復済み) -->
   <div class="modal-overlay" id="contactModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeContactBtn">&times;</button>
@@ -643,42 +605,6 @@
     </div>
   </div>
 
-  <!-- 👤 アプリデータ連携マイページモーダル -->
-  <div class="modal-overlay" id="mypageModal">
-    <div class="modal-box">
-      <button class="modal-close-btn" id="closeMypageBtn">&times;</button>
-      <h3 data-ja="👤 マイページ / アカウント状態" data-en="👤 My Page / Status">👤 マイページ / アカウント状態</h3>
-
-      <div class="mypage-info-card">
-        <span style="font-size:11px; color:#94a3b8;" data-ja="現在の契約プラン" data-en="Current Plan">現在の契約プラン</span>
-        <strong style="font-size:16px; color:#38bdf8;" id="myPlanName">フリープラン（無料）</strong>
-      </div>
-
-      <div class="mypage-info-card">
-        <span style="font-size:11px; color:#94a3b8;" data-ja="アクティブな台割ボード数" data-en="Active Boards">アクティブな台割ボード数</span>
-        <strong style="font-size:15px;" id="myBoardCount">0 ボード作成済み</strong>
-      </div>
-
-      <div class="mypage-info-card">
-        <span style="font-size:11px; color:#94a3b8;" data-ja="登録メンバー数" data-en="Collaborators">登録メンバー数</span>
-        <strong style="font-size:15px;" id="myCollabCount">1 名</strong>
-      </div>
-
-      <div class="mypage-info-card">
-        <div style="display:flex; justify-content:space-between; font-size:11px; color:#94a3b8;">
-          <span data-ja="データ使用容量" data-en="Storage Usage">データ使用容量</span>
-          <span id="myStorageText">0.0 MB / 5.0 MB</span>
-        </div>
-        <div class="mypage-meter-bg">
-          <div class="mypage-meter-fill" id="myStorageBar" style="width: 0%;"></div>
-        </div>
-      </div>
-
-      <!-- ✨ アプリ本体（index.html）へ移動するボタン -->
-      <a href="index.html" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリ（台割ツール）を開く" data-en="Open PageLayout App">アプリ（台割ツール）を開く ➔</a>
-    </div>
-  </div>
-
   <!-- フローティング TOPへ戻るボタン -->
   <a href="#top" class="back-to-top" title="Top">▲</a>
 
@@ -686,45 +612,39 @@
     <p>© 2026 PageLayout App. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 Supabase ＆ アプリデータ完全動的連携スクリプト -->
+  <!-- 🌐 各種インタラクション・イベント制御スクリプト -->
   <script>
-    // Supabase 初期化（アプリ版のAPIキーを適用）
-    const SUPABASE_URL = 'https://ljkdezzgexmcjkfqydvh.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_ae2OJ-oienvWuEAcC6hPsQ_rjf9gi9V';
-    let supabase = null;
-    try {
-      if (window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-      }
-    } catch(e) {}
-
-    // ハンバーガーメニュー
+    // 🍔 ハンバーガーメニュー開閉
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navContainer = document.getElementById('navContainer');
-    hamburgerBtn.addEventListener('click', () => navContainer.classList.toggle('active'));
+    hamburgerBtn.addEventListener('click', () => {
+      navContainer.classList.toggle('active');
+    });
 
-    // モーダル操作
-    const authModal = document.getElementById('authModal');
+    // 📩 お問い合わせモーダル立ち上がり制御 (完全修復)
     const contactModal = document.getElementById('contactModal');
-    const mypageModal = document.getElementById('mypageModal');
+    const openContactBtn = document.getElementById('openContactBtn');
+    const closeContactBtn = document.getElementById('closeContactBtn');
 
-    function openAuthModal(mode) {
-      authModal.classList.add('active');
+    if (openContactBtn && contactModal) {
+      openContactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactModal.classList.add('active');
+      });
     }
 
-    document.getElementById('openAuthModalBtn').addEventListener('click', () => openAuthModal('login'));
-    document.getElementById('openSignUpModalBtn').addEventListener('click', () => openAuthModal('signup'));
-    document.getElementById('heroStartBtn').addEventListener('click', () => openAuthModal('signup'));
-    document.getElementById('closeAuthBtn').addEventListener('click', () => authModal.classList.remove('active'));
+    if (closeContactBtn && contactModal) {
+      closeContactBtn.addEventListener('click', () => {
+        contactModal.classList.remove('active');
+      });
+    }
 
-    document.getElementById('openContactBtn').addEventListener('click', () => contactModal.classList.add('active'));
-    document.getElementById('closeContactBtn').addEventListener('click', () => contactModal.classList.remove('active'));
-
-    document.getElementById('openMypageBtn').addEventListener('click', () => {
-      syncAppMypageData();
-      mypageModal.classList.add('active');
+    // モーダル背景クリック時にも閉じる
+    window.addEventListener('click', (e) => {
+      if (e.target === contactModal) {
+        contactModal.classList.remove('active');
+      }
     });
-    document.getElementById('closeMypageBtn').addEventListener('click', () => mypageModal.classList.remove('active'));
 
     // 💡 モックアップカード詳細ポップアップ開閉関数
     function openMockupDetail(pageNum, title) {
@@ -737,121 +657,38 @@
       document.getElementById('mockupDetailPopup').classList.remove('active');
     }
 
-    // 🔑 ログイン / 新規登録 処理
-    document.getElementById('signInBtn').addEventListener('click', async () => {
-      const email = document.getElementById('authEmail').value.trim();
-      const password = document.getElementById('authPassword').value.trim();
-      if (!email || !password) return alert("メールアドレスとパスワードを入力してください。");
-
-      if (supabase) {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          alert("ログインエラー: " + error.message);
-        } else {
-          window.location.href = "index.html";
-        }
-      } else {
-        window.location.href = "index.html";
-      }
-    });
-
-    document.getElementById('signUpBtn').addEventListener('click', async () => {
-      const email = document.getElementById('authEmail').value.trim();
-      const password = document.getElementById('authPassword').value.trim();
-      if (!email || !password) return alert("メールアドレスとパスワードを入力してください。");
-      if (password.length < 6) return alert("パスワードは6文字以上で入力してください。");
-
-      if (supabase) {
-        const { data, error } = await supabase.auth.signUp({ email, password });
-        if (error) {
-          alert("登録エラー: " + error.message);
-        } else {
-          alert("アカウント登録が完了しました！そのままアプリをご利用いただけます。");
-          window.location.href = "index.html";
-        }
-      } else {
-        window.location.href = "index.html";
-      }
-    });
-
-    document.getElementById('googleAuthBtn').addEventListener('click', () => {
-      if (supabase) {
-        supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: { redirectTo: window.location.origin + "/index.html" }
-        });
-      } else {
-        window.location.href = "index.html";
-      }
-    });
-
-    // 👤 マイページ数値の動的更新
-    function syncAppMypageData() {
-      const rawData = localStorage.getItem('pagelayout_store');
-      let boardCount = 0;
-      let memberCount = 1;
-      let storageMB = "0.00";
-
-      if (rawData) {
-        try {
-          const store = JSON.parse(rawData);
-          if (store.projects && Array.isArray(store.projects)) {
-            boardCount = store.projects.length;
-            const currentProj = store.projects.find(p => p.id === store.currentProjectId) || store.projects[0];
-            if (currentProj && currentProj.collaborators) {
-              memberCount = currentProj.collaborators.length;
-            }
-          }
-          const bytes = new Blob([rawData]).size;
-          storageMB = (bytes / (1024 * 1024)).toFixed(2);
-        } catch (e) {}
-      }
-
-      const loginBtn = document.getElementById('openAuthModalBtn');
-      if (boardCount > 0 && loginBtn) {
-        loginBtn.innerText = currentLang === 'ja' ? 'アプリへ移動 ➔' : 'Open App ➔';
-        loginBtn.onclick = () => window.location.href = "index.html";
-      }
-
-      document.getElementById('myBoardCount').innerText = `${boardCount} ボード作成済み`;
-      document.getElementById('myCollabCount').innerText = `${memberCount} 名`;
-      document.getElementById('myStorageText').innerText = `${storageMB} MB / 5.0 MB`;
-      const percent = Math.min(100, Math.round((parseFloat(storageMB) / 5.0) * 100));
-      document.getElementById('myStorageBar').style.width = `${percent}%`;
-    }
-
-    window.addEventListener('load', syncAppMypageData);
-
     // 📩 Formspreeによる実送信処理
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
 
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.innerText = '送信中...';
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = '送信中...';
 
-      const formData = new FormData(contactForm);
+        const formData = new FormData(contactForm);
 
-      fetch(contactForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
-        contactModal.classList.remove('active');
-        contactForm.reset();
-      }).catch(error => {
-        alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
-        contactModal.classList.remove('active');
-        contactForm.reset();
-      }).finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerText = '送信する';
+        fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        }).then(response => {
+          alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
+          contactModal.classList.remove('active');
+          contactForm.reset();
+        }).catch(error => {
+          alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
+          contactModal.classList.remove('active');
+          contactForm.reset();
+        }).finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerText = '送信する';
+        });
       });
-    });
+    }
 
-    // 🌐 言語切替処理
+    // 🌐 言語切替スクリプト
     const langBtn = document.getElementById('langToggleBtn');
     let currentLang = 'ja';
 
