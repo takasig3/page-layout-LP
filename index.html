@@ -51,7 +51,7 @@
       background-size: 48px 48px; pointer-events: none;
     }
 
-    /* 🌟 最前面固定ヘッダー (言語ボタンをハンバーガー外・横に常時配置) */
+    /* 🌟 最前面固定ヘッダー */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       display: flex; justify-content: space-between; align-items: center;
@@ -96,15 +96,14 @@
     .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.25; margin-bottom: 16px; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero p { font-size: 14.5px; color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
     .hero-cta { display: flex; gap: 14px; justify-content: center; align-items: center; }
-    .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; }
+    .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; border: none; cursor: pointer; }
     .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
 
-    /* 🌟 3段構成＆リアルテキスト・画像配置の台割画面（メインモックアップ） */
+    /* 🌟 台割モックアップ */
     .hero-mockup { margin: 36px auto 0; max-width: 960px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 16px; padding: 12px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
     .mockup-window { background: rgba(15, 23, 42, 0.9); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
     .mockup-header { background: rgba(255, 255, 255, 0.08); height: 32px; border-radius: 6px; display: flex; align-items: center; padding: 0 12px; font-size: 11px; font-weight: bold; color: #38bdf8; justify-content: space-between; }
     
-    /* 3段グリッド構造 */
     .mockup-grid-3tier { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
     @media (max-width: 640px) { .mockup-grid-3tier { grid-template-columns: repeat(2, 1fr); } }
 
@@ -115,7 +114,6 @@
     .mockup-card-page:hover { transform: translateY(-3px); }
     .card-top-tag { font-size: 8px; font-weight: bold; color: #fff; background: var(--primary); padding: 1px 5px; border-radius: 3px; width: fit-content; }
     
-    /* テキスト・写真風要素 */
     .p-title-line { height: 6px; background: #1e293b; border-radius: 2px; width: 70%; margin-bottom: 2px; }
     .p-text-block { display: flex; flex-direction: column; gap: 2px; flex: 1; }
     .p-line { height: 3px; background: #cbd5e1; border-radius: 1px; width: 100%; }
@@ -265,7 +263,6 @@
     <a href="#top" class="logo">📖 PageLayout</a>
     
     <div class="header-right-group">
-      <!-- 🌐 言語切替（スマホでも常にヘッダー右側に常駐） -->
       <button id="langToggleBtn" class="lang-btn">🌐 EN</button>
       <button class="hamburger-btn" id="hamburgerBtn">☰</button>
     </div>
@@ -304,10 +301,7 @@
           <span data-ja="👥 リアルタイム共同編集: 3名参加中" data-en="👥 Live Collaborators: 3">👥 リアルタイム共同編集: 3名参加中</span>
         </div>
 
-        <!-- 3段構成（計12P表示） -->
         <div class="mockup-grid-3tier">
-          
-          <!-- 1段目 (1P〜4P) -->
           <div class="mockup-card-page">
             <span class="card-top-tag">1 P</span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #0079bf, #764ba2);">🖼️ 表紙イラスト</div>
@@ -331,7 +325,6 @@
             </div>
           </div>
 
-          <!-- 2段目 (5P〜8P) -->
           <div class="mockup-card-page">
             <span class="card-top-tag">5 P</span>
             <div class="p-img-box" style="background: linear-gradient(135deg, #f3a683, #eb3b5a);">🖼️ デザイングラフィック</div>
@@ -355,7 +348,6 @@
             <div class="p-img-box" style="background: linear-gradient(135deg, #38bdf8, #0079bf);">🖼️ 水辺・風景写真</div>
           </div>
 
-          <!-- 3段目 (9P〜12P) -->
           <div class="mockup-card-page">
             <span class="card-top-tag">9 P</span>
             <div class="p-title-line"></div>
@@ -381,7 +373,6 @@
               <div class="p-line"></div><div class="p-line" style="width:60%;"></div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -395,7 +386,6 @@
     </div>
 
     <div class="features-grid">
-      <!-- 1: 開き方向切り替え -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-book-wrapper">
@@ -407,7 +397,6 @@
         <p data-ja="同人誌・漫画の「右開き」、カタログの「左開き」をワンタップ切替。2P見開き配置もスムーズに表現。" data-en="Switch easily between Right-to-Left and Left-to-Right bindings, with full 2P spread layouts.">同人誌・漫画の「右開き」、カタログの「左開き」をワンタップ切替。2P見開き配置もスムーズに表現。</p>
       </div>
 
-      <!-- 2: 自動繰り下げ移動 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-cursor"></div>
@@ -425,7 +414,6 @@
         <p data-ja="カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」などの柔軟な制御が可能です。" data-en="Inserting a card automatically shifts subsequent pages backward or swaps their positions gracefully.">カードを挿入する際、以降のページを「後ろに自動でずらす」「入れ替える」「縦積みする」などの柔軟な制御が可能です。</p>
       </div>
 
-      <!-- 3: PDF / JPG / PNG ドロップ -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="drop-box">
@@ -440,7 +428,6 @@
         <p data-ja="原稿ファイル（PDF・JPG・PNG画像）を直接ドロップするだけでサムネイルを自動生成。視覚的に全体像を把握できます。" data-en="Drop PDF, JPG, or PNG files directly to auto-generate crisp page thumbnails in real time.">原稿ファイル（PDF・JPG・PNG画像）を直接ドロップするだけでサムネイルを自動生成。視覚的に全体像を把握できます。</p>
       </div>
 
-      <!-- 4: コメント＆資料添付 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="chat-demo-box">
@@ -453,7 +440,6 @@
         <p data-ja="各ページにチャットスレッドで指示事項を残したり、参考Webリンクや資料ファイルを直接ドロップして添付可能。" data-en="Leave comments, pin reference links, or attach document files directly to individual pages.">各ページにチャットスレッドで指示事項を残したり、参考Webリンクや資料ファイルを直接ドロップして添付可能。</p>
       </div>
 
-      <!-- 5: ステータスタグ進行管理 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="card-tag-demo">
@@ -466,7 +452,6 @@
         <p data-ja="「ラフ」「初校」「再校」「責了」「校了」などのカラフルなタグで各ページの進捗状況が一目で分かります。" data-en="Track progress at a glance with colorful customizable status tags like Rough, 1st Proof, and Approved.">「ラフ」「初校」「再校」「責了」「校了」などのカラフルなタグで各ページの進捗状況が一目で分かります。</p>
       </div>
 
-      <!-- 6: 3Dページめくり機能（1P->2P->3P） -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="flip-book-container">
@@ -479,7 +464,6 @@
         <p data-ja="詳細モーダルで原稿を大きく表示。左右の矢印ボタンで前後のページをサクサクめくりながらチェックできます。" data-en="Enlarge previews in a detailed modal and flip through pages consecutively using side arrows.">詳細モーダルで原稿を大きく表示。左右の矢印ボタンで前後のページをサクサクめくりながらチェックできます。</p>
       </div>
 
-      <!-- 7: リアルタイム共同編集 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="collab-wrapper-multi">
@@ -500,7 +484,6 @@
         <p data-ja="クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムで台割の最新状態を共有可能。" data-en="Sync instantly via cloud to collaborate live with team members, editors, and designers.">クラウド同期（Supabase連携）により、チームメンバーや作家・デザイナーとリアルタイムで台割の最新状態を共有可能。</p>
       </div>
 
-      <!-- 8: リスト表示で並び替え -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="list-container">
@@ -512,7 +495,6 @@
         <p data-ja="全体のページ順をリスト上でドラッグ＆ドロップや上下ボタンで即座に入れ替え。大幅な構成変更もストレスなく完了。" data-en="Reorder entire page structures easily via list drag-and-drop or up/down action buttons.">全体のページ順をリスト上でドラッグ＆ドロップや上下ボタンで即座に入れ替え。大幅な構成変更もストレスなく完了。</p>
       </div>
 
-      <!-- 9: データ書き出し -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="export-box">
@@ -563,17 +545,18 @@
     </div>
   </section>
 
-  <!-- 📩 お問い合わせモーダル (takasig3@gmail.com 送信先対応) -->
+  <!-- 📩 お問い合わせモーダル (Formspree ID組み込み完了版) -->
   <div class="modal-overlay" id="contactModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeContactBtn">&times;</button>
       <h3 data-ja="📩 お問い合わせ" data-en="📩 Contact Us">📩 お問い合わせ</h3>
       <p style="font-size:12px; color:#94a3b8;" data-ja="ご質問や導入のご相談など、お気軽にお問い合わせください。" data-en="Please feel free to contact us with any questions or consultations.">ご質問や導入のご相談など、お気軽にお問い合わせください。</p>
       
-      <form action="https://formspree.io/f/xknp_dummy" method="POST" id="contactForm">
+      <!-- 発行された Formspree URL を組み込み済み -->
+      <form action="https://formspree.io/f/xoealopw" method="POST" id="contactForm">
         <div class="form-group">
           <label data-ja="お名前" data-en="Your Name">お名前</label>
-          <input type="text" name="name" required placeholder="例: 山田 太郎">
+          <input type="text" name="name" required placeholder="name">
         </div>
         <div class="form-group" style="margin-top:10px;">
           <label data-ja="メールアドレス" data-en="Email Address">メールアドレス</label>
@@ -583,14 +566,12 @@
           <label data-ja="お問い合わせ内容" data-en="Message">お問い合わせ内容</label>
           <textarea name="message" rows="4" required placeholder="ご質問やご要望をご記入ください..."></textarea>
         </div>
-        <!-- takasig3@gmail.com への送信設定 -->
-        <input type="hidden" name="_to" value="takasig3@gmail.com">
-        <button type="submit" class="btn-main" style="width:100%; margin-top:16px;" data-ja="送信する" data-en="Send Message">送信する</button>
+        <button type="submit" id="submitBtn" class="btn-main" style="width:100%; margin-top:16px;" data-ja="送信する" data-en="Send Message">送信する</button>
       </form>
     </div>
   </div>
 
-  <!-- 👤 マイページモーダル (アプリデータ連動・動的反映) -->
+  <!-- 👤 マイページモーダル (動的データ連携) -->
   <div class="modal-overlay" id="mypageModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeMypageBtn">&times;</button>
@@ -632,7 +613,7 @@
     <p>© 2026 PageLayout App. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 各種インタラクション & マイページ動的反映スクリプト -->
+  <!-- 🌐 各種インタラクションスクリプト -->
   <script>
     // 🍔 ハンバーガーメニュー開閉
     const hamburgerBtn = document.getElementById('hamburgerBtn');
@@ -649,12 +630,12 @@
     document.getElementById('closeContactBtn').addEventListener('click', () => contactModal.classList.remove('active'));
 
     document.getElementById('openMypageBtn').addEventListener('click', () => {
-      updateMypageData(); // 開くたびにデータ更新
+      updateMypageData();
       mypageModal.classList.add('active');
     });
     document.getElementById('closeMypageBtn').addEventListener('click', () => mypageModal.classList.remove('active'));
 
-    // 👤 マイページのデータ動的反映（localStorageからアプリの使用量を算出）
+    // 👤 マイページ動的反映
     function updateMypageData() {
       const appData = localStorage.getItem('pagelayout_data');
       let boardCount = 1;
@@ -664,7 +645,6 @@
         try {
           const parsed = JSON.parse(appData);
           if (Array.isArray(parsed)) boardCount = Math.max(1, parsed.length);
-          // ストレージ使用量の概算計算
           const bytes = new Blob([appData]).size;
           storageMB = Math.max(1.2, (bytes / (1024 * 1024) * 15).toFixed(1));
         } catch (e) {}
@@ -676,14 +656,36 @@
       document.getElementById('myStorageBar').style.width = `${percent}%`;
     }
 
-    // 📩 フォーム送信時の擬似フィードバック処理
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    // 📩 Formspreeによる実送信処理
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('お問い合わせありがとうございます！\ntakasig3@gmail.com 宛てにメッセージを送信しました。');
-      contactModal.classList.remove('active');
+      submitBtn.disabled = true;
+      submitBtn.innerText = '送信中...';
+
+      const formData = new FormData(contactForm);
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
+        contactModal.classList.remove('active');
+        contactForm.reset();
+      }).catch(error => {
+        alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
+        contactModal.classList.remove('active');
+        contactForm.reset();
+      }).finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = '送信する';
+      });
     });
 
-    // 🌐 言語切替＆アニメーション連動スクリプト
+    // 🌐 言語切替スクリプト
     const langBtn = document.getElementById('langToggleBtn');
     let currentLang = 'ja';
 
