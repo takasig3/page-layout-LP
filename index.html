@@ -226,6 +226,13 @@
     .export-file { background: #2ed573; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
     @keyframes arrowDown { 0%, 100% { transform: translateY(-4px); opacity: 0.3; } 50% { transform: translateY(4px); opacity: 1; } }
 
+    /* 🛡️ セキュリティ用デモアニメーション */
+    .sec-demo-box { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; }
+    .sec-shield { font-size: 40px; animation: shieldPulse 2.5s infinite ease-in-out; filter: drop-shadow(0 0 10px rgba(46, 213, 115, 0.6)); }
+    .sec-badge-list { display: flex; gap: 6px; }
+    .sec-chip { font-size: 9px; font-weight: bold; background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 2px 8px; border-radius: 12px; }
+    @keyframes shieldPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
     /* 🌟 3プラン構成の料金セクション */
     .pricing { padding: 70px 4%; background: rgba(0, 0, 0, 0.2); }
     .pricing-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 1050px; margin: 0 auto; }
@@ -305,6 +312,7 @@
 
       <div class="header-actions">
         <button class="btn-contact-header" id="openContactBtn" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</button>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に一括更新 -->
         <a href="https://app.p-layout.com" target="_blank" class="btn-app-launch" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
     </div>
@@ -317,6 +325,7 @@
     <p data-ja="直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。" data-en="Assemble page layouts seamlessly with intuitive drag-and-drop. Boost productivity with real-time collaboration.">直感的なドラッグ＆ドロップでページ構成を自由自在にアセンブル。リアルタイム共同編集と先進的な構造で作業スピードを向上させます。</p>
     
     <div class="hero-cta">
+      <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に一括更新 -->
       <a href="https://app.p-layout.com" target="_blank" class="btn-main" data-ja="アプリを開く" data-en="Open App">アプリを開く ➔</a>
       <a href="#features" class="btn-secondary" data-ja="機能を見る" data-en="View Features">機能を見る</a>
     </div>
@@ -577,6 +586,22 @@
         <h3 data-ja="PDF・JPG＆データを出力" data-en="PDF, JPG & JSON Export">PDF・JPGデータを出力</h3>
         <p data-ja="完成した台割はワンクリックで高解像度PDFやJPG画像としてエクスポート。バックアップ用JSONの保管・復元にも完全対応。" data-en="Export completed layouts to high-res PDF or JPG, or back up project states as JSON files.">完成した台割はワンクリックで高解像度PDFやJPG画像としてエクスポート。バックアップ用JSONの保管・復元にも完全対応。</p>
       </div>
+
+      <!-- 🌟 企業様向け：セキュリティ・堅牢性のアピールカード（新規追加） -->
+      <div class="feature-card" style="border: 1px solid rgba(46, 213, 115, 0.4); background: rgba(46, 213, 115, 0.05);">
+        <div class="demo-viewport">
+          <div class="sec-demo-box">
+            <span class="sec-shield">🛡️</span>
+            <div class="sec-badge-list">
+              <span class="sec-chip">SSL/TLS 暗号化</span>
+              <span class="sec-chip">Google OAuth</span>
+              <span class="sec-chip">Supabase RLS</span>
+            </div>
+          </div>
+        </div>
+        <h3 data-ja="エンタープライズ基準のセキュリティ" data-en="Enterprise-Grade Security">エンタープライズ基準のセキュリティ</h3>
+        <p data-ja="全通信を常時TLS暗号化。認証基盤にはSupabase・Google OAuthを採用し、厳格なアクセス制御（RLS）で企業データや原稿を保護します。" data-en="All traffic is TLS encrypted. Built with Supabase & Google OAuth with strict RLS policies to safeguard sensitive corporate data.">全通信を常時TLS暗号化。認証基盤にはSupabase・Google OAuthを採用し、厳格なアクセス制御（RLS）で企業データや原稿を保護します。</p>
+      </div>
     </div>
   </section>
 
@@ -598,6 +623,7 @@
           <li data-ja="✨ PDF・JPG出力（低解像度）" data-en="✨ PDF & JPG export (Low-res)">✨ PDF・JPG出力（低解像度）</li>
           <li data-ja="✨ メンバー招待（最大3名まで）" data-en="✨ Up to 3 collaborators">✨ メンバー招待（最大3名まで）</li>
         </ul>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に更新 -->
         <a href="https://app.p-layout.com" target="_blank" class="btn-secondary" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
 
@@ -613,6 +639,7 @@
           <li data-ja="✨ JSONバックアップ / 復元機能" data-en="✨ JSON Backup & Restore">✨ JSONバックアップ / 復元機能</li>
           <li data-ja="✨ 高画質 PDF・JPG エクスポート" data-en="✨ High-res PDF & JPG Export">✨ 高画質 PDF・JPG エクスポート</li>
         </ul>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に更新 -->
         <a href="https://app.p-layout.com" target="_blank" class="btn-main" style="text-align:center; text-decoration:none; background:#0284c7;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
 
@@ -627,7 +654,8 @@
           <li data-ja="✨ 全クラウド同期＆全バックアップ機能" data-en="✨ Full Cloud Sync & JSON Support">✨ 全クラウド同期＆全バックアップ機能</li>
           <li data-ja="✨ 優先カスタマーサポート" data-en="✨ Priority Support">✨ 優先カスタマーサポート</li>
         </ul>
-        <a href="https://pagelayout.pages.dev/" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に更新 -->
+        <a href="https://app.p-layout.com" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
       </div>
     </div>
   </section>
