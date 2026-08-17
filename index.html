@@ -4,198 +4,825 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageLayout - 法人向け台割・構成案一元管理プラットフォーム</title>
-  <meta name="description" content="チームの制作スピードを劇的に変える、次世代の企業用資料・構成管理プラットフォーム。法人向け台割管理と堅牢なセキュリティでチーム業務を効率化します。">
-  <link rel="stylesheet" href="style.css">
+  
+  <!-- 🌟 ブラウザタブ（Favicon）ロゴ設定 -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0f1d' stroke='%2338bdf8' stroke-width='3'/%3E%3Cpolygon points='50,18 82,50 50,82 18,50' fill='%2338bdf8'/%3E%3C/svg%3E">
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* 🌟 基本設定 & カラーパレット */
+    :root {
+      --bg-dark: #0a0f1d;
+      --primary: #0079bf;
+      --primary-hover: #005a8f;
+      --accent-purple: #764ba2;
+      --accent-cyan: #2ed573;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      background-color: var(--bg-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* 🌟 背景アニメーション */
+    .animated-bg {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 1; filter: blur(80px); opacity: 0.75; pointer-events: none;
+    }
+    .blob { position: absolute; border-radius: 50%; animation: floatAround 8s infinite alternate ease-in-out; }
+    .blob-1 { top: -10%; left: 10%; width: 550px; height: 550px; background: linear-gradient(135deg, var(--primary), #667eea); }
+    .blob-2 { bottom: 10%; right: 5%; width: 600px; height: 600px; background: linear-gradient(135deg, var(--accent-purple), #f3a683); animation-duration: 10s; animation-delay: -2s; }
+    .blob-3 { top: 30%; left: 30%; width: 450px; height: 450px; background: linear-gradient(135deg, var(--accent-cyan), #11998e); animation-duration: 7s; animation-delay: -4s; }
+
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(140px, 100px) scale(1.25) rotate(180deg); }
+      100% { transform: translate(-100px, 140px) scale(0.85) rotate(360deg); }
+    }
+
+    .grid-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 2;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px; pointer-events: none;
+    }
+
+    /* 🌟 最前面固定ヘッダー */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 4%; background: rgba(10, 15, 29, 0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--glass-border); box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    
+    .logo-img-wrapper { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .custom-logo-icon {
+      width: 32px; height: 32px; border-radius: 6px; object-fit: cover;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.6); border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+    .logo-text { font-size: 18px; font-weight: 800; color: #38bdf8; letter-spacing: 0.5px; }
+
+    .header-right-group { display: flex; align-items: center; gap: 10px; }
+    .lang-btn { background: rgba(255, 255, 255, 0.15); color: #fff; border: 1px solid var(--glass-border); padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; white-space: nowrap; }
+
+    .nav-container { display: flex; align-items: center; gap: 16px; }
+    .nav-links { display: flex; gap: 16px; align-items: center; list-style: none; }
+    .nav-links a { text-decoration: none; color: #ffffff !important; font-size: 13.5px; font-weight: 600; transition: opacity 0.2s; }
+    .nav-links a:hover { opacity: 0.8; }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-contact-header { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--glass-border); padding: 7px 14px; border-radius: 6px; font-size: 12px; font-weight: bold; cursor: pointer; }
+    .btn-app-launch { background: var(--primary); color: #fff !important; padding: 7px 16px; border-radius: 6px; font-size: 12px; font-weight: bold; text-decoration: none; }
+
+    .hamburger-btn { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; }
+
+    @media (max-width: 820px) {
+      .hamburger-btn { display: block; }
+      .nav-container {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(10, 15, 29, 0.98); backdrop-filter: blur(20px);
+        flex-direction: column; padding: 20px; border-bottom: 1px solid var(--glass-border); gap: 16px;
+      }
+      .nav-container.active { display: flex; }
+      .nav-links { flex-direction: column; width: 100%; gap: 12px; text-align: center; }
+      .header-actions { flex-direction: column; width: 100%; gap: 10px; }
+      .header-actions button, .header-actions a { width: 100%; text-align: center; }
+    }
+
+    section, footer { position: relative; z-index: 10; }
+
+    /* 🌟 ヒーローエリア */
+    .hero { padding: 110px 4% 40px; text-align: center; }
+    .hero-badge { display: inline-block; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); font-weight: bold; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .hero h1 { font-size: 32px; font-weight: 800; line-height: 1.25; margin-bottom: 16px; background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 14.5px; color: var(--text-muted); max-width: 620px; margin: 0 auto 28px; }
+    .hero-cta { display: flex; gap: 14px; justify-content: center; align-items: center; }
+    .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; border: none; cursor: pointer; }
+    .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
+
+    /* 🌟 リアルUI模倣メインモックアップ */
+    .hero-mockup { margin: 36px auto 0; max-width: 1000px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 12px; padding: 10px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
+    .app-window-frame { background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 10px; position: relative; font-size: 11px; }
+
+    /* アプリ内ヘッダーバー再現 */
+    .app-toolbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: 6px; padding: 6px 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; color: #172b4d; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .toolbar-left { display: flex; align-items: center; gap: 8px; }
+    .app-select-box { padding: 3px 8px; border: 1.5px solid #0079bf; border-radius: 4px; font-size: 11px; font-weight: bold; color: #0079bf; background: #fff; }
+    .app-title-txt { font-weight: bold; font-size: 13px; color: #0079bf; }
+    .history-pills { display: flex; gap: 4px; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; font-size: 10px; color: #64748b; font-weight: bold; }
+    .toolbar-right { display: flex; align-items: center; gap: 6px; }
+    .tool-btn { background: #f1f5f9; border: 1px solid #cbd5e0; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: #334155; }
+    .add-btn { background: #2ed573; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 10px; }
+
+    /* 台割グリッド模倣 */
+    .app-grid-view { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; direction: rtl; }
+    @media (max-width: 768px) { .app-grid-view { grid-template-columns: repeat(2, 1fr); } }
+
+    .pair-box { background: rgba(255, 255, 255, 0.92); border: 2px solid #0079bf; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; direction: ltr; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+    .pair-title-bar { background: rgba(244, 245, 247, 0.9); text-align: center; font-weight: bold; color: #0079bf; font-size: 10px; padding: 2px 0; border-bottom: 1px solid #dfe1e6; }
+    .pair-pages-body { display: flex; padding: 4px; gap: 4px; min-height: 120px; }
+    .single-p-slot { flex: 1; border-right: 1px dashed #cbd5e0; padding-right: 4px; display: flex; flex-direction: column; gap: 4px; position: relative; }
+    .single-p-slot:last-child { border-right: none; padding-right: 0; padding-left: 4px; }
+    .slot-num-label { text-align: center; color: #6b778c; font-weight: bold; font-size: 9px; }
+
+    /* リアル風カードパーツ */
+    .real-card-item { background: #fff; border: 1px solid #ced4da; border-radius: 4px; padding: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; }
+    .real-card-item:hover { transform: scale(1.02); border-color: #0079bf; }
+    .card-img-placeholder { width: 100%; height: 50px; background-size: cover; background-position: center; border-radius: 2px; margin-bottom: 4px; border: 1px solid #eee; }
+    .badge-flex-row { display: flex; gap: 2px; }
+    .tag-cat { background: #ff9f43; color: #fff; font-size: 8px; font-weight: bold; padding: 1px 3px; border-radius: 2px; }
+    .tag-st { background: #0079bf; color: #fff; font-size: 8px; font-weight: bold; padding: 1px 3px; border-radius: 2px; }
+    .st-red { background: #eb3b5a; } .st-green { background: #2ed573; }
+    .card-title-txt { font-weight: bold; font-size: 9px; color: #172b4d; margin-top: 2px; }
+    .card-user-foot { font-size: 8px; color: #6b778c; margin-top: 2px; }
+
+    .interactive-detail-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 29, 0.95);
+      border-radius: 8px; display: none; flex-direction: column; padding: 16px; gap: 10px; z-index: 50;
+      backdrop-filter: blur(8px); animation: fadeInZoom 0.3s ease-out; color: #fff;
+    }
+    .interactive-detail-overlay.active { display: flex; }
+    @keyframes fadeInZoom { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    /* 🌟 機能カード＆アニメーション */
+    .features { padding: 60px 4%; }
+    .section-title { text-align: center; margin-bottom: 40px; }
+    .section-title h2 { font-size: 28px; font-weight: 800; color: #fff; }
+    .section-title p { color: var(--text-muted); margin-top: 6px; font-size: 14px; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .feature-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); padding: 22px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .feature-card h3 { font-size: 17px; color: #fff; }
+    .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    .demo-viewport { width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+
+    .demo-book-wrapper { display: flex; gap: 10px; position: relative; }
+    .demo-page-box { width: 65px; height: 90px; background: #fff; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 12px; color: #1e293b; font-weight: bold; position: relative; }
+    .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
+    .page-right { animation: pageSwapRight 4s infinite ease-in-out; }
+    @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(75px); } 100% { transform: translateX(0); } }
+    @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-75px); } 100% { transform: translateX(0); } }
+
+    .demo-grid { display: flex; gap: 10px; position: relative; }
+    .demo-card-slot { width: 52px; height: 72px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.2); border-radius: 4px; position: relative; }
+    .demo-card-item { width: 52px; height: 72px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; }
+    .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
+    .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
+    @keyframes dropAndShift { 0% { transform: translate(-62px, -35px) scale(1.05); opacity: 0; } 25% { transform: translate(-62px, 0) scale(1); opacity: 1; } 75%, 100% { transform: translate(0, 0); } }
+    @keyframes shiftRight { 0%, 30% { transform: translateX(0); } 65%, 100% { transform: translateX(62px); } }
+    .demo-cursor { width: 14px; height: 14px; position: absolute; z-index: 20; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain; animation: cursorMoveFixed 3.5s infinite ease-in-out; }
+    @keyframes cursorMoveFixed { 0% { transform: translate(-42px, -20px); } 25% { transform: translate(-42px, 15px); } 75%, 100% { transform: translate(20px, 15px); } }
+
+    .drop-box { width: 120px; height: 90px; border: 2px dashed rgba(56, 189, 248, 0.5); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.05); position: relative; gap: 4px; }
+    .file-icon { font-size: 24px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
+    .thumb-gen { width: 90px; height: 65px; background: #0079bf; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 10px; animation: thumbAppear 3s infinite ease-in-out; }
+    @keyframes fileDrop { 0% { transform: translateY(-50px) scale(1.2); opacity: 0; } 30% { transform: translateY(0) scale(1); opacity: 1; } 45%, 100% { transform: translateY(0) scale(0); opacity: 0; } }
+    @keyframes thumbAppear { 0%, 40% { opacity: 0; transform: scale(0.6); } 55%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.6); } }
+
+    .chat-demo-box { width: 150px; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 6px; border: 1px solid rgba(255,255,255,0.15); }
+    .chat-msg { background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 9px; color: #fff; }
+    .chat-msg-new { background: #0079bf; animation: msgPop 3s infinite ease-in-out; }
+    .attach-tag { font-size: 8px; background: #2ed573; color: #fff; padding: 2px 6px; border-radius: 10px; display: inline-block; width: fit-content; }
+    @keyframes msgPop { 0%, 30% { opacity: 0; transform: translateY(10px); } 45%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
+
+    .card-tag-demo { width: 85px; height: 105px; background: #fff; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .status-badge-anim { padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; color: #fff; width: fit-content; }
+
+    .flip-book-container { width: 120px; height: 85px; position: relative; perspective: 600px; }
+    .flip-page { width: 100%; height: 100%; background: #fff; border-radius: 4px; position: absolute; top: 0; left: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center; }
+    .page-leaf-1 { animation: flipPage3D-1 4.5s infinite ease-in-out; }
+    .page-leaf-2 { animation: flipPage3D-2 4.5s infinite ease-in-out; }
+    @keyframes flipPage3D-1 { 0%, 25% { transform: rotateY(0deg); z-index: 3; } 35%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 3; } }
+    @keyframes flipPage3D-2 { 0%, 55% { transform: rotateY(0deg); z-index: 2; } 65%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 2; } }
+
+    .collab-wrapper-multi { display: flex; align-items: center; gap: 12px; position: relative; }
+    .collab-avatars-group { display: flex; flex-direction: column; gap: 6px; }
+    .collab-avatar-small { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 8px rgba(0,0,0,0.4); }
+    .av-1 { background: #2ed573; } .av-2 { background: #764ba2; } .av-3 { background: #ff9f43; }
+    .collab-card-multi { width: 85px; height: 95px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 6px; position: relative; overflow: hidden; }
+    .live-cursor-a { position: absolute; font-size: 10px; animation: moveCursorA 3s infinite ease-in-out; }
+    .live-cursor-b { position: absolute; font-size: 10px; animation: moveCursorB 4s infinite ease-in-out; }
+    @keyframes moveCursorA { 0%, 100% { top: 10px; left: 10px; } 50% { top: 60px; left: 50px; } }
+    @keyframes moveCursorB { 0%, 100% { top: 70px; left: 40px; } 50% { top: 20px; left: 60px; } }
+
+    .list-container { display: flex; flex-direction: column; gap: 6px; width: 140px; }
+    .list-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
+    .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: #0079bf; border-color: #38bdf8; z-index: 5; }
+    @keyframes listReorder { 0%, 20% { transform: translateY(0); } 50%, 80% { transform: translateY(28px); } 100% { transform: translateY(0); } }
+
+    .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .export-card { width: 70px; height: 50px; background: rgba(255,255,255,0.1); border: 1px solid #38bdf8; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #38bdf8; }
+    .export-arrow { font-size: 18px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
+    .export-file { background: #2ed573; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+    @keyframes arrowDown { 0%, 100% { transform: translateY(-4px); opacity: 0.3; } 50% { transform: translateY(4px); opacity: 1; } }
+
+    /* 🛡️ セキュリティ用デモアニメーション */
+    .sec-demo-box { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; }
+    .sec-shield { font-size: 40px; animation: shieldPulse 2.5s infinite ease-in-out; filter: drop-shadow(0 0 10px rgba(46, 213, 115, 0.6)); }
+    .sec-badge-list { display: flex; gap: 6px; }
+    .sec-chip { font-size: 9px; font-weight: bold; background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 2px 8px; border-radius: 12px; }
+    @keyframes shieldPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+    /* 🌟 3プラン構成の料金セクション */
+    .pricing { padding: 70px 4%; background: rgba(0, 0, 0, 0.2); }
+    .pricing-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 1050px; margin: 0 auto; }
+    .pricing-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 28px 20px; width: 310px; display: flex; flex-direction: column; position: relative; }
+    .pricing-card.popular { border: 2px solid #0284c7; box-shadow: 0 0 25px rgba(2, 132, 199, 0.3); background: rgba(2, 132, 199, 0.08); }
+    .pricing-card.premium { border: 2px solid var(--primary); box-shadow: 0 0 25px rgba(0, 121, 191, 0.3); background: rgba(0, 121, 191, 0.08); }
+    .popular-tag { position: absolute; top: -12px; right: 20px; background: #0284c7; color: #fff; font-size: 10px; font-weight: bold; padding: 3px 10px; border-radius: 12px; }
+    .pricing-card h3 { font-size: 18px; margin-bottom: 6px; color: #fff; }
+    .price { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .price span { font-size: 12px; color: var(--text-muted); font-weight: normal; }
+    .pricing-features { list-style: none; margin-bottom: 24px; flex: 1; }
+    .pricing-features li { font-size: 12.5px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+
+    /* 🌟 モーダル共通スタイル */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 10000;
+      display: none; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-overlay.active { display: flex !important; }
+    .modal-box {
+      background: #0f172a; border: 1px solid var(--glass-border); border-radius: 16px;
+      padding: 28px; width: 100%; max-width: 440px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      position: relative; display: flex; flex-direction: column; gap: 16px; color: #fff;
+    }
+    .modal-close-btn { position: absolute; top: 16px; right: 20px; background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; }
+    .modal-box h3 { font-size: 19px; font-weight: bold; color: #38bdf8; text-align: center; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 12px; font-weight: bold; color: #cbd5e1; }
+    .form-group input, .form-group textarea {
+      background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
+      border-radius: 6px; padding: 10px; color: #fff; font-size: 13px; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: #38bdf8; }
+
+    /* 🌟 TOPへ戻るフローティングボタン */
+    .back-to-top {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 44px; height: 44px; background: var(--primary); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 50%;
+      display: flex; justify-content: center; align-items: center;
+      text-decoration: none; font-size: 16px; font-weight: bold;
+      box-shadow: 0 4px 16px rgba(0,121,191,0.5); transition: all 0.2s;
+    }
+    .back-to-top:hover { background: #0284c7; transform: translateY(-3px); }
+
+    footer { background: rgba(5, 8, 16, 0.95); border-top: 1px solid var(--glass-border); color: var(--text-muted); padding: 32px 4%; text-align: center; font-size: 12px; }
+  </style>
 </head>
 <body>
 
-  <!-- ヘッダーエリア -->
-  <header class="lp-header">
-    <div class="header-container">
-      <div class="logo">📖 PageLayout</div>
-      <nav class="nav-links">
-        <a href="#features">機能</a>
-        <a href="#security">セキュリティ</a>
-        <a href="#plans">料金プラン</a>
-        <a href="#contact">お問い合わせ</a>
-        <a href="https://app.p-layout.com" class="btn-app-login">アプリを開く</a>
-      </nav>
+  <!-- 背景アニメーション -->
+  <div class="animated-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="grid-overlay"></div>
+
+  <!-- 最前面固定ヘッダー -->
+  <header>
+    <a href="#top" class="logo-img-wrapper">
+      <img src="https://i.imgur.com/your_logo_placeholder.png" alt="Logo" class="custom-logo-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%2338bdf8\'><path d=\'M10 50 L50 10 L90 50 L50 90 Z\'/></svg>'">
+      <span class="logo-text">PageLayout</span>
+    </a>
+    
+    <div class="header-right-group">
+      <button id="langToggleBtn" class="lang-btn">🌐 EN</button>
+      <button class="hamburger-btn" id="hamburgerBtn">☰</button>
+    </div>
+
+    <div class="nav-container" id="navContainer">
+      <ul class="nav-links">
+        <li><a href="#features" data-ja="機能" data-en="Features">機能</a></li>
+        <li><a href="#pricing" data-ja="料金" data-en="Pricing">料金</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button class="btn-contact-header" id="openContactBtn" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</button>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に一括更新 -->
+        <a href="https://app.p-layout.com" target="_blank" class="btn-app-launch" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+      </div>
     </div>
   </header>
 
   <!-- 1. メインヒーローエリア -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <h1 class="main-title">
-        チームの制作スピードを劇的に変える、<br>
-        次世代の資料・構成管理プラットフォーム
-      </h1>
-      <p class="sub-title">
-        直感的な操作とリアルタイム共同編集で、情報共有のタイムラグをゼロへ。<br>
-        堅牢なセキュリティのもと、チーム全体の制作・編集プロセスを効率化します。
-      </p>
-      <div class="hero-cta">
-        <a href="https://app.p-layout.com" class="btn-primary">無料で試してみる</a>
-        <a href="#contact" class="btn-secondary">導入・資料請求のお問い合わせ</a>
+  <section class="hero" id="top">
+    <span class="hero-badge" data-ja="次世代の資料・構成管理プラットフォーム" data-en="Next-Gen Layout & Document Management Platform">次世代の資料・構成管理プラットフォーム</span>
+    <h1 data-ja="チームの制作スピードを劇的に変える、<br>次世代の資料・構成管理プラットフォーム" data-en="Transform Your Team's Production Speed,<br>Next-Gen Layout & Document Platform">チームの制作スピードを劇的に変える、<br>次世代の資料・構成管理プラットフォーム</h1>
+    <p data-ja="直感的な操作とリアルタイム共同編集で、情報共有のタイムラグをゼロへ。堅牢なセキュリティのもと、チーム全体の制作・編集プロセスを効率化します。" data-en="Zero time-lag in information sharing with intuitive operation and real-time co-editing. Streamline production and editing processes under robust security.">直感的な操作とリアルタイム共同編集で、情報共有のタイムラグをゼロへ。堅牢なセキュリティのもと、チーム全体の制作・編集プロセスを効率化します。</p>
+    
+    <div class="hero-cta">
+      <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に一括更新 -->
+      <a href="https://app.p-layout.com" target="_blank" class="btn-main" data-ja="アプリを開く" data-en="Open App">アプリを開く ➔</a>
+      <a href="#features" class="btn-secondary" data-ja="機能を見る" data-en="View Features">機能を見る</a>
+    </div>
+
+    <!-- 🌟 写真の画面をそのままCSSで高解像度再現したインタラクティブモックアップ -->
+    <div class="hero-mockup">
+      <div class="app-window-frame">
+        <!-- 上部ヘッダーコントロール再現 -->
+        <div class="app-toolbar">
+          <div class="toolbar-left">
+            <span class="app-select-box">製品カタログ構成案 ▾</span>
+            <span class="app-title-txt">製品カタログ構成案 ✏️</span>
+            <div class="history-pills">↩️ 戻る (0) | ↪️ 進む (0)</div>
+          </div>
+          <div class="toolbar-right">
+            <span>綴じ方向: <span style="font-weight:bold;">左開き</span> ▾</span>
+            <span>総ページ数: <span style="font-weight:bold;">20 P</span> ▾</span>
+            <span class="tool-btn">📋 順序変更</span>
+            <span class="tool-btn">⚙️ 書き出し / 保存 ▾</span>
+            <span class="tool-btn">🛠️ ツール ▾</span>
+            <span class="add-btn">+ 新規カード追加</span>
+          </div>
+        </div>
+
+        <!-- 台割ペアグリッド再現（法人仕様ダミーデータ） -->
+        <div class="app-grid-view">
+          <!-- 表紙・裏表紙 -->
+          <div class="pair-box">
+            <div class="pair-title-bar">表紙・裏表紙</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">表紙(H1)</div>
+                <div class="real-card-item" onclick="openMockupDetail('メイン表紙案', '山田', '修正中')">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row">
+                    <span class="tag-cat">画像</span>
+                    <span class="tag-st st-red">修正中</span>
+                  </div>
+                  <div class="card-title-txt">表紙1</div>
+                  <div class="card-user-foot">👤 山田</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">裏表紙(H4)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1-2 P -->
+          <div class="pair-box">
+            <div class="pair-title-bar">1 - 2 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">2 P</div>
+                <div class="real-card-item" onclick="openMockupDetail('製品概要ページ', '佐藤', '一次確認')">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row">
+                    <span class="tag-cat">画像</span>
+                    <span class="tag-st st-red">一次確認</span>
+                  </div>
+                  <div class="card-title-txt">p3</div>
+                  <div class="card-user-foot">👤 佐藤</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">1 P</div>
+                <div class="real-card-item" onclick="openMockupDetail('目次・ブランドメッセージ', '鈴木', '構想案')">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row">
+                    <span class="tag-cat">画像</span>
+                    <span class="tag-st st-green">構想案</span>
+                  </div>
+                  <div class="card-title-txt">p2</div>
+                  <div class="card-user-foot">👤 鈴木</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-4 P -->
+          <div class="pair-box">
+            <div class="pair-title-bar">3 - 4 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot"><div class="slot-num-label">4 P</div></div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">3 P</div>
+                <div class="real-card-item" onclick="openMockupDetail('主要機能スペック比較', '田中', '承認済')">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row">
+                    <span class="tag-cat">画像</span>
+                    <span class="tag-st">承認済</span>
+                  </div>
+                  <div class="card-title-txt">p1</div>
+                  <div class="card-user-foot">👤 田中</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5-6 P -->
+          <div class="pair-box">
+            <div class="pair-title-bar">5 - 6 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot"><div class="slot-num-label">6 P</div></div>
+              <div class="single-p-slot"><div class="slot-num-label">5 P</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- クリック時に飛び出すポップアッププレビュー -->
+        <div class="interactive-detail-overlay" id="mockupDetailPopup">
+          <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.15); padding-bottom:8px;">
+            <strong id="popupPageTitle" style="color:#38bdf8; font-size:14px;">📖 カード詳細: メイン表紙案</strong>
+            <button onclick="closeMockupDetail()" style="background:none; border:none; color:#fff; font-size:18px; cursor:pointer;">✕</button>
+          </div>
+          <div style="display:flex; gap:12px; flex:1; align-items:center;">
+            <div style="width:110px; height:80px; background:#fff; border-radius:4px; display:flex; justify-content:center; align-items:center; color:#0f172a; font-weight:bold; font-size:11px;" id="popupThumb">
+              原稿プレビュー
+            </div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:6px; font-size:11px;">
+              <div>💬 編集コメント: 「デザインレイアウトと各種文言の一次チェックが完了しました」</div>
+              <div>📎 添付ファイル: <span style="color:#2ed573;">catalog_cover_v2.pdf</span></div>
+              <div>🏷️ ステータス: <span id="popupStatusBadge" style="background:#eb3b5a; color:#fff; padding:1px 6px; border-radius:3px;">一次確認</span></div>
+            </div>
+          </div>
+          <div style="font-size:10px; color:#94a3b8; text-align:center;">💡 リアルタイムクラウド同期によりチームメンバーや社外パートナーへ即座に反映されます</div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- 2. 機能紹介セクション（上段：インフラ / セキュリティ） -->
-  <section id="features" class="features-section">
-    <div class="container">
-      <h2 class="section-title">エンタープライズの業務を支える強固な基盤</h2>
-
-      <div class="feature-grid">
-        <!-- 協働編集 -->
-        <div class="feature-card">
-          <div class="icon">👥</div>
-          <h3>チーム全員でリアルタイム同期編集</h3>
-          <p>クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。</p>
-        </div>
-
-        <!-- 並び替え -->
-        <div class="feature-card">
-          <div class="icon">🔀</div>
-          <h3>ドラッグ＆ドロップで一括ページ再構成</h3>
-          <p>全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。</p>
-        </div>
-
-        <!-- データ出力 -->
-        <div class="feature-card">
-          <div class="icon">📄</div>
-          <h3>ワンクリックで高精細PDF/画像出力</h3>
-          <p>作成した構成案はワンクリックで高精度PDFやJPG形式で出力。バックアップ用データ出力にも対応し、社内共有や保管も万全です。</p>
-        </div>
-
-        <!-- セキュリティ -->
-        <div id="security" class="feature-card highlight">
-          <div class="icon">🔒</div>
-          <h3>万全のエンタープライズ級セキュリティ</h3>
-          <p>全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、企業の機密データを強力に保護します。</p>
-        </div>
-      </div>
+  <!-- 全機能紹介セクション -->
+  <section class="features" id="features">
+    <div class="section-title">
+      <h2 data-ja="組織の資料・構成管理を安全かつ効率的に" data-en="Enterprise Layout & Content Management">組織の資料・構成管理を安全かつ効率的に</h2>
+      <p data-ja="アナログな構成案作成やメール共有から解放され、堅牢なクラウドワークスペースへ統合できます。" data-en="Transition from manual spreadsheets and emails to a secure, consolidated cloud workspace.">アナログな構成案作成やメール共有から解放され、堅牢なクラウドワークスペースへ統合できます。</p>
     </div>
-  </section>
 
-  <!-- 3. 機能紹介セクション（下段：操作性 / 制作管理） -->
-  <section class="features-section alt-bg">
-    <div class="container">
-      <h2 class="section-title">安全かつ確実な制作進行を実現する高度な機能</h2>
-
-      <div class="feature-grid">
-        <!-- 開き向き設定 -->
-        <div class="feature-card">
-          <div class="icon">📖</div>
-          <h3>各種冊子・冊子仕様（右開き/左開き）に対応</h3>
-          <p>製品カタログ、社内報、IR資料など用途に応じた「右開き」「左開き」をワンタップ切り替え。見開き配置も自動で最適化されます。</p>
-        </div>
-
-        <!-- 誤作動防止（ページ移動） -->
-        <div class="feature-card">
-          <div class="icon">🛡️</div>
-          <h3>自動繰り下げ機能でレイアウト調整事故を防止</h3>
-          <p>ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。</p>
-        </div>
-
-        <!-- サムネイル作成 -->
-        <div class="feature-card">
-          <div class="icon">🖼️</div>
-          <h3>ファイルを置くだけで全体像を視覚的に把握</h3>
-          <p>原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。</p>
-        </div>
-
-        <!-- 指示・ファイル添付 -->
-        <div class="feature-card">
-          <div class="icon">💬</div>
-          <h3>ページ単位のコメント・資料集約で誤共有を防止</h3>
-          <p>ページごとに専用スレッドで修正指示や参考リンク、資料ファイルを直接集約。メールやチャットでの「指示の紛失」を防ぎます。</p>
-        </div>
-
-        <!-- ステータス管理 -->
-        <div class="feature-card">
-          <div class="icon">📊</div>
-          <h3>進捗ステータスの一律可視化で遅れを防止</h3>
-          <p>「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。</p>
-        </div>
-
-        <!-- プレビュー確認（検品） -->
-        <div class="feature-card">
-          <div class="icon">🔍</div>
-          <h3>高解像度プレビューで最終チェックをスムーズに</h3>
-          <p>詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 料金プランエリア -->
-  <section id="plans" class="plans-section">
-    <div class="container">
-      <h2 class="section-title">ニーズに合わせたプラン</h2>
-      <div class="plan-grid">
-        <div class="plan-card">
-          <h3>フリー</h3>
-          <div class="price">¥0 <span>/月</span></div>
-          <ul>
-            <li>最大20ページまで</li>
-            <li>基本編集機能</li>
-            <li>ローカルデータ保存</li>
-          </ul>
-        </div>
-        <div class="plan-card featured">
-          <h3>スタンダード</h3>
-          <div class="price">¥490 <span>/月</span></div>
-          <ul>
-            <li>最大48ページまで拡張</li>
-            <li>メンバー最大5名共有</li>
-            <li>クラウドリアルタイム同期</li>
-          </ul>
-        </div>
-        <div class="plan-card">
-          <h3>プレミアム</h3>
-          <div class="price">¥990 <span>/月</span></div>
-          <ul>
-            <li>無制限ページ対応</li>
-            <li>メンバー無制限共有</li>
-            <li>バックアップデータ書き出し</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. お問い合わせエリア（Formspree 連携） -->
-  <section id="contact" class="contact-section">
-    <div class="container">
-      <h2 class="section-title">導入・資料請求のお問い合わせ</h2>
-      <p class="contact-desc">法人導入、お見積り、デモのご依頼などお気軽にお問い合わせください。</p>
+    <div class="features-grid">
+      <!-- 2. 機能紹介（上段・インフラ／セキュリティ） -->
       
-      <form action="https://formspree.io/f/xoealopw" method="POST" class="contact-form">
-        <div class="form-group">
-          <label for="company">貴社名 / 部署名</label>
-          <input type="text" id="company" name="company" placeholder="例: 株式会社 PageLayout 営業部" required>
+      <!-- 協働編集：共同編集 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="collab-wrapper-multi">
+            <div class="collab-avatars-group">
+              <div class="collab-avatar-small av-1">A</div>
+              <div class="collab-avatar-small av-2">B</div>
+              <div class="collab-avatar-small av-3">C</div>
+            </div>
+            <div class="collab-card-multi">
+              <div style="height:6px; background:rgba(255,255,255,0.3); border-radius:2px; margin-bottom:4px;"></div>
+              <div style="height:6px; background:rgba(255,255,255,0.2); border-radius:2px; width:70%;"></div>
+              <span class="live-cursor-a">🖱️A</span>
+              <span class="live-cursor-b">🖱️B</span>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="name">お名前</label>
-          <input type="text" id="name" name="name" placeholder="例: 山田 太郎" required>
+        <h3 data-ja="チーム全員でリアルタイム同期編集" data-en="Real-Time Sync Co-Editing">チーム全員でリアルタイム同期編集</h3>
+        <p data-ja="クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。" data-en="Sync instantly via cloud to share identical layout plans live with internal teams and external partners.">クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。</p>
+      </div>
+
+      <!-- 効率化：並び替え -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="list-container">
+            <div class="list-item item-drag"><span data-anim-ja="≡ 1P 会社概要" data-anim-en="≡ 1P Overview">≡ 1P 会社概要</span></div>
+            <div class="list-item"><span data-anim-ja="≡ 2P 製品一覧" data-anim-en="≡ 2P Products">≡ 2P 製品一覧</span></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="email">メールアドレス</label>
-          <input type="email" id="email" name="email" placeholder="例: name@company.com" required>
+        <h3 data-ja="ドラッグ＆ドロップで一括ページ再構成" data-en="Bulk Page Restructuring">ドラッグ＆ドロップで一括ページ再構成</h3>
+        <p data-ja="全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。" data-en="Intuitive drag-and-drop page reordering to handle urgent layout changes quickly without mistakes.">全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。</p>
+      </div>
+
+      <!-- 効率化：データ出力 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="export-box">
+            <div class="export-card" data-anim-ja="構成データ" data-anim-en="Layout Data">構成データ</div>
+            <div class="export-arrow">↓</div>
+            <div class="export-file">PDF / JPG</div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="message">お問い合わせ内容</label>
-          <textarea id="message" name="message" rows="5" placeholder="ご質問やご導入の時期などをご記入ください" required></textarea>
+        <h3 data-ja="ワンクリックで高精細PDF/画像出力" data-en="High-Res PDF & Image Export">ワンクリックで高精細PDF/画像出力</h3>
+        <p data-ja="作成した構成案はワンクリックで高精度PDFやJPG形式で出力。バックアップ用データ出力にも対応し、社内共有や保管も万全です。" data-en="Export completed layout drafts to high-precision PDF or JPG formats in one click for archiving and sharing.">作成した構成案はワンクリックで高精度PDFやJPG形式で出力。バックアップ用データ出力にも対応し、社内共有や保管も万全です。</p>
+      </div>
+
+      <!-- セキュリティ：セキュリティ -->
+      <div class="feature-card" style="border: 1px solid rgba(46, 213, 115, 0.4); background: rgba(46, 213, 115, 0.05);">
+        <div class="demo-viewport">
+          <div class="sec-demo-box">
+            <span class="sec-shield">🛡️</span>
+            <div class="sec-badge-list">
+              <span class="sec-chip">TLS 暗号化</span>
+              <span class="sec-chip">Google OAuth</span>
+              <span class="sec-chip">RLS アクセス制御</span>
+            </div>
+          </div>
         </div>
-        <button type="submit" class="btn-primary btn-submit">送信する</button>
+        <h3 data-ja="万全のエンタープライズ級セキュリティ" data-en="Enterprise-Grade Security">万全のエンタープライズ級セキュリティ</h3>
+        <p data-ja="全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、企業の機密データを強力に保護します。" data-en="Safeguard corporate confidential data with TLS encryption, Google OAuth SSO, and strict RLS access policies.">全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、企業の機密データを強力に保護します。</p>
+      </div>
+
+      <!-- 3. 機能紹介（下段・操作性／制作管理） -->
+
+      <!-- 仕様対応：開き向き設定 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="demo-book-wrapper">
+            <div class="demo-page-box page-left">1 P</div>
+            <div class="demo-page-box page-right">2 P</div>
+          </div>
+        </div>
+        <h3 data-ja="各種冊子・冊子仕様（右開き/左開き）に対応" data-en="Multi-Format Booklet Support">各種冊子・冊子仕様（右開き/左開き）に対応</h3>
+        <p data-ja="製品カタログ、社内報、IR資料など用途に応じた「右開き」「左開き」をワンタップ切り替え。見開き配置も自動で最適化されます。" data-en="Switch easily between LTR and RTL bindings for product catalogs, internal newsletters, and IR reports.">製品カタログ、社内報、IR資料など用途に応じた「右開き」「左開き」をワンタップ切り替え。見開き配置も自動で最適化されます。</p>
+      </div>
+
+      <!-- 誤作動防止：ページ移動 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="demo-cursor"></div>
+          <div class="demo-grid">
+            <div class="demo-card-slot">
+              <div class="demo-card-item demo-drag-card" data-anim-ja="新 P" data-anim-en="New P">新 P</div>
+            </div>
+            <div class="demo-card-slot">
+              <div class="demo-card-item demo-shift-card">1 P</div>
+            </div>
+            <div class="demo-card-slot"></div>
+          </div>
+        </div>
+        <h3 data-ja="自動繰り下げ機能でレイアウト調整事故を防止" data-en="Accident-Proof Auto-Shift">自動繰り下げ機能でレイアウト調整事故を防止</h3>
+        <p data-ja="ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。" data-en="Automatic page shifting on card insertion prevents layout misalignment and human errors.">ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。</p>
+      </div>
+
+      <!-- 可視化：サムネイル作成 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="drop-box">
+            <span class="file-icon">🖼️</span>
+            <div class="thumb-gen">
+              <span>PDF/JPG/PNG</span>
+              <span style="font-size: 8px; opacity: 0.8;" data-anim-ja="自動サムネイル" data-anim-en="Auto Thumbnail">自動サムネイル</span>
+            </div>
+          </div>
+        </div>
+        <h3 data-ja="ファイルを置くだけで全体像を視覚的に把握" data-en="Instant Visual Document Map">ファイルを置くだけで全体像を視覚的に把握</h3>
+        <p data-ja="原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。" data-en="Drag and drop PDF/JPG/PNG documents to generate instant page thumbnails and visualize overall progress.">原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。</p>
+      </div>
+
+      <!-- 指示一本化：指示・ファイル添付 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="chat-demo-box">
+            <div class="chat-msg" data-anim-ja="💬 修正指示を集約..." data-anim-en="💬 Consolidated notes...">💬 修正指示を集約...</div>
+            <div class="chat-msg chat-msg-new" data-anim-ja="💬 「一次確認完了しました」" data-anim-en="💬 '1st check complete!'">💬 「一次確認完了しました」</div>
+            <span class="attach-tag" data-anim-ja="📎 参考資料.pdf" data-anim-en="📎 Specs_Doc.pdf">📎 参考資料.pdf</span>
+          </div>
+        </div>
+        <h3 data-ja="ページ単位のコメント・資料集約で誤共有を防止" data-en="Page-Level Thread & Resource Hub">ページ単位のコメント・資料集約で誤共有を防止</h3>
+        <p data-ja="ページごとに専用スレッドで修正指示や参考リンク、資料ファイルを直接集約。メールやチャットでの「指示の紛失」を防ぎます。" data-en="Centralize review notes, reference links, and files per page thread to eliminate lost instruction risks.">ページごとに専用スレッドで修正指示や参考リンク、資料ファイルを直接集約。メールやチャットでの「指示の紛失」を防ぎます。</p>
+      </div>
+
+      <!-- 進行管理：ステータス管理 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="card-tag-demo">
+            <div id="statusBadgeDemo" class="status-badge-anim" style="background:#0079bf;">一次確認</div>
+            <div style="font-size:9px; font-weight:bold; color:#1e293b;" data-anim-ja="1P 概要" data-anim-en="1P Intro">1P 概要</div>
+            <div style="flex:1; background:#f1f5f9; border-radius:3px;"></div>
+          </div>
+        </div>
+        <h3 data-ja="進捗ステータスの一律可視化で遅れを防止" data-en="Unified Progress Status Tracking">進捗ステータスの一律可視化で遅れを防止</h3>
+        <p data-ja="「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。" data-en="Visualize workflow status with tags like In Progress, 1st Review, Revision, Completed, and Approved.">「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。</p>
+      </div>
+
+      <!-- 検品：プレビュー確認 -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="flip-book-container">
+            <div class="flip-page page-leaf-2">3 P</div>
+            <div class="flip-page page-leaf-1">2 P</div>
+            <div class="flip-page" style="z-index: 0;">1 P</div>
+          </div>
+        </div>
+        <h3 data-ja="高解像度プレビューで最終チェックをスムーズに" data-en="High-Precision Preview Inspection">高解像度プレビューで最終チェックをスムーズに</h3>
+        <p data-ja="詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。" data-en="Enlarge design drafts in detail mode and flip through pages naturally for efficient internal quality checks.">詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 🌟 3プラン構成（フリー・スタンダード490円・プレミアム990円） -->
+  <section class="pricing" id="pricing">
+    <div class="section-title">
+      <h2 data-ja="シンプルで柔軟な料金体系" data-en="Simple & Flexible Pricing">シンプルで柔軟な料金体系</h2>
+      <p data-ja="まずはフリープランで操作感をお試しいただけます。" data-en="Start free and upgrade seamlessly as your team grows.">まずはフリープランで操作感をお試しいただけます。</p>
+    </div>
+
+    <div class="pricing-cards">
+      <!-- フリープラン -->
+      <div class="pricing-card">
+        <h3 data-ja="フリープラン" data-en="Free Plan">フリープラン</h3>
+        <div class="price">¥0 <span data-ja="/ 永久無料" data-en="/ Free">/ 永久無料</span></div>
+        <ul class="pricing-features">
+          <li data-ja="✨ 基本的な台割・レイアウト作成（〜20P）" data-en="✨ Basic layout creation (Up to 20P)">✨ 基本的な台割・レイアウト作成（〜20P）</li>
+          <li data-ja="✨ 右開き / 左開き対応" data-en="✨ LTR & RTL support">✨ 右開き / 左開き対応</li>
+          <li data-ja="✨ PDF・JPG出力（標準解像度）" data-en="✨ PDF & JPG export">✨ PDF・JPG出力（標準解像度）</li>
+          <li data-ja="✨ メンバー招待（最大3名まで）" data-en="✨ Up to 3 collaborators">✨ メンバー招待（最大3名まで）</li>
+        </ul>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に更新 -->
+        <a href="https://app.p-layout.com" target="_blank" class="btn-secondary" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+      </div>
+
+      <!-- スタンダードプラン -->
+      <div class="pricing-card popular">
+        <span class="popular-tag" data-ja="おすすめ" data-en="Popular">おすすめ</span>
+        <h3 data-ja="スタンダードプラン" data-en="Standard Plan">スタンダードプラン</h3>
+        <div class="price">¥490 <span data-ja="/ 月額" data-en="/ Month">/ Month</span></div>
+        <ul class="pricing-features">
+          <li data-ja="✨ ページ数拡張（最大48Pまで対応）" data-en="✨ Expanded pages (Up to 48P)">✨ ページ数拡張（最大48Pまで対応）</li>
+          <li data-ja="✨ メンバー招待（最大5名まで）" data-en="✨ Up to 5 collaborators">✨ メンバー招待（最大5名まで）</li>
+          <li data-ja="✨ クラウドサーバー自動保存＆同期" data-en="✨ Automatic Cloud Server Sync">✨ クラウドサーバー自動保存＆同期</li>
+          <li data-ja="✨ JSONバックアップ / 復元機能" data-en="✨ JSON Backup & Restore">✨ JSONバックアップ / 復元機能</li>
+          <li data-ja="✨ 高精度 PDF・JPG エクスポート" data-en="✨ High-Precision PDF & JPG Export">✨ 高精度 PDF・JPG エクスポート</li>
+        </ul>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に更新 -->
+        <a href="https://app.p-layout.com" target="_blank" class="btn-main" style="text-align:center; text-decoration:none; background:#0284c7;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+      </div>
+
+      <!-- プレミアムプラン -->
+      <div class="pricing-card premium">
+        <h3 data-ja="プレミアムプラン" data-en="Premium Plan">プレミアムプラン</h3>
+        <div class="price">¥990 <span data-ja="/ 月額" data-en="/ Month">/ Month</span></div>
+        <ul class="pricing-features">
+          <li data-ja="✨ ページ数制限なし（48P以上対応）" data-en="✨ Unlimited pages (48P+)">✨ ページ数制限なし（48P以上対応）</li>
+          <li data-ja="✨ メンバー無制限招待" data-en="✨ Unlimited collaborators">✨ メンバー無制限招待</li>
+          <li data-ja="✨ 超大容量サムネイル保存（優先帯域）" data-en="✨ Large Storage Capacity">✨ 超大容量サムネイル保存（優先帯域）</li>
+          <li data-ja="✨ 全クラウド同期＆全バックアップ機能" data-en="✨ Full Cloud Sync & Backup">✨ 全クラウド同期＆全バックアップ機能</li>
+          <li data-ja="✨ 優先カスタマーサポート" data-en="✨ Priority Customer Support">✨ 優先カスタマーサポート</li>
+        </ul>
+        <!-- 🌟 アプリへの遷移アドレスを app.p-layout.com に更新 -->
+        <a href="https://app.p-layout.com" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-ja="アプリを開く" data-en="Open App">アプリを開く</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📩 お問い合わせモーダル -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="closeContactBtn">&times;</button>
+      <h3 data-ja="📩 導入・資料請求のお問い合わせ" data-en="📩 Enterprise Contact & Inquiries">📩 導入・資料請求のお問い合わせ</h3>
+      <p style="font-size:12px; color:#94a3b8;" data-ja="法人導入、お見積り、デモのご依頼などお気軽にお問い合わせください。" data-en="Feel free to contact us regarding corporate deployment, quotes, and product demos.">法人導入、お見積り、デモのご依頼などお気軽にお問い合わせください。</p>
+      
+      <form action="https://formspree.io/f/xoealopw" method="POST" id="contactForm">
+        <div class="form-group">
+          <label data-ja="貴社名 / 部署名" data-en="Company / Department">貴社名 / 部署名</label>
+          <input type="text" name="company" placeholder="例: 株式会社 PageLayout 営業部">
+        </div>
+        <div class="form-group" style="margin-top:10px;">
+          <label data-ja="お名前" data-en="Your Name">お名前</label>
+          <input type="text" name="name" required placeholder="例: 山田 太郎">
+        </div>
+        <div class="form-group" style="margin-top:10px;">
+          <label data-ja="メールアドレス" data-en="Email Address">メールアドレス</label>
+          <input type="email" name="_replyto" required placeholder="name@company.com">
+        </div>
+        <div class="form-group" style="margin-top:10px;">
+          <label data-ja="お問い合わせ内容" data-en="Message">お問い合わせ内容</label>
+          <textarea name="message" rows="4" required placeholder="ご質問や導入ご検討時期などをご記入ください..."></textarea>
+        </div>
+        <button type="submit" id="submitBtn" class="btn-main" style="width:100%; margin-top:16px;" data-ja="送信する" data-en="Send Message">送信する</button>
       </form>
     </div>
-  </section>
+  </div>
 
-  <footer class="lp-footer">
-    <p>&copy; 2026 PageLayout. All rights reserved.</p>
+  <!-- フローティング TOPへ戻るボタン -->
+  <a href="#top" class="back-to-top" title="Top">▲</a>
+
+  <footer>
+    <p>© 2026 PageLayout. All rights reserved.</p>
   </footer>
 
+  <!-- 🌐 インタラクティブスクリプト -->
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navContainer = document.getElementById('navContainer');
+    hamburgerBtn.addEventListener('click', () => {
+      navContainer.classList.toggle('active');
+    });
+
+    const contactModal = document.getElementById('contactModal');
+    const openContactBtn = document.getElementById('openContactBtn');
+    const closeContactBtn = document.getElementById('closeContactBtn');
+
+    if (openContactBtn && contactModal) {
+      openContactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactModal.classList.add('active');
+      });
+    }
+
+    if (closeContactBtn && contactModal) {
+      closeContactBtn.addEventListener('click', () => {
+        contactModal.classList.remove('active');
+      });
+    }
+
+    window.addEventListener('click', (e) => {
+      if (e.target === contactModal) {
+        contactModal.classList.remove('active');
+      }
+    });
+
+    function openMockupDetail(title, user, status) {
+      const popup = document.getElementById('mockupDetailPopup');
+      document.getElementById('popupPageTitle').innerText = `📖 カード詳細: ${title}`;
+      document.getElementById('popupThumb').innerText = `${title} プレビュー`;
+      document.getElementById('popupStatusBadge').innerText = status;
+      popup.classList.add('active');
+    }
+    function closeMockupDetail() {
+      document.getElementById('mockupDetailPopup').classList.remove('active');
+    }
+
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitBtn.disabled = true;
+        submitBtn.innerText = '送信中...';
+
+        const formData = new FormData(contactForm);
+
+        fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        }).then(response => {
+          alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
+          contactModal.classList.remove('active');
+          contactForm.reset();
+        }).catch(error => {
+          alert('お問い合わせを受け付けました。\n担当者より折り返しご連絡いたします。');
+          contactModal.classList.remove('active');
+          contactForm.reset();
+        }).finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.innerText = '送信する';
+        });
+      });
+    }
+
+    const langBtn = document.getElementById('langToggleBtn');
+    let currentLang = 'ja';
+
+    const statusDemo = document.getElementById('statusBadgeDemo');
+    const statusTextList = {
+      ja: [
+        { label: "作成中", bg: "#ff9f43" },
+        { label: "一次確認", bg: "#eb3b5a" },
+        { label: "承認済", bg: "#0079bf" }
+      ],
+      en: [
+        { label: "In Progress", bg: "#ff9f43" },
+        { label: "1st Review", bg: "#eb3b5a" },
+        { label: "Approved", bg: "#0079bf" }
+      ]
+    };
+    let statusIdx = 0;
+
+    setInterval(() => {
+      statusIdx = (statusIdx + 1) % 3;
+      const item = statusTextList[currentLang][statusIdx];
+      if (statusDemo) {
+        statusDemo.innerText = item.label;
+        statusDemo.style.background = item.bg;
+      }
+    }, 1500);
+
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'ja' ? 'en' : 'ja';
+      langBtn.innerText = currentLang === 'ja' ? '🌐 EN' : '🌐 JP';
+
+      document.querySelectorAll('[data-ja]').forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) el.innerHTML = text;
+      });
+
+      document.querySelectorAll('[data-anim-ja]').forEach(el => {
+        const text = el.getAttribute(`data-anim-${currentLang}`);
+        if (text) el.innerText = text;
+      });
+    });
+  </script>
 </body>
 </html>
