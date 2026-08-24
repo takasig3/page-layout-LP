@@ -1,45 +1,53 @@
 /**
- * pricing.js - プラン契約・決済遷移専用ロジック
+ * pricing.js - 動作検証ログ機能付きロジック
  */
+console.log('1. pricing.js の読み込みに成功しました');
+
 function initPricingLogic() {
-  const planButtons = document.querySelectorAll('.pricing-card a');
+  console.log('2. initPricingLogic が実行されました');
 
-  planButtons.forEach(button => {
+  // .pricing セクション内のすべての a タグを取得
+  const planButtons = document.querySelectorAll('.pricing a, [data-plan]');
+  console.log('3. 検出されたボタンの数:', planButtons.length);
+
+  if (planButtons.length === 0) {
+    console.error('⚠️ ボタンが検出されませんでした。HTMLのクラス名やタグ構造を確認してください。');
+    return;
+  }
+
+  planButtons.forEach((button, index) => {
+    console.log(`ボタン[${index}]:`, button.textContent.trim(), 'data-plan:', button.getAttribute('data-plan'));
+
     button.addEventListener('click', (e) => {
-      // 1. デフォルトの href ページ遷移をストップ（これが最重要）
+      // デフォルトのページ遷移（アプリ開く）を強制ストップ
       e.preventDefault();
+      e.stopPropagation();
 
-      // 2. data-plan 属性を取得（無ければテキスト等から判定）
       const plan = button.getAttribute('data-plan');
-      console.log('選択されたプラン:', plan);
+      
+      // ポップアップで即座に動作確認（画面遷移を止めてログを表示）
+      alert(`✅ ボタンクリックを検知！\n選択プラン: ${plan || '指定なし'}`);
 
-      // 3. プランに応じた遷移先分岐処理
+      console.log('4. クリックされたボタンのプラン:', plan);
+
+      // プランに応じた処理分岐
       if (plan === 'free') {
-        console.log('フリープラン処理を実行');
-        // 例: アプリの無料登録画面へ遷移
-        window.location.href = "https://app.p-layout.com/?plan=free";
-      } 
-      else if (plan === 'standard') {
-        console.log('スタンダードプラン処理を実行');
-        // 例: Stripe等の決済ページや、スタンダード指定付きログイン画面へ遷移
-        // window.location.href = "https://checkout.stripe.com/pay/standard_xxx";
-        window.location.href = "https://app.p-layout.com/?plan=standard";
-      } 
-      else if (plan === 'premium') {
-        console.log('プレミアムプラン処理を実行');
-        // 例: プレミアム用の決済・登録画面へ遷移
-        // window.location.href = "https://checkout.stripe.com/pay/premium_yyy";
-        window.location.href = "https://app.p-layout.com/?plan=premium";
-      } 
-      else {
-        // 万が一 data-plan が取れなかった場合のフォールバック
-        window.location.href = "https://app.p-layout.com";
+        console.log('フリープラン用の処理');
+        // window.location.href = "https://app.p-layout.com/?plan=free";
+      } else if (plan === 'standard') {
+        console.log('スタンダードプラン用の処理');
+        // window.location.href = "https://app.p-layout.com/?plan=standard";
+      } else if (plan === 'premium') {
+        console.log('プレミアムプラン用の処理');
+        // window.location.href = "https://app.p-layout.com/?plan=premium";
+      } else {
+        console.log('その他のボタン処理');
       }
     });
   });
 }
 
-// DOM読み込み完了時、またはすでに読み込み済みの場合に実行
+// イベント設定
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initPricingLogic);
 } else {
