@@ -16,8 +16,8 @@
       --primary-hover: #005a8f;
       --accent-purple: #764ba2;
       --accent-cyan: #2ed573;
-      --text-main: #ffffff; /* 🌟 視認性向上のため純白へ */
-      --text-muted: #cbd5e1; /* 🌟 読みやすく明るいグレーへ調整 */
+      --text-main: #ffffff;
+      --text-muted: #cbd5e1;
       --glass-bg: rgba(255, 255, 255, 0.07);
       --glass-border: rgba(255, 255, 255, 0.18);
     }
@@ -108,11 +108,16 @@
     .btn-main { background: linear-gradient(135deg, var(--primary), #0284c7); color: #fff; padding: 12px 28px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 20px rgba(0, 121, 191, 0.4); display: inline-block; border: none; cursor: pointer; }
     .btn-secondary { background: var(--glass-bg); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(8px); padding: 12px 24px; font-size: 15px; font-weight: bold; border-radius: 8px; text-decoration: none; }
 
-    /* 🌟 2段表示＆カード移動対応メインモックアップ */
+    .hero-mockup-header-guide {
+      margin: 28px auto -24px; max-width: 1000px;
+      background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 30px; padding: 6px 18px; display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: bold; color: #38bdf8; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
     .hero-mockup { margin: 36px auto 0; max-width: 1000px; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 12px; padding: 10px; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6); }
     .app-window-frame { background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 10px; position: relative; font-size: 11px; }
 
-    /* アプリ内ヘッダーバー再現 */
     .app-toolbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: 6px; padding: 6px 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; color: #172b4d; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
     .toolbar-left { display: flex; align-items: center; gap: 8px; }
     .app-select-box { padding: 3px 8px; border: 1.5px solid #0079bf; border-radius: 4px; font-size: 11px; font-weight: bold; color: #0079bf; background: #fff; }
@@ -122,8 +127,8 @@
     .tool-btn { background: #f1f5f9; border: 1px solid #cbd5e0; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: #334155; }
     .add-btn { background: #2ed573; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 10px; }
 
-    /* 台割2段グリッド再現 */
-    .app-grid-view { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; direction: rtl; }
+    /* 🌟 台割2段グリッド */
+    .app-grid-view { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; direction: ltr; }
     @media (max-width: 768px) { .app-grid-view { grid-template-columns: repeat(2, 1fr); } }
 
     .pair-box { background: rgba(255, 255, 255, 0.92); border: 2px solid #0079bf; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; direction: ltr; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
@@ -133,7 +138,6 @@
     .single-p-slot:last-child { border-right: none; padding-right: 0; padding-left: 4px; }
     .slot-num-label { text-align: center; color: #6b778c; font-weight: bold; font-size: 9px; }
 
-    /* ドラッグ可能なカードパーツ */
     .real-card-item { background: #fff; border: 1px solid #ced4da; border-radius: 4px; padding: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); cursor: grab; transition: transform 0.15s, box-shadow 0.15s; }
     .real-card-item:active { cursor: grabbing; opacity: 0.7; transform: scale(0.98); }
     .card-img-placeholder { width: 100%; height: 48px; background-size: cover; background-position: center; border-radius: 2px; margin-bottom: 4px; border: 1px solid #eee; }
@@ -141,102 +145,136 @@
     .tag-cat { background: #ff9f43; color: #fff; font-size: 8px; font-weight: bold; padding: 1px 3px; border-radius: 2px; }
     .tag-st { background: #0079bf; color: #fff; font-size: 8px; font-weight: bold; padding: 1px 3px; border-radius: 2px; }
     .st-red { background: #eb3b5a; } .st-green { background: #2ed573; }
-    .card-title-txt { font-weight: bold; font-size: 9px; color: #172b4d; margin-top: 2px; }
+    .card-title-txt { font-weight: bold; font-size: 9px; color: #172b4d; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* 🌟 機能カード＆アニメーション */
+    /* 🌟 機能カード */
     .features { padding: 60px 4%; }
     .section-title { text-align: center; margin-bottom: 40px; }
     .section-title h2 { font-size: 28px; font-weight: 800; color: #fff; }
     .section-title p { color: var(--text-muted); margin-top: 6px; font-size: 14.5px; }
 
     .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
-    .feature-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); padding: 22px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; }
-    .feature-card h3 { font-size: 17.5px; color: #fff; font-weight: bold; }
-    .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; } /* 🌟 可読性向上のため明るく・大きく */
+    
+    .feature-card { 
+      background: var(--glass-bg); backdrop-filter: blur(16px); 
+      border: 1px solid var(--glass-border); padding: 24px 20px; 
+      border-radius: 16px; display: flex; flex-direction: column; 
+      align-items: center; text-align: center; gap: 14px; 
+    }
+    .feature-card h3 { font-size: 17.5px; color: #fff; font-weight: bold; text-align: center; }
+    .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.65; text-align: center; }
 
-    .demo-viewport { width: 100%; height: 160px; background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 10px; position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+    /* 🌟 デモビジュアル表示枠の拡大設定（余白調整） */
+    .demo-viewport { 
+      width: 100%; height: 200px; 
+      background: rgba(15, 23, 42, 0.9); 
+      border: 1px solid rgba(255, 255, 255, 0.15); 
+      border-radius: 10px; position: relative; overflow: hidden; 
+      display: flex; justify-content: center; align-items: center; 
+    }
 
-    .demo-book-wrapper { display: flex; gap: 10px; position: relative; }
-    .demo-page-box { width: 65px; height: 90px; background: #fff; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 12px; color: #1e293b; font-weight: bold; position: relative; }
+    /* 拡大アニメーション要素 */
+    .sync-demo-box { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    .sync-icon { font-size: 52px; animation: spinSync 6s linear infinite; }
+    @keyframes spinSync { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .device-demo-box { display: flex; align-items: center; gap: 20px; }
+    .device-icon { font-size: 44px; }
+
+    .demo-book-wrapper { display: flex; gap: 14px; position: relative; }
+    .demo-page-box { width: 80px; height: 110px; background: #fff; border-radius: 6px; box-shadow: 0 6px 16px rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; font-size: 15px; color: #1e293b; font-weight: bold; position: relative; }
     .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
     .page-right { animation: pageSwapRight 4s infinite ease-in-out; }
-    @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(75px); } 100% { transform: translateX(0); } }
-    @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-75px); } 100% { transform: translateX(0); } }
+    @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(94px); } 100% { transform: translateX(0); } }
+    @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-94px); } 100% { transform: translateX(0); } }
 
-    .demo-grid { display: flex; gap: 10px; position: relative; }
-    .demo-card-slot { width: 52px; height: 72px; background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.2); border-radius: 4px; position: relative; }
-    .demo-card-item { width: 52px; height: 72px; background: #0079bf; border-radius: 4px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; color: #fff; }
+    .demo-grid { display: flex; gap: 14px; position: relative; }
+    .demo-card-slot { width: 68px; height: 95px; background: rgba(255,255,255,0.08); border: 1.5px dashed rgba(255,255,255,0.25); border-radius: 6px; position: relative; }
+    .demo-card-item { width: 68px; height: 95px; background: #0079bf; border-radius: 6px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; color: #fff; }
     .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
     .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
-    @keyframes dropAndShift { 0% { transform: translate(-62px, -35px) scale(1.05); opacity: 0; } 25% { transform: translate(-62px, 0) scale(1); opacity: 1; } 75%, 100% { transform: translate(0, 0); } }
-    @keyframes shiftRight { 0%, 30% { transform: translateX(0); } 65%, 100% { transform: translateX(62px); } }
-    .demo-cursor { width: 14px; height: 14px; position: absolute; z-index: 20; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain; animation: cursorMoveFixed 3.5s infinite ease-in-out; }
-    @keyframes cursorMoveFixed { 0% { transform: translate(-42px, -20px); } 25% { transform: translate(-42px, 15px); } 75%, 100% { transform: translate(20px, 15px); } }
+    @keyframes dropAndShift { 0% { transform: translate(-82px, -45px) scale(1.05); opacity: 0; } 25% { transform: translate(-82px, 0) scale(1); opacity: 1; } 75%, 100% { transform: translate(0, 0); } }
+    @keyframes shiftRight { 0%, 30% { transform: translateX(0); } 65%, 100% { transform: translateX(82px); } }
+    .demo-cursor { width: 18px; height: 18px; position: absolute; z-index: 20; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain; animation: cursorMoveFixed 3.5s infinite ease-in-out; }
+    @keyframes cursorMoveFixed { 0% { transform: translate(-55px, -25px); } 25% { transform: translate(-55px, 20px); } 75%, 100% { transform: translate(25px, 20px); } }
 
-    .drop-box { width: 120px; height: 90px; border: 2px dashed rgba(56, 189, 248, 0.5); border-radius: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.05); position: relative; gap: 4px; }
-    .file-icon { font-size: 24px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
-    .thumb-gen { width: 90px; height: 65px; background: #0079bf; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 10px; animation: thumbAppear 3s infinite ease-in-out; }
-    @keyframes fileDrop { 0% { transform: translateY(-50px) scale(1.2); opacity: 0; } 30% { transform: translateY(0) scale(1); opacity: 1; } 45%, 100% { transform: translateY(0) scale(0); opacity: 0; } }
+    .drop-box { width: 150px; height: 110px; border: 2px dashed rgba(56, 189, 248, 0.6); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(56, 189, 248, 0.08); position: relative; gap: 6px; }
+    .file-icon { font-size: 32px; position: absolute; animation: fileDrop 3s infinite ease-in-out; }
+    .thumb-gen { width: 110px; height: 80px; background: #0079bf; border-radius: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 11px; animation: thumbAppear 3s infinite ease-in-out; }
+    @keyframes fileDrop { 0% { transform: translateY(-60px) scale(1.2); opacity: 0; } 30% { transform: translateY(0) scale(1); opacity: 1; } 45%, 100% { transform: translateY(0) scale(0); opacity: 0; } }
     @keyframes thumbAppear { 0%, 40% { opacity: 0; transform: scale(0.6); } 55%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.6); } }
 
-    .chat-demo-box { width: 150px; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 6px; border: 1px solid rgba(255,255,255,0.15); }
-    .chat-msg { background: rgba(255,255,255,0.15); padding: 4px 8px; border-radius: 4px; font-size: 9px; color: #fff; }
+    .chat-demo-box { width: 180px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; border: 1px solid rgba(255,255,255,0.15); text-align: center; }
+    .chat-msg { background: rgba(255,255,255,0.15); padding: 6px 10px; border-radius: 6px; font-size: 11px; color: #fff; }
     .chat-msg-new { background: #0079bf; animation: msgPop 3s infinite ease-in-out; }
-    .attach-tag { font-size: 8px; background: #2ed573; color: #fff; padding: 2px 6px; border-radius: 10px; display: inline-block; width: fit-content; }
+    .attach-tag { font-size: 10px; background: #2ed573; color: #fff; padding: 3px 8px; border-radius: 12px; display: inline-block; width: fit-content; margin: 0 auto; }
     @keyframes msgPop { 0%, 30% { opacity: 0; transform: translateY(10px); } 45%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
 
-    .card-tag-demo { width: 85px; height: 105px; background: #fff; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .status-badge-anim { padding: 3px 6px; border-radius: 3px; font-size: 9px; font-weight: bold; color: #fff; width: fit-content; }
+    .card-tag-demo { width: 105px; height: 130px; background: #fff; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 6px 16px rgba(0,0,0,0.3); align-items: center; }
+    .status-badge-anim { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; width: fit-content; }
 
-    .flip-book-container { width: 120px; height: 85px; position: relative; perspective: 600px; }
-    .flip-page { width: 100%; height: 100%; background: #fff; border-radius: 4px; position: absolute; top: 0; left: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center; }
+    .flip-book-container { width: 150px; height: 110px; position: relative; perspective: 600px; }
+    .flip-page { width: 100%; height: 100%; background: #fff; border-radius: 6px; position: absolute; top: 0; left: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center; }
     .page-leaf-1 { animation: flipPage3D-1 4.5s infinite ease-in-out; }
     .page-leaf-2 { animation: flipPage3D-2 4.5s infinite ease-in-out; }
     @keyframes flipPage3D-1 { 0%, 25% { transform: rotateY(0deg); z-index: 3; } 35%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 3; } }
     @keyframes flipPage3D-2 { 0%, 55% { transform: rotateY(0deg); z-index: 2; } 65%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 2; } }
 
-    .collab-wrapper-multi { display: flex; align-items: center; gap: 12px; position: relative; }
-    .collab-avatars-group { display: flex; flex-direction: column; gap: 6px; }
-    .collab-avatar-small { width: 28px; height: 28px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 8px rgba(0,0,0,0.4); }
+    .collab-wrapper-multi { display: flex; align-items: center; gap: 16px; position: relative; }
+    .collab-avatars-group { display: flex; flex-direction: column; gap: 8px; }
+    .collab-avatar-small { width: 34px; height: 34px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(0,0,0,0.4); }
     .av-1 { background: #2ed573; } .av-2 { background: #764ba2; } .av-3 { background: #ff9f43; }
-    .collab-card-multi { width: 85px; height: 95px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 6px; position: relative; overflow: hidden; }
-    .live-cursor-a { position: absolute; font-size: 10px; animation: moveCursorA 3s infinite ease-in-out; }
-    .live-cursor-b { position: absolute; font-size: 10px; animation: moveCursorB 4s infinite ease-in-out; }
-    @keyframes moveCursorA { 0%, 100% { top: 10px; left: 10px; } 50% { top: 60px; left: 50px; } }
-    @keyframes moveCursorB { 0%, 100% { top: 70px; left: 40px; } 50% { top: 20px; left: 60px; } }
+    .collab-card-multi { width: 110px; height: 125px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 8px; position: relative; overflow: hidden; }
+    .live-cursor-a { position: absolute; font-size: 12px; animation: moveCursorA 3s infinite ease-in-out; }
+    .live-cursor-b { position: absolute; font-size: 12px; animation: moveCursorB 4s infinite ease-in-out; }
+    @keyframes moveCursorA { 0%, 100% { top: 15px; left: 15px; } 50% { top: 80px; left: 65px; } }
+    @keyframes moveCursorB { 0%, 100% { top: 90px; left: 50px; } 50% { top: 25px; left: 75px; } }
 
-    .list-container { display: flex; flex-direction: column; gap: 6px; width: 140px; }
-    .list-item { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 10px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
+    .list-container { display: flex; flex-direction: column; gap: 8px; width: 170px; }
+    .list-item { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
     .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: #0079bf; border-color: #38bdf8; z-index: 5; }
-    @keyframes listReorder { 0%, 20% { transform: translateY(0); } 50%, 80% { transform: translateY(28px); } 100% { transform: translateY(0); } }
+    @keyframes listReorder { 0%, 20% { transform: translateY(0); } 50%, 80% { transform: translateY(36px); } 100% { transform: translateY(0); } }
 
-    .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .export-card { width: 70px; height: 50px; background: rgba(255,255,255,0.1); border: 1px solid #38bdf8; border-radius: 4px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; color: #38bdf8; }
-    .export-arrow { font-size: 18px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
-    .export-file { background: #2ed573; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+    .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .export-card { width: 90px; height: 65px; background: rgba(255,255,255,0.12); border: 1px solid #38bdf8; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold; color: #38bdf8; }
+    .export-arrow { font-size: 22px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
+    .export-file { background: #2ed573; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; }
     @keyframes arrowDown { 0%, 100% { transform: translateY(-4px); opacity: 0.3; } 50% { transform: translateY(4px); opacity: 1; } }
 
-    /* 🛡️ セキュリティ用デモアニメーション */
-    .sec-demo-box { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; }
-    .sec-shield { font-size: 40px; animation: shieldPulse 2.5s infinite ease-in-out; filter: drop-shadow(0 0 10px rgba(46, 213, 115, 0.6)); }
-    .sec-badge-list { display: flex; gap: 6px; }
-    .sec-chip { font-size: 9px; font-weight: bold; background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 2px 8px; border-radius: 12px; }
+    .sec-demo-box { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
+    .sec-shield { font-size: 52px; animation: shieldPulse 2.5s infinite ease-in-out; filter: drop-shadow(0 0 12px rgba(46, 213, 115, 0.6)); }
+    .sec-badge-list { display: flex; gap: 8px; }
+    .sec-chip { font-size: 10px; font-weight: bold; background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 3px 10px; border-radius: 12px; }
     @keyframes shieldPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 
-    /* 🌟 3プラン構成の料金セクション */
-    .pricing { padding: 70px 4%; background: rgba(0, 0, 0, 0.2); }
-    .pricing-cards { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; max-width: 1050px; margin: 0 auto; }
-    .pricing-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 28px 20px; width: 310px; display: flex; flex-direction: column; position: relative; }
+    /* 🌟 料金セクション（2プラン構成） */
+    .pricing { padding: 70px 4% 40px; background: rgba(0, 0, 0, 0.2); }
+    .pricing-cards { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; max-width: 800px; margin: 0 auto; }
+    .pricing-card { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); border-radius: 16px; padding: 32px 24px; width: 340px; display: flex; flex-direction: column; position: relative; }
     .pricing-card.popular { border: 2px solid #0284c7; box-shadow: 0 0 25px rgba(2, 132, 199, 0.3); background: rgba(2, 132, 199, 0.08); }
     .pricing-card.premium { border: 2px solid var(--primary); box-shadow: 0 0 25px rgba(0, 121, 191, 0.3); background: rgba(0, 121, 191, 0.08); }
-    .popular-tag { position: absolute; top: -12px; right: 20px; background: #0284c7; color: #fff; font-size: 10px; font-weight: bold; padding: 3px 10px; border-radius: 12px; }
-    .pricing-card h3 { font-size: 18px; margin-bottom: 6px; color: #fff; }
-    .price { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 16px; }
-    .price span { font-size: 12px; color: var(--text-muted); font-weight: normal; }
-    .pricing-features { list-style: none; margin-bottom: 24px; flex: 1; }
-    .pricing-features li { font-size: 13px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
+    .popular-tag { position: absolute; top: -12px; right: 20px; background: #0284c7; color: #fff; font-size: 11px; font-weight: bold; padding: 4px 12px; border-radius: 12px; }
+    .pricing-card h3 { font-size: 20px; margin-bottom: 8px; color: #fff; }
+    .price { font-size: 34px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .price span { font-size: 13px; color: var(--text-muted); font-weight: normal; }
+    .trial-sub-txt { font-size: 12px; color: #38bdf8; font-weight: bold; margin-bottom: 16px; }
+    .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
+    .pricing-features li { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); line-height: 1.5; }
 
-    /* 🌟 モーダル共通スタイル */
+    /* 既存契約者向け解約・プラン変更案内スタイル */
+    .portal-link-container {
+      text-align: center; margin-top: 36px; padding-top: 20px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    }
+    .portal-link-container p { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+    .portal-link-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: #38bdf8; font-size: 13.5px; font-weight: bold; text-decoration: none;
+      padding: 6px 16px; border-radius: 20px; background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3); transition: all 0.2s;
+    }
+    .portal-link-btn:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
+
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 10000;
@@ -258,7 +296,6 @@
     }
     .form-group input:focus, .form-group textarea:focus { border-color: #38bdf8; }
 
-    /* 🌟 TOPへ戻るフローティングボタン */
     .back-to-top {
       position: fixed; bottom: 24px; right: 24px; z-index: 999;
       width: 44px; height: 44px; background: var(--primary); color: #fff;
@@ -269,7 +306,9 @@
     }
     .back-to-top:hover { background: #0284c7; transform: translateY(-3px); }
 
+    /* 🌟 フッター */
     footer { background: rgba(5, 8, 16, 0.95); border-top: 1px solid var(--glass-border); color: var(--text-muted); padding: 32px 4%; text-align: center; font-size: 12px; }
+    .footer-note { font-size: 11px; opacity: 0.75; margin-bottom: 8px; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -318,19 +357,22 @@
       <a href="#features" class="btn-secondary" data-ja="機能を見る" data-en="View Features">機能を見る</a>
     </div>
 
-    <!-- 🌟 インタラクティブモックアップ（2段構成・ドラッグ移動対応・詳細非表示・担当者なし） -->
+    <div class="hero-mockup-header-guide">
+      <span>カードをドラッグ＆ドロップしてページ配置を入れ替えできます</span>
+    </div>
+
+    <!-- モックアップ（左開き・H1/H4正しい配置・簡潔タイトル） -->
     <div class="hero-mockup">
       <div class="app-window-frame">
-        <!-- 上部ヘッダーコントロール再現 -->
         <div class="app-toolbar">
           <div class="toolbar-left">
-            <span class="app-select-box">製品カタログ構成案 ▾</span>
-            <span class="app-title-txt">製品カタログ構成案 ✏️</span>
+            <span class="app-select-box">アニュアルレポート2026構成案 ▾</span>
+            <span class="app-title-txt">アニュアルレポート2026構成案 ✏️</span>
             <div class="history-pills">↩️ 戻る (0) | ↪️ 進む (0)</div>
           </div>
           <div class="toolbar-right">
             <span>綴じ方向: <span style="font-weight:bold;">左開き</span> ▾</span>
-            <span>総ページ数: <span style="font-weight:bold;">20 P</span> ▾</span>
+            <span>総ページ数: <span style="font-weight:bold;">16 P</span> ▾</span>
             <span class="tool-btn">📋 順序変更</span>
             <span class="tool-btn">⚙️ 書き出し / 保存 ▾</span>
             <span class="tool-btn">🛠️ ツール ▾</span>
@@ -338,143 +380,180 @@
           </div>
         </div>
 
-        <!-- 台割ペアグリッド再現（2段・8枠構成） -->
         <div class="app-grid-view">
-          <!-- 1段目: 表紙・裏表紙 -->
           <div class="pair-box">
             <div class="pair-title-bar">表紙・裏表紙</div>
             <div class="pair-pages-body">
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">表紙(H1)</div>
                 <div class="real-card-item" id="card_h1" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=400&q=80');"></div>
-                  <div class="badge-flex-row">
-                    <span class="tag-cat">画像</span>
-                    <span class="tag-st st-red">修正中</span>
-                  </div>
-                  <div class="card-title-txt">表紙1</div>
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">校了</span></div>
+                  <div class="card-title-txt">表紙デザイン</div>
                 </div>
               </div>
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">裏表紙(H4)</div>
+                <div class="real-card-item" id="card_h4" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
+                  <div class="card-title-txt">裏表紙・会社情報</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- 1段目: 1-2 P -->
           <div class="pair-box">
             <div class="pair-title-bar">1 - 2 P</div>
             <div class="pair-pages-body">
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">2 P</div>
-                <div class="real-card-item" id="card_p2" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=400&q=80');"></div>
-                  <div class="badge-flex-row">
-                    <span class="tag-cat">画像</span>
-                    <span class="tag-st st-red">一次確認</span>
-                  </div>
-                  <div class="card-title-txt">p3</div>
+                <div class="slot-num-label">1 P</div>
+                <div class="real-card-item" id="card_p1" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
+                  <div class="card-title-txt">目次・ハイライト</div>
                 </div>
               </div>
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">1 P</div>
-                <div class="real-card-item" id="card_p1" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=400&q=80');"></div>
-                  <div class="badge-flex-row">
-                    <span class="tag-cat">画像</span>
-                    <span class="tag-st st-green">構想案</span>
-                  </div>
-                  <div class="card-title-txt">p2</div>
+                <div class="slot-num-label">2 P</div>
+                <div class="real-card-item" id="card_p2" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
+                  <div class="card-title-txt">CEOメッセージ</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 1段目: 3-4 P -->
           <div class="pair-box">
             <div class="pair-title-bar">3 - 4 P</div>
             <div class="pair-pages-body">
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">4 P</div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">3 P</div>
                 <div class="real-card-item" id="card_p3" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400&q=80');"></div>
-                  <div class="badge-flex-row">
-                    <span class="tag-cat">画像</span>
-                    <span class="tag-st">承認済</span>
-                  </div>
-                  <div class="card-title-txt">p1</div>
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
+                  <div class="card-title-txt">主要トピックス</div>
+                </div>
+              </div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">4 P</div>
+                <div class="real-card-item" id="card_p4" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
+                  <div class="card-title-txt">環境活動方針</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 1段目: 5-6 P -->
           <div class="pair-box">
             <div class="pair-title-bar">5 - 6 P</div>
             <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">6 P</div></div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">5 P</div></div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">5 P</div>
+                <div class="real-card-item" id="card_p5" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
+                  <div class="card-title-txt">人材育成</div>
+                </div>
+              </div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">6 P</div>
+                <div class="real-card-item" id="card_p6" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
+                  <div class="card-title-txt">地域連携事例</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 🌟 2段目: 7-8 P （追加） -->
           <div class="pair-box">
             <div class="pair-title-bar">7 - 8 P</div>
             <div class="pair-pages-body">
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">8 P</div>
-                <div class="real-card-item" id="card_p8" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=80');"></div>
-                  <div class="badge-flex-row">
-                    <span class="tag-cat">画像</span>
-                    <span class="tag-st st-green">構想案</span>
-                  </div>
-                  <div class="card-title-txt">p8</div>
+                <div class="slot-num-label">7 P</div>
+                <div class="real-card-item" id="card_p7" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
+                  <div class="card-title-txt">健康経営</div>
                 </div>
               </div>
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">7 P</div>
+                <div class="slot-num-label">8 P</div>
+                <div class="real-card-item" id="card_p8" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
+                  <div class="card-title-txt">ダイバーシティ</div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- 🌟 2段目: 9-10 P （追加） -->
           <div class="pair-box">
             <div class="pair-title-bar">9 - 10 P</div>
             <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">10 P</div></div>
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">9 P</div>
                 <div class="real-card-item" id="card_p9" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80');"></div>
-                  <div class="badge-flex-row">
-                    <span class="tag-cat">画像</span>
-                    <span class="tag-st st-red">一次確認</span>
-                  </div>
-                  <div class="card-title-txt">p9</div>
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
+                  <div class="card-title-txt">パートナーシップ</div>
+                </div>
+              </div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">10 P</div>
+                <div class="real-card-item" id="card_p10" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
+                  <div class="card-title-txt">グローバル展開</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 🌟 2段目: 11-12 P （追加） -->
           <div class="pair-box">
             <div class="pair-title-bar">11 - 12 P</div>
             <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">12 P</div></div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">11 P</div></div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">11 P</div>
+                <div class="real-card-item" id="card_p11" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
+                  <div class="card-title-txt">財務ハイライト</div>
+                </div>
+              </div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">12 P</div>
+                <div class="real-card-item" id="card_p12" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
+                  <div class="card-title-txt">前年度分析</div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- 🌟 2段目: 13-14 P （追加） -->
           <div class="pair-box">
             <div class="pair-title-bar">13 - 14 P</div>
             <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">14 P</div></div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)"><div class="slot-num-label">13 P</div></div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">13 P</div>
+                <div class="real-card-item" id="card_p13" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
+                  <div class="card-title-txt">ガバナンス</div>
+                </div>
+              </div>
+              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
+                <div class="slot-num-label">14 P</div>
+                <div class="real-card-item" id="card_p14" draggable="true" ondragstart="dragCard(event)">
+                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">校了</span></div>
+                  <div class="card-title-txt">コンプライアンス</div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -483,7 +562,7 @@
     </div>
   </section>
 
-  <!-- 🌟 全機能紹介セクション（指定順序 6, 5, 4, 9, 3, 8, 1, 10, 7, 2 へ組み直し） -->
+  <!-- 全機能紹介セクション（ビジュアル領域拡大・消えていた2機能の復元） -->
   <section class="features" id="features">
     <div class="section-title">
       <h2 data-ja="組織の資料・構成管理を安全かつ効率的に" data-en="Enterprise Layout & Content Management">組織の資料・構成管理を安全かつ効率的に</h2>
@@ -491,62 +570,81 @@
     </div>
 
     <div class="features-grid">
-      
-      <!-- 6. 高解像度プレビューで最終チェックをスムーズに -->
+      <!-- 🌟 リアルタイム同期編集（復元・ビジュアル拡大） -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div class="flip-book-container">
-            <div class="flip-page page-leaf-2">3 P</div>
-            <div class="flip-page page-leaf-1">2 P</div>
-            <div class="flip-page" style="z-index: 0;">1 P</div>
-          </div>
-        </div>
-        <h3 data-ja="高解像度プレビューで最終チェックをスムーズに" data-en="High-Precision Preview Inspection">高解像度プレビューで最終チェックをスムーズに</h3>
-        <p data-ja="詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。" data-en="Enlarge design drafts in detail mode and flip through pages naturally for efficient internal quality checks.">詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。</p>
-      </div>
-
-      <!-- 5. 進捗ステータスの一律可視化で遅れを防止 -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="card-tag-demo">
-            <div id="statusBadgeDemo" class="status-badge-anim" style="background:#0079bf;">一次確認</div>
-            <div style="font-size:9px; font-weight:bold; color:#1e293b;" data-anim-ja="1P 概要" data-anim-en="1P Intro">1P 概要</div>
-            <div style="flex:1; background:#f1f5f9; border-radius:3px;"></div>
-          </div>
-        </div>
-        <h3 data-ja="進捗ステータスの一律可視化で遅れを防止" data-en="Unified Progress Status Tracking">進捗ステータスの一律可視化で遅れを防止</h3>
-        <p data-ja="「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。" data-en="Visualize workflow status with tags like In Progress, 1st Review, Revision, Completed, and Approved.">「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。</p>
-      </div>
-
-      <!-- 4. 各ページからコメントをメールで通知 -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="chat-demo-box">
-            <div class="chat-msg" style="background:#0284c7;" data-anim-ja="✉️ コメントを投稿" data-anim-en="✉️ Posted Comment">✉️ コメントを投稿</div>
-            <div class="chat-msg chat-msg-new" data-anim-ja="📩 メールで即時通知" data-anim-en="📩 Instant Email Notification">📩 メールで即時通知</div>
-            <span class="attach-tag" style="background:#38bdf8;" data-anim-ja="🔔 通知完了" data-anim-en="🔔 Notified">🔔 通知完了</span>
-          </div>
-        </div>
-        <h3 data-ja="各ページからコメントをメールで通知" data-en="Email Notifications for Page Comments">各ページからコメントをメールで通知</h3>
-        <p data-ja="各ページに書き込まれた修正指示やコメントを関係者へメールで自動通知。確認漏れや返信遅れを防ぎ、スムーズな意思疎通を実現します。" data-en="Automatically notify team members via email whenever comments or notes are added to any page, ensuring no missed feedback.">各ページに書き込まれた修正指示やコメントを関係者へメールで自動通知。確認漏れや返信遅れを防ぎ、スムーズな意思疎通を実現します。</p>
-      </div>
-
-      <!-- 9. ファイルを置くだけで全体像を視覚的に把握 -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="drop-box">
-            <span class="file-icon">🖼️</span>
-            <div class="thumb-gen">
-              <span>PDF/JPG/PNG</span>
-              <span style="font-size: 8px; opacity: 0.8;" data-anim-ja="自動サムネイル" data-anim-en="Auto Thumbnail">自動サムネイル</span>
+          <div class="collab-wrapper-multi">
+            <div class="collab-avatars-group">
+              <div class="collab-avatar-small av-1">A</div>
+              <div class="collab-avatar-small av-2">B</div>
+              <div class="collab-avatar-small av-3">C</div>
+            </div>
+            <div class="collab-card-multi">
+              <div style="height:8px; background:rgba(255,255,255,0.35); border-radius:2px; margin-bottom:6px;"></div>
+              <div style="height:8px; background:rgba(255,255,255,0.25); border-radius:2px; width:70%;"></div>
+              <span class="live-cursor-a">🖱️A</span>
+              <span class="live-cursor-b">🖱️B</span>
             </div>
           </div>
         </div>
-        <h3 data-ja="ファイルを置くだけで全体像を視覚的に把握" data-en="Instant Visual Document Map">ファイルを置くだけで全体像を視覚的に把握</h3>
-        <p data-ja="原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。" data-en="Drag and drop PDF/JPG/PNG documents to generate instant page thumbnails and visualize overall progress.">原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。</p>
+        <h3 data-ja="チーム全員でリアルタイム同期編集" data-en="Real-Time Sync Co-Editing">チーム全員でリアルタイム同期編集</h3>
+        <p data-ja="クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。" data-en="Sync instantly via cloud to share identical layout plans live with internal teams and external partners.">クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。</p>
       </div>
 
-      <!-- 3. 自動繰り下げ機能でレイアウト調整事故を防止 -->
+      <!-- 🌟 一括ページ再構成（復元・ビジュアル拡大） -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="list-container">
+            <div class="list-item item-drag"><span data-anim-ja="≡ 1P 会社概要" data-anim-en="≡ 1P Overview">≡ 1P 会社概要</span></div>
+            <div class="list-item"><span data-anim-ja="≡ 2P 製品一覧" data-anim-en="≡ 2P Products">≡ 2P Products</span></div>
+          </div>
+        </div>
+        <h3 data-ja="ドラッグ＆ドロップで一括ページ再構成" data-en="Bulk Page Restructuring">ドラッグ＆ドロップで一括ページ再構成</h3>
+        <p data-ja="全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。" data-en="Intuitive drag-and-drop page reordering to handle urgent layout changes quickly without mistakes.">全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。</p>
+      </div>
+
+      <!-- クラウドサーバー自動保存＆同期（ビジュアル拡大） -->
+      <div class="feature-card" style="border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.05);">
+        <div class="demo-viewport">
+          <div class="sync-demo-box">
+            <span class="sync-icon">☁️</span>
+            <span class="sec-chip" style="font-size: 11px;">自動リアルタイム同期</span>
+          </div>
+        </div>
+        <h3 data-ja="クラウドサーバー自動保存＆同期" data-en="Automatic Cloud Auto-Save & Sync">クラウドサーバー自動保存＆同期</h3>
+        <p data-ja="作業内容はすべてクラウドへ即時自動保存。保存忘れやデータ紛失の心配がなく、常に最新状態の構成案をチーム全体で共有可能です。" data-en="All changes are auto-saved to the cloud instantly. Never worry about losing data or manual save steps.">作業内容はすべてクラウドへ即時自動保存。保存忘れやデータ紛失の心配がなく、常に最新状態の構成案をチーム全体で共有可能です。</p>
+      </div>
+
+      <!-- 複数デバイス対応（ビジュアル拡大） -->
+      <div class="feature-card" style="border: 1px solid rgba(118, 75, 162, 0.4); background: rgba(118, 75, 162, 0.05);">
+        <div class="demo-viewport">
+          <div class="device-demo-box">
+            <span class="device-icon">💻</span>
+            <span style="font-size: 22px; color: var(--text-muted);">⇄</span>
+            <span class="device-icon">📱</span>
+          </div>
+        </div>
+        <h3 data-ja="複数デバイス対応（PC・タブレット）" data-en="Multi-Device Access (PC & Tablet)">複数デバイス対応（PC・タブレット）</h3>
+        <p data-ja="同一アカウントでPCやタブレットからスムーズに閲覧・編集可能。オフィス、外出先、ミーティング場など環境を選ばず活用できます。" data-en="Access and edit seamlessly from PC or tablet with a single account anywhere, anytime.">同一アカウントでPCやタブレットからスムーズに閲覧・編集可能。オフィス、外出先、ミーティング場など環境を選ばず活用できます。</p>
+      </div>
+
+      <!-- セキュリティ（ビジュアル拡大） -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="sec-demo-box">
+            <span class="sec-shield">🛡️</span>
+            <div class="sec-badge-list">
+              <span class="sec-chip">TLS 暗号化</span>
+              <span class="sec-chip">Google OAuth</span>
+              <span class="sec-chip">RLS アクセス制御</span>
+            </div>
+          </div>
+        </div>
+        <h3 data-ja="社外共有も安心。万全のアクセス権限管理" data-en="Secure External Sharing & Access Control">社外共有も安心。万全のアクセス権限管理</h3>
+        <p data-ja="全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、社外との共有時も企業の機密データを強力に保護します。" data-en="Safeguard corporate confidential data with TLS encryption, Google OAuth SSO, and strict RLS access policies.">全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、社外との共有時も企業の機密データを強力に保護します。</p>
+      </div>
+
+      <!-- 自動繰り下げ（ビジュアル拡大） -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-cursor"></div>
@@ -564,7 +662,46 @@
         <p data-ja="ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。" data-en="Automatic page shifting on card insertion prevents layout misalignment and human errors.">ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。</p>
       </div>
 
-      <!-- 8. 各種冊子・冊子仕様（右開き/左開き）に対応 -->
+      <!-- メール通知（ビジュアル拡大） -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="chat-demo-box">
+            <div class="chat-msg" style="background:#0284c7;" data-anim-ja="コメントを投稿" data-anim-en="Posted Comment">コメントを投稿</div>
+            <div class="chat-msg chat-msg-new" data-anim-ja="メールで即時通知" data-anim-en="Instant Email Notification">メールで即時通知</div>
+            <span class="attach-tag" style="background:#38bdf8;" data-anim-ja="通知完了" data-anim-en="Notified">通知完了</span>
+          </div>
+        </div>
+        <h3 data-ja="各ページからコメントをメールで通知" data-en="Email Notifications for Page Comments">各ページからコメントをメールで通知</h3>
+        <p data-ja="各ページに書き込まれた修正指示やコメントを関係者へメールで自動通知。確認漏れや返信遅れを防ぎ、スムーズな意思疎通を実現します。" data-en="Automatically notify team members via email whenever comments or notes are added to any page, ensuring no missed feedback.">各ページに書き込まれた修正指示やコメントを関係者へメールで自動通知。確認漏れや返信遅れを防ぎ、スムーズな意思疎通を実現します。</p>
+      </div>
+
+      <!-- 進捗可視化（ビジュアル拡大） -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="card-tag-demo">
+            <div id="statusBadgeDemo" class="status-badge-anim" style="background:#0079bf;">一次確認</div>
+            <div style="font-size:10px; font-weight:bold; color:#1e293b;" data-anim-ja="1P 概要" data-anim-en="1P Intro">1P 概要</div>
+            <div style="flex:1; background:#f1f5f9; border-radius:4px;"></div>
+          </div>
+        </div>
+        <h3 data-ja="進捗ステータスの一律可視化で遅れを防止" data-en="Unified Progress Status Tracking">進捗ステータスの一律可視化で遅れを防止</h3>
+        <p data-ja="「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。" data-en="Visualize workflow status with tags like In Progress, 1st Review, Revision, Completed, and Approved.">「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。</p>
+      </div>
+
+      <!-- プレビュー拡大（ビジュアル拡大） -->
+      <div class="feature-card">
+        <div class="demo-viewport">
+          <div class="flip-book-container">
+            <div class="flip-page page-leaf-2">3 P</div>
+            <div class="flip-page page-leaf-1">2 P</div>
+            <div class="flip-page" style="z-index: 0;">1 P</div>
+          </div>
+        </div>
+        <h3 data-ja="高解像度プレビューで最終チェックをスムーズに" data-en="High-Precision Preview Inspection">高解像度プレビューで最終チェックをスムーズに</h3>
+        <p data-ja="詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。" data-en="Enlarge design drafts in detail mode and flip through pages naturally for efficient internal quality checks.">詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。</p>
+      </div>
+
+      <!-- 右開き/左開き（ビジュアル拡大） -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-book-wrapper">
@@ -576,23 +713,22 @@
         <p data-ja="製品カタログ、社内報、IR資料など用途に応じた「右開き」「左開き」をワンタップ切り替え。見開き配置も自動で最適化されます。" data-en="Switch easily between LTR and RTL bindings for product catalogs, internal newsletters, and IR reports.">製品カタログ、社内報、IR資料など用途に応じた「右開き」「左開き」をワンタップ切り替え。見開き配置も自動で最適化されます。</p>
       </div>
 
-      <!-- 1. 万全のエンタープライズ級セキュリティ -->
-      <div class="feature-card" style="border: 1px solid rgba(46, 213, 115, 0.4); background: rgba(46, 213, 115, 0.05);">
+      <!-- サムネイル生成（ビジュアル拡大） -->
+      <div class="feature-card">
         <div class="demo-viewport">
-          <div class="sec-demo-box">
-            <span class="sec-shield">🛡️</span>
-            <div class="sec-badge-list">
-              <span class="sec-chip">TLS 暗号化</span>
-              <span class="sec-chip">Google OAuth</span>
-              <span class="sec-chip">RLS アクセス制御</span>
+          <div class="drop-box">
+            <span class="file-icon">🖼️</span>
+            <div class="thumb-gen">
+              <span>PDF/JPG/PNG</span>
+              <span style="font-size: 9px; opacity: 0.85;" data-anim-ja="自動サムネイル" data-anim-en="Auto Thumbnail">自動サムネイル</span>
             </div>
           </div>
         </div>
-        <h3 data-ja="万全のエンタープライズ級セキュリティ" data-en="Enterprise-Grade Security">万全のエンタープライズ級セキュリティ</h3>
-        <p data-ja="全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、企業の機密データを強力に保護します。" data-en="Safeguard corporate confidential data with TLS encryption, Google OAuth SSO, and strict RLS access policies.">全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、企業の機密データを強力に保護します。</p>
+        <h3 data-ja="ファイルを置くだけで全体像を視覚的に把握" data-en="Instant Visual Document Map">ファイルを置くだけで全体像を視覚的に把握</h3>
+        <p data-ja="原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。" data-en="Drag and drop PDF/JPG/PNG documents to generate instant page thumbnails and visualize overall progress.">原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。</p>
       </div>
 
-      <!-- 10. ワンクリックで高精細PDF/画像出力 -->
+      <!-- PDF/JPG出力（ビジュアル拡大） -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="export-box">
@@ -601,103 +737,59 @@
             <div class="export-file">PDF / JPG</div>
           </div>
         </div>
-        <h3 data-ja="ワンクリックで高精細PDF/画像出力" data-en="High-Res PDF & Image Export">ワンクリックで高精細PDF/画像出力</h3>
+        <h3 data-ja="ワンクリックでPDF/JPGに出力" data-en="High-Res PDF & Image Export">ワンクリックでPDF/JPGに出力</h3>
         <p data-ja="作成した構成案はワンクリックで高精度PDFやJPG形式で出力。バックアップ用データ出力にも対応し、社内共有や保管も万全です。" data-en="Export completed layout drafts to high-precision PDF or JPG formats in one click for archiving and sharing.">作成した構成案はワンクリックで高精度PDFやJPG形式で出力。バックアップ用データ出力にも対応し、社内共有や保管も万全です。</p>
       </div>
 
-      <!-- 7. ドラッグ＆ドロップで一括ページ再構成 -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="list-container">
-            <div class="list-item item-drag"><span data-anim-ja="≡ 1P 会社概要" data-anim-en="≡ 1P Overview">≡ 1P 会社概要</span></div>
-            <div class="list-item"><span data-anim-ja="≡ 2P 製品一覧" data-anim-en="≡ 2P Products">≡ 2P 製品一覧</span></div>
-          </div>
-        </div>
-        <h3 data-ja="ドラッグ＆ドロップで一括ページ再構成" data-en="Bulk Page Restructuring">ドラッグ＆ドロップで一括ページ再構成</h3>
-        <p data-ja="全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。" data-en="Intuitive drag-and-drop page reordering to handle urgent layout changes quickly without mistakes.">全体のページ順を直感的に操作して即座に入れ替え。急な構成変更やページの差し替え作業も、ミスなくスムーズに完了します。</p>
-      </div>
-
-      <!-- 2. チーム全員でリアルタイム同期編集 -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="collab-wrapper-multi">
-            <div class="collab-avatars-group">
-              <div class="collab-avatar-small av-1">A</div>
-              <div class="collab-avatar-small av-2">B</div>
-              <div class="collab-avatar-small av-3">C</div>
-            </div>
-            <div class="collab-card-multi">
-              <div style="height:6px; background:rgba(255,255,255,0.3); border-radius:2px; margin-bottom:4px;"></div>
-              <div style="height:6px; background:rgba(255,255,255,0.2); border-radius:2px; width:70%;"></div>
-              <span class="live-cursor-a">🖱️A</span>
-              <span class="live-cursor-b">🖱️B</span>
-            </div>
-          </div>
-        </div>
-        <h3 data-ja="チーム全員でリアルタイム同期編集" data-en="Real-Time Sync Co-Editing">チーム全員でリアルタイム同期編集</h3>
-        <p data-ja="クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。" data-en="Sync instantly via cloud to share identical layout plans live with internal teams and external partners.">クラウド同期により、社内メンバーや社外パートナーと同一の台割・構成案をリアルタイム共有。最新状態を常に一元管理できます。</p>
-      </div>
-
     </div>
   </section>
 
-  <!-- 🌟 3プラン構成の料金セクション（決済URL更新） -->
+  <!-- 🌟 料金セクション（アイコン除去・シンプル化） -->
   <section class="pricing" id="pricing">
     <div class="section-title">
       <h2 data-ja="シンプルで柔軟な料金体系" data-en="Simple & Flexible Pricing">シンプルで柔軟な料金体系</h2>
-      <p data-ja="まずはフリープランで操作感をお試しいただけます。" data-en="Start free and upgrade seamlessly as your team grows.">まずはフリープランで操作感をお試しいただけます。</p>
+      <p data-ja="ニーズに合わせて最適なプランをお選びいただけます。" data-en="Choose the plan that best fits your needs.">ニーズに合わせて最適なプランをお選びいただけます。</p>
     </div>
 
     <div class="pricing-cards">
-      <!-- フリープラン -->
-      <div class="pricing-card">
-        <h3 data-ja="フリープラン" data-en="Free Plan">フリープラン</h3>
-        <div class="price">¥0 <span data-ja="/ 2週間" data-en="/ 2 Weeks">/ 2週間</span></div>
-        <ul class="pricing-features">
-          <li data-ja="✨ 基本的な台割・レイアウト作成（〜20P）" data-en="✨ Basic layout creation (Up to 20P)">✨ 基本的な台割・レイアウト作成（〜20P）</li>
-          <li data-ja="✨ 右開き / 左開き対応" data-en="✨ LTR & RTL support">✨ 右開き / 左開き対応</li>
-          <li data-ja="✨ PDF・JPG出力（標準解像度）" data-en="✨ PDF & JPG export">✨ PDF・JPG出力（標準解像度）</li>
-          <li data-ja="✨ メンバー招待（最大3名まで）" data-en="✨ Up to 3 collaborators">✨ メンバー招待（最大3名まで）</li>
-        </ul>
-        <a href="https://app.p-layout.com" target="_blank" class="btn-secondary" style="text-align:center; text-decoration:none;" data-plan="free" data-ja="無料で使用" data-en="Use for Free">無料で使用</a>
-      </div>
-
-      <!-- スタンダードプラン（Stripe決済URL組み込み） -->
+      <!-- スタンダードプラン -->
       <div class="pricing-card popular">
         <span class="popular-tag" data-ja="おすすめ" data-en="Popular">おすすめ</span>
         <h3 data-ja="スタンダードプラン" data-en="Standard Plan">スタンダードプラン</h3>
-        <div class="price">¥490 <span data-ja="/ 月額" data-en="/ Month">/ Month</span></div>
+        <div class="price">¥490 <span data-ja="/ 月" data-en="/ Month">/ 月</span></div>
+        <div class="trial-sub-txt" data-ja="14日間無料でお試しいただけます" data-en="Includes 14-day Free Trial">14日間無料でお試しいただけます</div>
         <ul class="pricing-features">
-          <li data-ja="✨ ページ数拡張（最大48Pまで対応）" data-en="✨ Expanded pages (Up to 48P)">✨ ページ数拡張（最大48Pまで対応）</li>
-          <li data-ja="✨ 複数デバイス対応（同一アカウントでPC・タブレットから閲覧・編集可能）" data-en="✨ Multi-device support (Access from PC/Tablet with same account)">✨ 複数デバイス対応（同一アカウントでPC・タブレットから閲覧・編集可能）</li>
-          <li data-ja="✨ メンバー招待（最大5名まで）" data-en="✨ Up to 5 collaborators">✨ メンバー招待（最大5名まで）</li>
-          <li data-ja="✨ クラウドサーバー自動保存＆同期" data-en="✨ Automatic Cloud Server Sync">✨ クラウドサーバー自動保存＆同期</li>
-          <li data-ja="✨ JSONバックアップ / 復元機能" data-en="✨ JSON Backup & Restore">✨ JSONバックアップ / 復元機能</li>
+          <li data-ja="ページ数拡張（最大48Pまで対応）" data-en="Expanded pages (Up to 48P)">ページ数拡張（最大48Pまで対応）</li>
+          <li data-ja="メンバー招待（最大5名まで）" data-en="Up to 5 collaborators">メンバー招待（最大5名まで）</li>
         </ul>
-        <a href="https://buy.stripe.com/cNibJ3cfVbf8dzz6JD1Fe02" target="_blank" class="btn-main" style="text-align:center; text-decoration:none; background:#0284c7;" data-plan="standard" data-ja="スタンダードプランを取得" data-en="Get Standard Plan">スタンダードプランを取得</a>
+        <a id="btnStandardPlan" href="https://buy.stripe.com/cNibJ3cfVbf8dzz6JD1Fe02" target="_blank" class="btn-main" style="text-align:center; text-decoration:none; background:#0284c7;" data-plan="standard" data-ja="14日間無料でお試し" data-en="Start 14-Day Free Trial">14日間無料でお試し</a>
       </div>
 
-      <!-- プレミアムプラン（Stripe決済URL組み込み） -->
+      <!-- プレミアムプラン -->
       <div class="pricing-card premium">
         <h3 data-ja="プレミアムプラン" data-en="Premium Plan">プレミアムプラン</h3>
-        <div class="price">¥990 <span data-ja="/ 月額" data-en="/ Month">/ Month</span></div>
+        <div class="price">¥990 <span data-ja="/ 月" data-en="/ Month">/ 月</span></div>
+        <div class="trial-sub-txt" style="opacity: 0;" aria-hidden="true">-</div>
         <ul class="pricing-features">
-          <li data-ja="✨ ページ数制限なし（48P以上対応）" data-en="✨ Unlimited pages (48P+)">✨ ページ数制限なし（48P以上対応）</li>
-          <li data-ja="✨ 複数デバイス対応（同一アカウントでPC・タブレットから閲覧・編集可能）" data-en="✨ Multi-device support (Access from PC/Tablet with same account)">✨ 複数デバイス対応（同一アカウントでPC・タブレットから閲覧・編集可能）</li>
-          <li data-ja="✨ メンバー無制限招待" data-en="✨ Unlimited collaborators">✨ メンバー無制限招待</li>
-          <li data-ja="✨ 超大容量サムネイル保存（優先帯域）" data-en="✨ Large Storage Capacity">✨ 超大容量サムネイル保存（優先帯域）</li>
-          <li data-ja="✨ 全クラウド同期＆全バックアップ機能" data-en="✨ Full Cloud Sync & Backup">✨ 全クラウド同期＆全バックアップ機能</li>
+          <li data-ja="ページ数制限なし（48P以上対応）" data-en="Unlimited pages (48P+)">ページ数制限なし（48P以上対応）</li>
+          <li data-ja="メンバー無制限招待" data-en="Unlimited collaborators">メンバー無制限招待</li>
         </ul>
-        <a href="https://buy.stripe.com/bJe7sN7ZFbf86771pj1Fe01" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-plan="premium" data-ja="プレミアムプランを取得" data-en="Get Premium Plan">プレミアムプランを取得</a>
+        <a id="btnPremiumPlan" href="https://buy.stripe.com/bJe7sN7ZFbf86771pj1Fe01" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-plan="premium" data-ja="プレミアムプランを取得" data-en="Get Premium Plan">プレミアムプランを取得</a>
       </div>
+    </div>
+
+    <!-- 既存契約者向け解約・プラン変更リンク（歯車アイコン削除） -->
+    <div class="portal-link-container">
+      <p data-ja="すでに有料プランをご利用中の方はこちらから解約・プラン変更が可能です。" data-en="Already subscribed? Manage or cancel your subscription here.">すでに有料プランをご利用中の方はこちらから解約・プラン変更が可能です。</p>
+      <a href="https://billing.stripe.com/p/login/bJe14pfs7dngbrrfg91Fe00" target="_blank" class="portal-link-btn" data-ja="解約・ご契約内容の変更（カスタマーポータル）" data-en="Manage or Cancel Subscription">解約・ご契約内容の変更（カスタマーポータル）</a>
     </div>
   </section>
 
-  <!-- 📩 お問い合わせモーダル -->
+  <!-- お問い合わせモーダル -->
   <div class="modal-overlay" id="contactModal">
     <div class="modal-box">
       <button class="modal-close-btn" id="closeContactBtn">&times;</button>
-      <h3 data-ja="📩 導入・資料請求のお問い合わせ" data-en="📩 Enterprise Contact & Inquiries">📩 導入・資料請求のお問い合わせ</h3>
+      <h3 data-ja="導入・資料請求のお問い合わせ" data-en="Enterprise Contact & Inquiries">導入・資料請求のお問い合わせ</h3>
       <p style="font-size:12px; color:#94a3b8;" data-ja="法人導入、お見積り、デモのご依頼などお気軽にお問い合わせください。" data-en="Feel free to contact us regarding corporate deployment, quotes, and product demos.">法人導入、お見積り、デモのご依頼などお気軽にお問い合わせください。</p>
       
       <form action="https://formspree.io/f/xoealopw" method="POST" id="contactForm">
@@ -722,14 +814,15 @@
     </div>
   </div>
 
-  <!-- フローティング TOPへ戻るボタン -->
   <a href="#top" class="back-to-top" title="Top">▲</a>
 
+  <!-- フッター -->
   <footer>
+    <p class="footer-note" data-ja="※表示価格や提供機能・サービス仕様は予告なく変更される場合があります。" data-en="*Prices, features, and service specifications are subject to change without notice.">※表示価格や提供機能・サービス仕様は予告なく変更される場合があります。</p>
     <p>© 2026 PageLayout. All rights reserved.</p>
   </footer>
 
-  <!-- 🌐 インタラクティブスクリプト -->
+  <!-- スクリプト -->
   <script>
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const navContainer = document.getElementById('navContainer');
@@ -760,13 +853,8 @@
       }
     });
 
-    /* 🌟 ドラッグ＆ドロップインタラクション制御 */
-    function allowDrop(ev) {
-      ev.preventDefault();
-    }
-    function dragCard(ev) {
-      ev.dataTransfer.setData("text", ev.target.id);
-    }
+    function allowDrop(ev) { ev.preventDefault(); }
+    function dragCard(ev) { ev.dataTransfer.setData("text", ev.target.id); }
     function dropCard(ev) {
       ev.preventDefault();
       const cardId = ev.dataTransfer.getData("text");
@@ -850,6 +938,53 @@
         const text = el.getAttribute(`data-anim-${currentLang}`);
         if (text) el.innerText = text;
       });
+    });
+
+    /* 🌟 動的Stripe決済リンク生成処理（client_reference_id の自動付与） */
+    document.addEventListener("DOMContentLoaded", function() {
+      const SUPABASE_URL = 'https://ljkdezzgexmcjkfqydvh.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_ae2OJ-oienvWuEAcC6hPsQ_rjf9gi9V';
+      let supabaseClient = null;
+
+      if (window.supabase && typeof window.supabase.createClient === 'function') {
+        try {
+          supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch (e) {
+          console.warn("Supabase Client Init Error", e);
+        }
+      }
+
+      function updateCheckoutLinks(userId) {
+        const btnStandard = document.getElementById('btnStandardPlan');
+        const btnPremium = document.getElementById('btnPremiumPlan');
+
+        const baseStandard = "https://buy.stripe.com/cNibJ3cfVbf8dzz6JD1Fe02";
+        const basePremium = "https://buy.stripe.com/bJe7sN7ZFbf86771pj1Fe01";
+
+        if (userId) {
+          if (btnStandard) btnStandard.href = baseStandard + "?client_reference_id=" + userId;
+          if (btnPremium) btnPremium.href = basePremium + "?client_reference_id=" + userId;
+        } else {
+          if (btnStandard) btnStandard.href = baseStandard;
+          if (btnPremium) btnPremium.href = basePremium;
+        }
+      }
+
+      if (supabaseClient) {
+        supabaseClient.auth.getSession().then(res => {
+          if (res.data && res.data.session && res.data.session.user) {
+            updateCheckoutLinks(res.data.session.user.id);
+          }
+        });
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+          if (session && session.user) {
+            updateCheckoutLinks(session.user.id);
+          } else {
+            updateCheckoutLinks(null);
+          }
+        });
+      }
     });
   </script>
   <script src="pricing.js" defer></script>
