@@ -762,19 +762,19 @@
           <li data-ja="ページ数拡張（最大48Pまで対応）" data-en="Expanded pages (Up to 48P)">ページ数拡張（最大48Pまで対応）</li>
           <li data-ja="メンバー招待（最大5名まで）" data-en="Up to 5 collaborators">メンバー招待（最大5名まで）</li>
         </ul>
-        <a id="btnStandardPlan" href="https://buy.stripe.com/cNibJ3cfVbf8dzz6JD1Fe02" target="_blank" class="btn-main" style="text-align:center; text-decoration:none; background:#0284c7;" data-plan="standard" data-ja="14日間無料でお試し" data-en="Start 14-Day Free Trial">14日間無料でお試し</a>
+        <a href="https://buy.stripe.com/cNibJ3cfVbf8dzz6JD1Fe02" target="_blank" class="btn-main" style="text-align:center; text-decoration:none; background:#0284c7;" data-plan="standard" data-ja="14日間無料でお試し" data-en="Start 14-Day Free Trial">14日間無料でお試し</a>
       </div>
 
       <!-- プレミアムプラン -->
       <div class="pricing-card premium">
         <h3 data-ja="プレミアムプラン" data-en="Premium Plan">プレミアムプラン</h3>
-        <div class="price">¥990 <span data-ja="/ 月" data-en="/ Month">/ 月</span></div>
+        <div class="price">¥990 <span data-ja="/ 月" data-en="/ Month">/ Month</span></div>
         <div class="trial-sub-txt" style="opacity: 0;" aria-hidden="true">-</div>
         <ul class="pricing-features">
           <li data-ja="ページ数制限なし（48P以上対応）" data-en="Unlimited pages (48P+)">ページ数制限なし（48P以上対応）</li>
           <li data-ja="メンバー無制限招待" data-en="Unlimited collaborators">メンバー無制限招待</li>
         </ul>
-        <a id="btnPremiumPlan" href="https://buy.stripe.com/bJe7sN7ZFbf86771pj1Fe01" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-plan="premium" data-ja="プレミアムプランを取得" data-en="Get Premium Plan">プレミアムプランを取得</a>
+        <a href="https://buy.stripe.com/bJe7sN7ZFbf86771pj1Fe01" target="_blank" class="btn-main" style="text-align:center; text-decoration:none;" data-plan="premium" data-ja="プレミアムプランを取得" data-en="Get Premium Plan">プレミアムプランを取得</a>
       </div>
     </div>
 
@@ -938,53 +938,6 @@
         const text = el.getAttribute(`data-anim-${currentLang}`);
         if (text) el.innerText = text;
       });
-    });
-
-    /* 🌟 動的Stripe決済リンク生成処理（client_reference_id の自動付与） */
-    document.addEventListener("DOMContentLoaded", function() {
-      const SUPABASE_URL = 'https://ljkdezzgexmcjkfqydvh.supabase.co';
-      const SUPABASE_KEY = 'sb_publishable_ae2OJ-oienvWuEAcC6hPsQ_rjf9gi9V';
-      let supabaseClient = null;
-
-      if (window.supabase && typeof window.supabase.createClient === 'function') {
-        try {
-          supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        } catch (e) {
-          console.warn("Supabase Client Init Error", e);
-        }
-      }
-
-      function updateCheckoutLinks(userId) {
-        const btnStandard = document.getElementById('btnStandardPlan');
-        const btnPremium = document.getElementById('btnPremiumPlan');
-
-        const baseStandard = "https://buy.stripe.com/cNibJ3cfVbf8dzz6JD1Fe02";
-        const basePremium = "https://buy.stripe.com/bJe7sN7ZFbf86771pj1Fe01";
-
-        if (userId) {
-          if (btnStandard) btnStandard.href = baseStandard + "?client_reference_id=" + userId;
-          if (btnPremium) btnPremium.href = basePremium + "?client_reference_id=" + userId;
-        } else {
-          if (btnStandard) btnStandard.href = baseStandard;
-          if (btnPremium) btnPremium.href = basePremium;
-        }
-      }
-
-      if (supabaseClient) {
-        supabaseClient.auth.getSession().then(res => {
-          if (res.data && res.data.session && res.data.session.user) {
-            updateCheckoutLinks(res.data.session.user.id);
-          }
-        });
-
-        supabaseClient.auth.onAuthStateChange((event, session) => {
-          if (session && session.user) {
-            updateCheckoutLinks(session.user.id);
-          } else {
-            updateCheckoutLinks(null);
-          }
-        });
-      }
     });
   </script>
   <script src="pricing.js" defer></script>
