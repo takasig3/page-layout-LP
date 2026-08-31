@@ -1,55 +1,48 @@
 /**
- * pricing.js - 動作検証ログ機能付きロジック
+ * pricing.js - 決済リンクへの遷移 + client_reference_id 付与
  */
-console.log('1. pricing.js の読み込みに成功しました');
+(function () {
+  var SUPABASE_URL = "https://ljkdezzgexmcjkfqydvh.supabase.co";
+  var SUPABASE_ANON_KEY = "sb_publishable_ae2OJ-oienvWuEAcC6hPsQ_rjf9gi9V";
+  var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function initPricingLogic() {
-  console.log('2. initPricingLogic が実行されました');
+  var currentUser = null;
 
-  // .pricing セクション内のすべての a タグを取得
-  const planButtons = document.querySelectorAll('.pricing a, [data-plan]');
-  console.log('3. 検出されたボタンの数:', planButtons.length);
+  function initPricingLogic() {
+    // data-plan を持つ決済ボタンだけを対象にする(「アプリを開く」等の他のリンクは巻き込まない)
+    var planButtons = document.querySelectorAll('[data-plan]');
+    if (planButtons.length === 0) return;
 
-  if (planButtons.length === 0) {
-    console.error('⚠️ ボタンが検出されませんでした。HTMLのクラス名やタグ構造を確認してください。');
-    return;
+    planButtons.forEach(function (button) {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        var baseUrl = button.getAttribute('href');
+        var userId = currentUser ? currentUser.id : "";
+
+        if (!userId) {
+          alert("プランの購入にはログインが必要です。ログイン後、もう一度お試しください。");
+          window.open("https://app.p-layout.com", "_blank");
+          return;
+        }
+
+        var checkoutUrl = baseUrl + "?client_reference_id=" + encodeURIComponent(userId);
+        window.open(checkoutUrl, "_blank");
+      });
+    });
   }
 
-  planButtons.forEach((button, index) => {
-    console.log(`ボタン[${index}]:`, button.textContent.trim(), 'data-plan:', button.getAttribute('data-plan'));
-
-    button.addEventListener('click', (e) => {
-      // デフォルトのページ遷移（アプリ開く）を強制ストップ
-      e.preventDefault();
-      e.stopPropagation();
-
-      const plan = button.getAttribute('data-plan');
-      
-      // ポップアップで即座に動作確認（画面遷移を止めてログを表示）
-      alert(`✅ ボタンクリックを検知！\n選択プラン: ${plan || '指定なし'}`);
-
-      console.log('4. クリックされたボタンのプラン:', plan);
-
-      // プランに応じた処理分岐
-      if (plan === 'free') {
-        console.log('フリープラン用の処理');
-        // window.location.href = "https://app.p-layout.com/?plan=free";
-      } else if (plan === 'standard') {
-        console.log('スタンダードプラン用の処理');
-        // window.location.href = "https://app.p-layout.com/?plan=standard";
-      } else if (plan === 'premium') {
-        console.log('プレミアムプラン用の処理');
-        // window.location.href = "https://app.p-layout.com/?plan=premium";
-      } else {
-        console.log('その他のボタン処理');
-      }
-    });
+  supabase.auth.getSession().then(function (res) {
+    if (res.data && res.data.session) { currentUser = res.data.session.user; }
+  }).finally(function () {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPricingLogic);
+    } else {
+      initPricingLogic();
+    }
   });
-}
 
-// イベント設定
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initPricingLogic);
-} else {
-  initPricingLogic();
-}
+  supabase.auth.onAuthStateChange(function (event, session) {
+    currentUser = session ? session.user : null;
+  });
+})();
