@@ -24,7 +24,7 @@
     background: linear-gradient(180deg, var(--bg-light) 0%, #ffffff 320px);
     line-height: 1.8;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 60px 5% 100px; }
+  .wrap { max-width: 850px; margin: 0 auto; padding: 60px 5% 100px; }
   .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: bold; color: var(--primary); text-decoration: none; margin-bottom: 24px; }
   h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
   .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 36px; }
@@ -35,9 +35,12 @@
   th { width: 32%; background: var(--bg-light); color: var(--text-main); font-weight: 700; white-space: nowrap; }
   td { color: var(--text-main); }
   td .fill { color: #d97706; background: #fef3c7; padding: 1px 6px; border-radius: 4px; font-weight: 700; }
-  .note { margin-top: 32px; font-size: 12.5px; color: var(--text-muted); background: var(--bg-light); border-radius: 10px; padding: 16px 18px; }
+  .note { margin-top: 32px; font-size: 12.5px; color: var(--text-muted); padding: 0; }
   .note strong { color: var(--text-main); }
-  footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 48px; }
+  footer { text-align: center; margin-top: 48px; }
+  .footer-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .footer-logo-icon { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-light); }
+  .footer-logo-text { font-size: 15px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; }
 </style>
 </head>
 <body>
@@ -104,11 +107,12 @@
       </tr>
     </table>
 
-    <div class="note">
-      <strong>公開前にご確認ください：</strong>このページは特定商取引法が求める記載項目に沿って作成した下書きです。内容が実際の運用(価格・解約条件・免責事項など)と一致しているか、可能であれば一度専門家（弁護士・行政書士）にもご確認いただくと安心です。
-    </div>
-
-    <footer>PageLayout</footer>
+    <footer>
+      <a href="/" class="footer-logo">
+        <img src="https://i.imgur.com/your_logo_placeholder.png" alt="Logo" class="footer-logo-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%232f7bf5\'><path d=\'M10 50 L50 10 L90 50 L50 90 Z\'/></svg>'">
+        <span class="footer-logo-text">PageLayout</span>
+      </a>
+    </footer>
   </div>
 </body>
 </html>
