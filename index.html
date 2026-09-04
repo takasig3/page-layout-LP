@@ -87,7 +87,7 @@
     /* 🌟 ヒーローエリア */
     .hero { padding: 130px 4% 40px; text-align: center; }
     .hero-badge { display: inline-block; color: var(--primary); font-weight: 900; font-size: 13.5px; letter-spacing: 0.5px; margin-bottom: 14px; }
-    .hero h1 { font-size: 34px; font-weight: 900; line-height: 1.45; margin-bottom: 18px; color: var(--text-main); }
+    .hero h1 { font-size: 34px; font-weight: 700; line-height: 1.45; margin-bottom: 18px; color: var(--text-main); }
     .hero h1 .hl { color: var(--primary); }
     .hero p { font-size: 15px; color: var(--text-muted); max-width: 640px; margin: 0 auto 28px; line-height: 1.8; }
     .hero-cta { display: flex; gap: 14px; justify-content: center; align-items: center; flex-wrap: wrap; }
@@ -99,111 +99,141 @@
     .hero-segment-chips span { font-size: 12.5px; font-weight: bold; padding: 6px 14px; border-radius: 20px; background: var(--bg-white); border: 1px solid var(--border-light); color: var(--text-muted); }
 
     .hero-mockup-header-guide {
-      margin: 28px auto -24px; max-width: 1000px;
+      margin: 28px auto -24px; max-width: 1240px;
       background: var(--bg-white); border: 1px solid var(--border-light);
       border-radius: 30px; padding: 6px 18px; display: inline-flex; align-items: center; gap: 8px;
       font-size: 12.5px; font-weight: bold; color: var(--primary); box-shadow: var(--card-shadow);
     }
 
-    .hero-mockup { margin: 36px auto 0; max-width: 1000px; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 16px; padding: 10px; box-shadow: 0 30px 60px rgba(47, 123, 245, 0.12); }
-    .app-window-frame { background: #eeece6; border-radius: 10px; padding: 0; display: flex; flex-direction: row; position: relative; font-size: 11px; overflow: hidden; }
+    .hero-mockup { margin: 36px auto 0; max-width: 1240px; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 18px; padding: 14px; box-shadow: 0 30px 60px rgba(47, 123, 245, 0.12); }
+    .app-window-frame { background: #ffffff; border-radius: 12px; padding: 0; display: flex; flex-direction: row; position: relative; font-size: 12.5px; overflow: hidden; min-height: 560px; }
 
-    /* 実際のアプリのサイドバー（インク色）を模した縮小版 */
-    .app-sidebar-mini { background: #1c1d21; color: #e9e7e0; width: 108px; flex-shrink: 0; padding: 10px 8px; display: flex; flex-direction: column; gap: 10px; }
-    .sidebar-mini-brand { display: flex; align-items: center; gap: 5px; color: #5eb8f5; font-weight: bold; font-size: 10.5px; white-space: nowrap; }
-    .sidebar-mini-proj { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 3px; padding: 3px 6px; font-size: 8.5px; color: #f2f0e9; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .sidebar-mini-label { font-size: 7.5px; color: #8b8676; margin-bottom: 2px; }
-    .sidebar-mini-value { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.09); border-radius: 3px; padding: 3px 5px; color: #f2f0e9; font-size: 8px; }
-    .sidebar-mini-members { display: flex; gap: 3px; flex-wrap: wrap; margin-top: 2px; }
-    .mini-avatar { width: 15px; height: 15px; border-radius: 50%; font-size: 6.5px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0; }
+    /* 実際のアプリのサイドバー（インク色・折りたたみ状態）を模した縮小版 */
+    .app-sidebar-mini { background: #1c1d21; color: #e9e7e0; width: 56px; flex-shrink: 0; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+    .sidebar-mini-brand { display: flex; align-items: center; gap: 6px; color: #5eb8f5; font-weight: bold; font-size: 17px; white-space: nowrap; }
+    .sidebar-mini-members { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 3px; }
+    .mini-avatar { width: 20px; height: 20px; border-radius: 50%; font-size: 8.5px; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: bold; flex-shrink: 0; }
 
-    .app-main-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; padding: 8px; }
+    .app-main-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 16px; }
 
-    .app-toolbar { background: rgba(251, 250, 247, 0.92); border: 1px solid #d8d4c9; border-radius: 6px; padding: 6px 12px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; color: #232323; }
-    .toolbar-left { display: flex; align-items: center; gap: 8px; }
-    .app-title-txt { font-weight: bold; font-size: 12.5px; color: #232323; }
-    .history-pills { display: flex; gap: 4px; background: #eeece6; padding: 2px 6px; border-radius: 4px; font-size: 10px; color: #6f6b62; font-weight: bold; }
-    .toolbar-right { display: flex; align-items: center; gap: 6px; }
-    .tool-btn { background: #fbfaf7; border: 1px solid #d8d4c9; padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; color: #232323; }
-    .add-btn { background: #0079bf; color: #fff; border: none; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 10px; }
+    .app-toolbar { background: rgba(251, 250, 247, 0.92); border: 1px solid #d8d4c9; border-radius: 8px; padding: 10px 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; color: #232323; }
+    .toolbar-left { display: flex; align-items: center; gap: 10px; }
+    .app-title-txt { font-weight: bold; font-size: 14px; color: #232323; }
+    .history-pills { display: flex; gap: 5px; background: #eeece6; padding: 4px 8px; border-radius: 5px; font-size: 11.5px; color: #6f6b62; font-weight: bold; }
+    .toolbar-right { display: flex; align-items: center; gap: 8px; }
+    .tool-btn { background: #fbfaf7; border: 1px solid #d8d4c9; padding: 5px 11px; border-radius: 5px; font-size: 11.5px; font-weight: bold; color: #232323; }
+    .add-btn { background: #0079bf; color: #fff; border: none; padding: 6px 14px; border-radius: 5px; font-weight: bold; font-size: 11.5px; }
 
     /* 🌟 台割2段グリッド */
-    .app-grid-view { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; direction: ltr; }
-    @media (max-width: 768px) { .app-grid-view { grid-template-columns: repeat(2, 1fr); } }
+    .app-grid-view { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; direction: ltr; }
+    @media (max-width: 768px) { .app-grid-view { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
-    .pair-box { background: rgba(251, 250, 247, 0.9); border: 1px solid #d8d4c9; border-radius: 6px; display: flex; flex-direction: column; overflow: hidden; direction: ltr; box-shadow: 0 1px 2px rgba(30,28,20,.06); }
-    .pair-title-bar { background: #eeece6; text-align: center; font-weight: bold; color: #232323; font-size: 10px; padding: 2px 0; border-bottom: 1px solid #d8d4c9; }
-    .pair-pages-body { display: flex; padding: 4px; gap: 4px; min-height: 115px; position: relative; }
-    .pair-pages-body::before { content: ""; position: absolute; left: 50%; top: 4px; bottom: 4px; width: 0; border-left: 1px dotted #c7c2b3; }
-    .single-p-slot { flex: 1; padding-right: 4px; display: flex; flex-direction: column; gap: 4px; position: relative; min-height: 90px; }
-    .single-p-slot:last-child { padding-right: 0; padding-left: 4px; }
-    .slot-num-label { text-align: center; color: #6f6b62; font-weight: bold; font-size: 9px; }
+    .pair-box { background: rgba(251, 250, 247, 0.9); border: 1px solid #d8d4c9; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; direction: ltr; box-shadow: 0 1px 2px rgba(30,28,20,.06); min-width: 0; }
+    .pair-title-bar { background: #eeece6; text-align: center; font-weight: bold; color: #232323; font-size: 11.5px; padding: 4px 0; border-bottom: 1px solid #d8d4c9; }
+    .pair-pages-body { display: flex; padding: 7px; gap: 7px; min-height: 140px; position: relative; }
+    .pair-pages-body::before { content: ""; position: absolute; left: 50%; top: 7px; bottom: 7px; width: 0; border-left: 1px dotted #c7c2b3; }
+    .single-p-slot { flex: 1; padding-right: 6px; display: flex; flex-direction: column; gap: 5px; position: relative; min-height: 110px; min-width: 0; }
+    .single-p-slot:last-child { padding-right: 0; padding-left: 6px; }
+    .slot-num-label { text-align: center; color: #6f6b62; font-weight: bold; font-size: 10.5px; }
 
-    .real-card-item { background: #fbfaf7; border: 1px solid #d8d4c9; border-radius: 3px; padding: 4px; box-shadow: 0 1px 2px rgba(30,28,20,.08); cursor: grab; transition: transform 0.15s, box-shadow 0.15s; }
+    .real-card-item { background: #fbfaf7; border: 1px solid #d8d4c9; border-radius: 4px; padding: 6px; box-shadow: 0 1px 2px rgba(30,28,20,.08); cursor: grab; transition: transform 0.15s, box-shadow 0.15s; }
     .real-card-item:hover { border-color: #2f4a5e; }
     .real-card-item:active { cursor: grabbing; opacity: 0.7; transform: scale(0.98); }
-    .card-img-placeholder { width: 100%; height: 48px; background-size: cover; background-position: center; border-radius: 2px; margin-bottom: 4px; border: 1px solid #d8d4c9; }
-    .badge-flex-row { display: flex; gap: 2px; }
-    .tag-cat { background: #f1e6cb; color: #8a6a2a; font-size: 8px; font-weight: bold; padding: 1px 3px; border-radius: 2px; }
-    .tag-st { background: #e3ebee; color: #2f4a5e; font-size: 8px; font-weight: bold; padding: 1px 3px; border-radius: 2px; }
+    .card-img-placeholder { width: 100%; height: 62px; background-size: cover; background-position: center; border-radius: 3px; margin-bottom: 5px; border: 1px solid #d8d4c9; display: flex; align-items: center; justify-content: center; }
+    .card-img-placeholder::before { content: "🖼️"; font-size: 16px; opacity: 0.45; }
+    .badge-flex-row { display: flex; gap: 3px; }
+    .tag-cat { background: #f1e6cb; color: #8a6a2a; font-size: 9.5px; font-weight: bold; padding: 2px 4px; border-radius: 2px; }
+    .tag-st { background: #e3ebee; color: #2f4a5e; font-size: 9.5px; font-weight: bold; padding: 2px 4px; border-radius: 2px; }
     .st-red { background: #f5e2df; color: #a83e3e; } .st-green { background: #e2ecdf; color: #3f6b4f; }
-    .card-title-txt { font-weight: bold; font-size: 9px; color: #232323; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-title-txt { font-weight: bold; font-size: 11px; color: #232323; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
     /* 🌟 こんなお悩みありませんか セクション */
-    .worries { padding: 20px 4% 70px; }
-    .worries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
-    .worries-persona { background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 18px; padding: 22px 20px; box-shadow: var(--card-shadow); }
-    .worries-persona-tag { display: inline-block; background: var(--bg-light); color: var(--primary); font-weight: 900; font-size: 13px; padding: 6px 14px; border-radius: 20px; margin-bottom: 16px; }
-    .worries-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border-light); font-size: 13.5px; color: var(--text-main); line-height: 1.6; }
+    .worries { padding: 20px 4% 60px; }
+    .worries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 900px; margin: 56px auto 0; }
+    .worries-persona { position: relative; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 18px; padding: 22px 20px; box-shadow: var(--card-shadow); overflow: visible; }
+    .worries-persona-illustration { position: absolute; top: -46px; right: 6px; width: 155px; height: auto; z-index: 2; pointer-events: none; }
+    .worries-persona-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; position: relative; z-index: 3; }
+    .worries-persona-tag { display: inline-block; background: var(--bg-light); color: var(--primary); font-weight: 900; font-size: 16px; padding: 8px 16px; border-radius: 20px; }
+    .worries-item { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-top: 1px solid var(--border-light); position: relative; z-index: 3; background: var(--bg-white); }
     .worries-item:first-of-type { border-top: none; }
-    .worries-icon { font-size: 18px; flex-shrink: 0; }
+    .worries-icon-chip { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+    .worries-text { font-size: 14px; color: var(--text-main); font-weight: 500; line-height: 1.6; }
+    @media (max-width: 600px) {
+      .worries-persona { padding-top: 60px; }
+      .worries-persona-illustration { width: 130px; top: -40px; }
+    }
+
+    .worries-resolved-banner { display: flex; align-items: flex-end; justify-content: center; gap: 4px; margin: 44px auto 0; max-width: 900px; padding: 0 20px; position: relative; }
+    .resolved-illustration-img { height: 220px; width: auto; object-fit: contain; flex-shrink: 0; }
+    .resolved-left { order: 1; margin-right: auto; }
+    .worries-resolved-text { order: 2; font-size: 22px; font-weight: 700; color: var(--primary); padding: 10px 24px; white-space: nowrap; background: var(--bg-light); border-radius: 14px; margin-bottom: 60px; }
+    .resolved-right { order: 3; margin-left: auto; }
+    @media (max-width: 700px) {
+      .worries-resolved-banner { flex-wrap: wrap; padding-top: 16px; }
+      .resolved-illustration-img { height: 130px; }
+      .worries-resolved-text { order: 0; width: 100%; text-align: center; white-space: normal; margin-bottom: 4px; }
+    }
 
     /* 🌟 機能カード */
     .features { padding: 70px 4%; }
     .section-title { text-align: center; margin-bottom: 40px; }
-    .section-title h2 { font-size: 28px; font-weight: 900; color: var(--text-main); }
+    .section-title h2 { font-size: 28px; font-weight: 700; color: var(--text-main); }
     .section-title p { color: var(--text-muted); margin-top: 8px; font-size: 14.5px; }
 
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 28px; max-width: 1140px; margin: 0 auto; }
 
     .feature-card {
-      background: var(--bg-white); border: 1px solid var(--border-light); padding: 24px 20px;
-      border-radius: 18px; display: flex; flex-direction: column;
-      align-items: center; text-align: center; gap: 14px;
-      box-shadow: var(--card-shadow);
+      background: var(--bg-white); border: 1px solid var(--border-light); padding: 30px 26px;
+      border-radius: 20px; display: flex; flex-direction: column;
+      align-items: center; text-align: center; gap: 16px;
+      box-shadow: var(--card-shadow); position: relative; overflow: hidden;
     }
-    .feature-eyebrow { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 900; color: var(--text-main); }
+    .feature-eyebrow { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 900; color: var(--text-main); }
     .feature-eyebrow .eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-orange); display: inline-block; }
-    .feature-card h3 { font-size: 22px; color: var(--text-main); font-weight: 900; text-align: center; line-height: 1.4; }
+    .feature-card h3 { font-size: 27px; color: var(--text-main); font-weight: 700; text-align: center; line-height: 1.45; }
     .feature-card h3 .hl-feature { color: var(--primary); }
-    .feature-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; text-align: center; }
+    .feature-card p { font-size: 14.5px; color: var(--text-muted); line-height: 1.75; text-align: center; max-width: 420px; }
+
+    /* PC表示では横組みレイアウトにして視認性を高める */
+    @media (min-width: 900px) {
+      .features-grid { grid-template-columns: 1fr; max-width: 980px; gap: 20px; }
+      .feature-card { flex-direction: row; text-align: left; align-items: center; gap: 32px; padding: 28px 34px; }
+      .feature-card .demo-viewport { flex: 0 0 300px; width: 300px; }
+      .feature-card .feature-text-col { flex: 1; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+      .feature-card h3 { text-align: left; max-width: 460px; }
+      .feature-card p { text-align: left; max-width: none; }
+    }
 
     /* 🌟 デモビジュアル表示枠の拡大設定（余白調整） */
     .demo-viewport { 
-      width: 100%; height: 200px; 
-      background: rgba(15, 23, 42, 0.9); 
-      border: 1px solid rgba(255, 255, 255, 0.15); 
-      border-radius: 10px; position: relative; overflow: hidden; 
+      width: 100%; height: 230px; 
+      background: var(--bg-light); 
+      border: 1px solid var(--border-light); 
+      border-radius: 12px; position: relative; overflow: hidden; 
       display: flex; justify-content: center; align-items: center; 
+      color: var(--text-main);
     }
 
     /* 拡大アニメーション要素 */
-    .sync-demo-box { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-    .sync-icon { font-size: 52px; animation: spinSync 6s linear infinite; }
+    .sync-demo-box { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+    .sync-icon { width: 88px; height: 88px; color: var(--primary); display: flex; align-items: center; justify-content: center; animation: spinSync 6s linear infinite; }
+    .sync-icon svg { width: 100%; height: 100%; }
     @keyframes spinSync { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    .device-demo-box { display: flex; align-items: center; gap: 20px; }
-    .device-icon { font-size: 44px; }
+    .device-demo-box { display: flex; align-items: center; gap: 24px; }
+    .device-icon { color: var(--primary); width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
+    .device-icon svg { width: 100%; height: 100%; }
+    .device-arrow { font-size: 36px; color: var(--text-muted); font-weight: bold; }
 
     .demo-book-wrapper { display: flex; gap: 14px; position: relative; }
-    .demo-page-box { width: 80px; height: 110px; background: #fff; border-radius: 6px; box-shadow: 0 6px 16px rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; font-size: 15px; color: #1e293b; font-weight: bold; position: relative; }
+    .demo-page-box { width: 80px; height: 110px; background: #fff; border: 1px solid var(--border-light); border-radius: 6px; box-shadow: 0 6px 16px rgba(30,41,59,0.12); display: flex; justify-content: center; align-items: center; font-size: 15px; color: #1e293b; font-weight: bold; position: relative; }
     .page-left { animation: pageSwapLeft 4s infinite ease-in-out; }
     .page-right { animation: pageSwapRight 4s infinite ease-in-out; }
     @keyframes pageSwapLeft { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(94px); } 100% { transform: translateX(0); } }
     @keyframes pageSwapRight { 0%, 40% { transform: translateX(0); } 50%, 90% { transform: translateX(-94px); } 100% { transform: translateX(0); } }
 
     .demo-grid { display: flex; gap: 14px; position: relative; }
-    .demo-card-slot { width: 68px; height: 95px; background: rgba(255,255,255,0.08); border: 1.5px dashed rgba(255,255,255,0.25); border-radius: 6px; position: relative; }
+    .demo-card-slot { width: 68px; height: 95px; background: var(--bg-white); border: 1.5px dashed var(--border-light); border-radius: 6px; position: relative; }
     .demo-card-item { width: 68px; height: 95px; background: #0079bf; border-radius: 6px; position: absolute; top: 0; left: 0; display: flex; justify-content: center; align-items: center; font-size: 13px; font-weight: bold; color: #fff; }
     .demo-drag-card { animation: dropAndShift 3.5s infinite ease-in-out; background: #2ed573; z-index: 10; }
     .demo-shift-card { animation: shiftRight 3.5s infinite ease-in-out; }
@@ -218,9 +248,9 @@
     @keyframes fileDrop { 0% { transform: translateY(-60px) scale(1.2); opacity: 0; } 30% { transform: translateY(0) scale(1); opacity: 1; } 45%, 100% { transform: translateY(0) scale(0); opacity: 0; } }
     @keyframes thumbAppear { 0%, 40% { opacity: 0; transform: scale(0.6); } 55%, 90% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(0.6); } }
 
-    .chat-demo-box { width: 180px; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; border: 1px solid rgba(255,255,255,0.15); text-align: center; }
-    .chat-msg { background: rgba(255,255,255,0.15); padding: 6px 10px; border-radius: 6px; font-size: 11px; color: #fff; }
-    .chat-msg-new { background: #0079bf; animation: msgPop 3s infinite ease-in-out; }
+    .chat-demo-box { width: 180px; background: var(--bg-white); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border-light); text-align: center; box-shadow: 0 4px 12px rgba(30,41,59,0.06); }
+    .chat-msg { background: var(--bg-light); padding: 6px 10px; border-radius: 6px; font-size: 11px; color: var(--text-main); }
+    .chat-msg-new { background: var(--primary); color: #fff; animation: msgPop 3s infinite ease-in-out; }
     .attach-tag { font-size: 10px; background: #2ed573; color: #fff; padding: 3px 8px; border-radius: 12px; display: inline-block; width: fit-content; margin: 0 auto; }
     @keyframes msgPop { 0%, 30% { opacity: 0; transform: translateY(10px); } 45%, 90% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
 
@@ -228,7 +258,7 @@
     .status-badge-anim { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; color: #fff; width: fit-content; }
 
     .flip-book-container { width: 150px; height: 110px; position: relative; perspective: 600px; }
-    .flip-page { width: 100%; height: 100%; background: #fff; border-radius: 6px; position: absolute; top: 0; left: 0; box-shadow: 0 6px 16px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center; }
+    .flip-page { width: 100%; height: 100%; background: #fff; border: 1px solid var(--border-light); border-radius: 6px; position: absolute; top: 0; left: 0; box-shadow: 0 6px 16px rgba(30,41,59,0.12); display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: bold; color: #0f172a; backface-visibility: hidden; transform-origin: left center; }
     .page-leaf-1 { animation: flipPage3D-1 4.5s infinite ease-in-out; }
     .page-leaf-2 { animation: flipPage3D-2 4.5s infinite ease-in-out; }
     @keyframes flipPage3D-1 { 0%, 25% { transform: rotateY(0deg); z-index: 3; } 35%, 90% { transform: rotateY(-180deg); z-index: 1; } 100% { transform: rotateY(0deg); z-index: 3; } }
@@ -236,29 +266,30 @@
 
     .collab-wrapper-multi { display: flex; align-items: center; gap: 16px; position: relative; }
     .collab-avatars-group { display: flex; flex-direction: column; gap: 8px; }
-    .collab-avatar-small { width: 34px; height: 34px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(0,0,0,0.4); }
+    .collab-avatar-small { width: 34px; height: 34px; border-radius: 50%; color: #fff; font-weight: bold; font-size: 12px; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 8px rgba(30,41,59,0.2); }
     .av-1 { background: #2ed573; } .av-2 { background: #764ba2; } .av-3 { background: #ff9f43; }
-    .collab-card-multi { width: 110px; height: 125px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 8px; position: relative; overflow: hidden; }
+    .collab-card-multi { width: 110px; height: 125px; background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 8px; padding: 8px; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(30,41,59,0.08); }
     .live-cursor-a { position: absolute; font-size: 12px; animation: moveCursorA 3s infinite ease-in-out; }
     .live-cursor-b { position: absolute; font-size: 12px; animation: moveCursorB 4s infinite ease-in-out; }
     @keyframes moveCursorA { 0%, 100% { top: 15px; left: 15px; } 50% { top: 80px; left: 65px; } }
     @keyframes moveCursorB { 0%, 100% { top: 90px; left: 50px; } 50% { top: 25px; left: 75px; } }
 
     .list-container { display: flex; flex-direction: column; gap: 8px; width: 170px; }
-    .list-item { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; color: #fff; display: flex; justify-content: space-between; }
-    .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: #0079bf; border-color: #38bdf8; z-index: 5; }
+    .list-item { background: var(--bg-white); border: 1px solid var(--border-light); padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; color: var(--text-main); display: flex; justify-content: space-between; box-shadow: 0 2px 6px rgba(30,41,59,0.06); }
+    .item-drag { animation: listReorder 3.5s infinite ease-in-out; background: var(--primary); color: #fff; border-color: var(--primary); z-index: 5; }
     @keyframes listReorder { 0%, 20% { transform: translateY(0); } 50%, 80% { transform: translateY(36px); } 100% { transform: translateY(0); } }
 
     .export-box { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-    .export-card { width: 90px; height: 65px; background: rgba(255,255,255,0.12); border: 1px solid #38bdf8; border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold; color: #38bdf8; }
+    .export-card { width: 90px; height: 65px; background: var(--bg-white); border: 1.5px solid var(--primary); border-radius: 6px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: bold; color: var(--primary); }
     .export-arrow { font-size: 22px; animation: arrowDown 2s infinite ease-in-out; color: #2ed573; }
     .export-file { background: #2ed573; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; }
     @keyframes arrowDown { 0%, 100% { transform: translateY(-4px); opacity: 0.3; } 50% { transform: translateY(4px); opacity: 1; } }
 
-    .sec-demo-box { display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; }
-    .sec-shield { font-size: 52px; animation: shieldPulse 2.5s infinite ease-in-out; filter: drop-shadow(0 0 12px rgba(46, 213, 115, 0.6)); }
+    .sec-demo-box { display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; }
+    .sec-shield { width: 88px; height: 88px; color: var(--primary); display: flex; align-items: center; justify-content: center; animation: shieldPulse 2.5s infinite ease-in-out; filter: drop-shadow(0 4px 10px rgba(47, 123, 245, 0.25)); }
+    .sec-shield svg { width: 100%; height: 100%; }
     .sec-badge-list { display: flex; gap: 8px; }
-    .sec-chip { font-size: 10px; font-weight: bold; background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 3px 10px; border-radius: 12px; }
+    .sec-chip { font-size: 10px; font-weight: bold; background: rgba(47, 123, 245, 0.1); color: var(--primary); border: 1px solid rgba(47, 123, 245, 0.3); padding: 3px 10px; border-radius: 12px; }
     @keyframes shieldPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
 
     /* 🌟 料金セクション（2プラン構成） */
@@ -273,7 +304,8 @@
     .pricing-card h3 { font-size: 20px; margin-bottom: 8px; color: var(--text-main); }
     .price { font-size: 48px; font-weight: 900; color: var(--text-main); margin-bottom: 4px; letter-spacing: -0.5px; }
     .price span { font-size: 15px; color: var(--text-muted); font-weight: 700; margin-left: 4px; }
-    .price-annual-note { font-size: 12.5px; color: var(--primary); font-weight: bold; margin-bottom: 14px; background: rgba(47, 123, 245, 0.08); display: inline-block; padding: 4px 10px; border-radius: 8px; }
+    .price-annual-note { font-size: 14.5px; color: var(--primary); font-weight: 900; margin-bottom: 16px; background: rgba(47, 123, 245, 0.1); border: 1px solid rgba(47, 123, 245, 0.25); display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 10px; }
+    .price-annual-note .save-tag { background: var(--accent-orange); color: #fff; font-size: 11px; font-weight: 900; padding: 2px 7px; border-radius: 6px; }
     .trial-sub-txt { font-size: 12px; color: var(--primary); font-weight: bold; margin-bottom: 16px; }
     .pricing-features { list-style: none; margin-bottom: 28px; flex: 1; }
     .pricing-features li { font-size: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-muted); line-height: 1.5; }
@@ -380,23 +412,11 @@
     <div class="hero-mockup">
       <div class="app-window-frame">
         <div class="app-sidebar-mini">
-          <div class="sidebar-mini-brand">◆ PageLayout</div>
-          <div class="sidebar-mini-proj">冬コミ新刊 台割 ▾</div>
-          <div>
-            <div class="sidebar-mini-label">綴じ方向</div>
-            <div class="sidebar-mini-value">左開き ▾</div>
-          </div>
-          <div>
-            <div class="sidebar-mini-label">総ページ数</div>
-            <div class="sidebar-mini-value">16 P ▾</div>
-          </div>
-          <div>
-            <div class="sidebar-mini-label">👥 メンバー</div>
-            <div class="sidebar-mini-members">
-              <span class="mini-avatar" style="background:#2f4a5e;">サ</span>
-              <span class="mini-avatar" style="background:#8a6a2a;">絵</span>
-              <span class="mini-avatar" style="background:#3f6b4f;">校</span>
-            </div>
+          <div class="sidebar-mini-brand">◆</div>
+          <div class="sidebar-mini-members" style="flex-direction: column;">
+            <span class="mini-avatar" style="background:#2f4a5e;">サ</span>
+            <span class="mini-avatar" style="background:#8a6a2a;">絵</span>
+            <span class="mini-avatar" style="background:#3f6b4f;">校</span>
           </div>
         </div>
         <div class="app-main-col">
@@ -418,7 +438,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">表紙(H1)</div>
                 <div class="real-card-item" id="card_h1" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">校了</span></div>
                   <div class="card-title-txt">表紙イラスト</div>
                 </div>
@@ -426,7 +446,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">裏表紙(H4)</div>
                 <div class="real-card-item" id="card_h4" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
                   <div class="card-title-txt">裏表紙・奥付</div>
                 </div>
@@ -440,7 +460,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">1 P</div>
                 <div class="real-card-item" id="card_p1" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
                   <div class="card-title-txt">扉ページ・目次</div>
                 </div>
@@ -448,7 +468,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">2 P</div>
                 <div class="real-card-item" id="card_p2" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
                   <div class="card-title-txt">本編 第1話</div>
                 </div>
@@ -462,7 +482,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">3 P</div>
                 <div class="real-card-item" id="card_p3" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
                   <div class="card-title-txt">本編 第2話</div>
                 </div>
@@ -470,7 +490,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">4 P</div>
                 <div class="real-card-item" id="card_p4" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
                   <div class="card-title-txt">扉絵・カラーページ</div>
                 </div>
@@ -484,7 +504,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">5 P</div>
                 <div class="real-card-item" id="card_p5" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
                   <div class="card-title-txt">人材育成</div>
                 </div>
@@ -492,7 +512,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">6 P</div>
                 <div class="real-card-item" id="card_p6" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
                   <div class="card-title-txt">サブキャラ紹介</div>
                 </div>
@@ -506,7 +526,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">7 P</div>
                 <div class="real-card-item" id="card_p7" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
                   <div class="card-title-txt">本編 第3話</div>
                 </div>
@@ -514,7 +534,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">8 P</div>
                 <div class="real-card-item" id="card_p8" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
                   <div class="card-title-txt">イラストギャラリー</div>
                 </div>
@@ -528,7 +548,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">9 P</div>
                 <div class="real-card-item" id="card_p9" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
                   <div class="card-title-txt">設定資料</div>
                 </div>
@@ -536,7 +556,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">10 P</div>
                 <div class="real-card-item" id="card_p10" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
                   <div class="card-title-txt">本編 第4話</div>
                 </div>
@@ -550,7 +570,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">11 P</div>
                 <div class="real-card-item" id="card_p11" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
                   <div class="card-title-txt">おまけ漫画</div>
                 </div>
@@ -558,7 +578,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">12 P</div>
                 <div class="real-card-item" id="card_p12" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
                   <div class="card-title-txt">書き下ろしSS</div>
                 </div>
@@ -572,7 +592,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">13 P</div>
                 <div class="real-card-item" id="card_p13" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
                   <div class="card-title-txt">あとがき</div>
                 </div>
@@ -580,7 +600,7 @@
               <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
                 <div class="slot-num-label">14 P</div>
                 <div class="real-card-item" id="card_p14" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background-image: url('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=400&q=80');"></div>
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
                   <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">校了</span></div>
                   <div class="card-title-txt">奥付・告知</div>
                 </div>
@@ -602,17 +622,29 @@
     </div>
     <div class="worries-grid">
       <div class="worries-persona">
-        <div class="worries-persona-tag" data-ja="サークル代表のあなた" data-en="Circle Leader">サークル代表のあなた</div>
-        <div class="worries-item"><span class="worries-icon">📊</span><span data-ja="誰の原稿が終わっていないか把握できない" data-en="Can't tell whose pages are still unfinished">誰の原稿が終わっていないか把握できない</span></div>
-        <div class="worries-item"><span class="worries-icon">📁</span><span data-ja="構成案がExcelやLINEに散らばって管理が煩雑" data-en="Layout plans scattered across spreadsheets and chat apps">構成案がExcelやLINEに散らばって管理が煩雑</span></div>
-        <div class="worries-item"><span class="worries-icon">⏰</span><span data-ja="入稿締切が近いのに全体像が見えず不安" data-en="Submission deadline looms with no clear overview">入稿締切が近いのに全体像が見えず不安</span></div>
+        <img src="man1_cutout.png" alt="" class="worries-persona-illustration">
+        <div class="worries-persona-tag-row">
+          <div class="worries-persona-tag" data-ja="チーム代表のあなた" data-en="Team Leader">チーム代表のあなた</div>
+        </div>
+        <div class="worries-item"><span class="worries-icon-chip">📊</span><span class="worries-text" data-ja="誰の原稿が終わっていないか把握できない" data-en="Can't tell whose pages are still unfinished">誰の原稿が終わっていないか把握できない</span></div>
+        <div class="worries-item"><span class="worries-icon-chip">📁</span><span class="worries-text" data-ja="構成案がExcelやLINEに散らばって管理が煩雑" data-en="Layout plans scattered across spreadsheets and chat apps">構成案がExcelやLINEに散らばって管理が煩雑</span></div>
+        <div class="worries-item"><span class="worries-icon-chip">⏰</span><span class="worries-text" data-ja="入稿締切が近いのに全体像が見えず不安" data-en="Submission deadline looms with no clear overview">入稿締切が近いのに全体像が見えず不安</span></div>
       </div>
       <div class="worries-persona">
-        <div class="worries-persona-tag" data-ja="原稿・イラスト担当のあなた" data-en="Artist / Writer">原稿・イラスト担当のあなた</div>
-        <div class="worries-item"><span class="worries-icon">✏️</span><span data-ja="修正指示がどのページの話か分かりにくい" data-en="Hard to tell which page a revision note refers to">修正指示がどのページの話か分かりにくい</span></div>
-        <div class="worries-item"><span class="worries-icon">🔄</span><span data-ja="ページ順の変更のたびに連絡が飛び交って混乱" data-en="Page-order changes trigger a flood of confusing messages">ページ順の変更のたびに連絡が飛び交って混乱</span></div>
-        <div class="worries-item"><span class="worries-icon">💻</span><span data-ja="ツールが複雑で操作を覚える余裕がない" data-en="No time to learn a complicated tool">ツールが複雑で操作を覚える余裕がない</span></div>
+        <img src="woman1_cutout.png" alt="" class="worries-persona-illustration">
+        <div class="worries-persona-tag-row">
+          <div class="worries-persona-tag" data-ja="原稿・イラスト担当のあなた" data-en="Artist / Writer">原稿・イラスト担当のあなた</div>
+        </div>
+        <div class="worries-item"><span class="worries-icon-chip">✏️</span><span class="worries-text" data-ja="修正指示がどのページの話か分かりにくい" data-en="Hard to tell which page a revision note refers to">修正指示がどのページの話か分かりにくい</span></div>
+        <div class="worries-item"><span class="worries-icon-chip">🔄</span><span class="worries-text" data-ja="ページ順の変更のたびに連絡が飛び交って混乱" data-en="Page-order changes trigger a flood of confusing messages">ページ順の変更のたびに連絡が飛び交って混乱</span></div>
+        <div class="worries-item"><span class="worries-icon-chip">💻</span><span class="worries-text" data-ja="ツールが複雑で操作を覚える余裕がない" data-en="No time to learn a complicated tool">ツールが複雑で操作を覚える余裕がない</span></div>
       </div>
+    </div>
+
+    <div class="worries-resolved-banner">
+      <img src="man2_cutout.png" alt="" class="resolved-illustration-img resolved-left">
+      <span class="worries-resolved-text" data-ja="PageLayoutで解決します" data-en="PageLayout solves it">PageLayoutで解決します</span>
+      <img src="woman2_cutout.png" alt="" class="resolved-illustration-img resolved-right">
     </div>
   </section>
 
@@ -624,7 +656,7 @@
     </div>
 
     <div class="features-grid">
-      <!-- 🌟 リアルタイム同期編集（復元・ビジュアル拡大） -->
+      <!-- 🌟 リアルタイム同時編集 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="collab-wrapper-multi">
@@ -634,19 +666,21 @@
               <div class="collab-avatar-small av-3">C</div>
             </div>
             <div class="collab-card-multi">
-              <div style="height:8px; background:rgba(255,255,255,0.35); border-radius:2px; margin-bottom:6px;"></div>
-              <div style="height:8px; background:rgba(255,255,255,0.25); border-radius:2px; width:70%;"></div>
+              <div style="height:8px; background:var(--bg-light); border-radius:2px; margin-bottom:6px;"></div>
+              <div style="height:8px; background:var(--bg-light); border-radius:2px; width:70%;"></div>
               <span class="live-cursor-a">🖱️A</span>
               <span class="live-cursor-b">🖱️B</span>
             </div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>01 同時編集</div>
-        <h3 data-ja="サークルメンバーと<span class=&quot;hl-feature&quot;>リアルタイム同時編集</span>" data-en="<span class=&quot;hl-feature&quot;>Real-Time Co-Editing</span> with Your Circle">サークルメンバーと<span class="hl-feature">リアルタイム同時編集</span></h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>01 COLLABORATION</div>
+        <h3 data-ja="チームメンバーと<br><span class=&quot;hl-feature&quot;>リアルタイム同時編集</span>" data-en="<span class=&quot;hl-feature&quot;>Real-Time Co-Editing</span><br>with Your Team">チームメンバーと<br><span class="hl-feature">リアルタイム同時編集</span></h3>
         <p data-ja="絵担当・原稿担当が同じ台割を同時に見ながら作業できます。誰がどのページを進めているか、常に最新状態で把握できます。" data-en="Artists and writers can view and edit the same layout at the same time, always seeing the latest status of every page.">絵担当・原稿担当が同じ台割を同時に見ながら作業できます。誰がどのページを進めているか、常に最新状態で把握できます。</p>
+        </div>
       </div>
 
-      <!-- 🌟 一括ページ再構成（復元・ビジュアル拡大） -->
+      <!-- 🌟 一括ページ再構成 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="list-container">
@@ -654,43 +688,57 @@
             <div class="list-item"><span data-anim-ja="≡ 2P 製品一覧" data-anim-en="≡ 2P Products">≡ 2P Products</span></div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>02 ページ差し替え</div>
-        <h3 data-ja="締切直前のページ<span class=&quot;hl-feature&quot;>差し替えも一瞬</span>" data-en="Last-Minute Page <span class=&quot;hl-feature&quot;>Swaps in Seconds</span>">締切直前のページ<span class="hl-feature">差し替えも一瞬</span></h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>02 PAGE SWAP</div>
+        <h3 data-ja="締切直前のページ<br><span class=&quot;hl-feature&quot;>差し替えも一瞬</span>" data-en="Last-Minute Page<br><span class=&quot;hl-feature&quot;>Swaps in Seconds</span>">締切直前のページ<br><span class="hl-feature">差し替えも一瞬</span></h3>
         <p data-ja="ページ順の入れ替えはドラッグ＆ドロップだけ。入稿ギリギリの構成変更でも、ミスなくスムーズに完了します。" data-en="Reorder pages with a simple drag-and-drop. Handle last-minute changes before submission without mistakes.">ページ順の入れ替えはドラッグ＆ドロップだけ。入稿ギリギリの構成変更でも、ミスなくスムーズに完了します。</p>
+        </div>
       </div>
 
-      <!-- クラウドサーバー自動保存＆同期（ビジュアル拡大） -->
-      <div class="feature-card" style="border: 1.5px solid rgba(47, 123, 245, 0.35); background: rgba(47, 123, 245, 0.04);">
+      <!-- クラウドサーバー自動保存＆同期 -->
+      <div class="feature-card">
         <div class="demo-viewport">
           <div class="sync-demo-box">
-            <span class="sync-icon">☁️</span>
-            <span class="sec-chip" style="font-size: 11px;">自動リアルタイム同期</span>
+            <span class="sync-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a4.5 4.5 0 1 1 .566-8.963A5 5 0 1 1 17.5 19z"/></svg>
+            </span>
+            <span class="sec-chip" style="font-size: 12.5px; padding: 5px 14px;">自動リアルタイム同期</span>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>03 自動保存</div>
-        <h3 data-ja="クラウドサーバー<span class=&quot;hl-feature&quot;>自動保存＆同期</span>" data-en="Automatic Cloud <span class=&quot;hl-feature&quot;>Auto-Save & Sync</span>">クラウドサーバー<span class="hl-feature">自動保存＆同期</span></h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>03 AUTO-SYNC</div>
+        <h3 data-ja="クラウドサーバー<br><span class=&quot;hl-feature&quot;>自動保存＆同期</span>" data-en="Automatic Cloud<br><span class=&quot;hl-feature&quot;>Auto-Save & Sync</span>">クラウドサーバー<br><span class="hl-feature">自動保存＆同期</span></h3>
         <p data-ja="作業内容はすべてクラウドへ即時自動保存。保存忘れやデータ紛失の心配がなく、常に最新状態の構成案をチーム全体で共有可能です。" data-en="All changes are auto-saved to the cloud instantly. Never worry about losing data or manual save steps.">作業内容はすべてクラウドへ即時自動保存。保存忘れやデータ紛失の心配がなく、常に最新状態の構成案をチーム全体で共有可能です。</p>
+        </div>
       </div>
 
-      <!-- 複数デバイス対応（ビジュアル拡大） -->
-      <div class="feature-card" style="border: 1.5px solid rgba(255, 159, 67, 0.4); background: rgba(255, 159, 67, 0.05);">
+      <!-- 複数デバイス対応 -->
+      <div class="feature-card">
         <div class="demo-viewport">
           <div class="device-demo-box">
-            <span class="device-icon">💻</span>
-            <span style="font-size: 22px; color: var(--text-muted);">⇄</span>
-            <span class="device-icon">📱</span>
+            <span class="device-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M2 20h20"/><path d="M9 20l1-4h4l1 4"/></svg>
+            </span>
+            <span class="device-arrow">⇄</span>
+            <span class="device-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+            </span>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>04 マルチデバイス</div>
-        <h3 data-ja="<span class=&quot;hl-feature&quot;>複数デバイス対応</span>（PC・タブレット）" data-en="<span class=&quot;hl-feature&quot;>Multi-Device Access</span> (PC & Tablet)"><span class="hl-feature">複数デバイス対応</span>（PC・タブレット）</h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>04 MULTI-DEVICE</div>
+        <h3 data-ja="<span class=&quot;hl-feature&quot;>複数デバイス対応</span><br>（PC・タブレット）" data-en="<span class=&quot;hl-feature&quot;>Multi-Device Access</span><br>(PC & Tablet)"><span class="hl-feature">複数デバイス対応</span><br>（PC・タブレット）</h3>
         <p data-ja="同一アカウントでPCやタブレットからスムーズに閲覧・編集可能。オフィス、外出先、ミーティング場など環境を選ばず活用できます。" data-en="Access and edit seamlessly from PC or tablet with a single account anywhere, anytime.">同一アカウントでPCやタブレットからスムーズに閲覧・編集可能。オフィス、外出先、ミーティング場など環境を選ばず活用できます。</p>
+        </div>
       </div>
 
-      <!-- セキュリティ（ビジュアル拡大） -->
+      <!-- セキュリティ -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="sec-demo-box">
-            <span class="sec-shield">🛡️</span>
+            <span class="sec-shield">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
             <div class="sec-badge-list">
               <span class="sec-chip">TLS 暗号化</span>
               <span class="sec-chip">Google OAuth</span>
@@ -698,59 +746,46 @@
             </div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>05 セキュリティ</div>
-        <h3 data-ja="社外共有も安心。<span class=&quot;hl-feature&quot;>万全のアクセス権限管理</span>" data-en="Secure External Sharing & <span class=&quot;hl-feature&quot;>Access Control</span>">社外共有も安心。<span class="hl-feature">万全のアクセス権限管理</span></h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>05 SECURITY</div>
+        <h3 data-ja="社外共有も安心。<br><span class=&quot;hl-feature&quot;>万全のアクセス権限管理</span>" data-en="Secure External Sharing &<br><span class=&quot;hl-feature&quot;>Access Control</span>">社外共有も安心。<br><span class="hl-feature">万全のアクセス権限管理</span></h3>
         <p data-ja="全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、社外との共有時も企業の機密データを強力に保護します。" data-en="Safeguard corporate confidential data with TLS encryption, Google OAuth SSO, and strict RLS access policies.">全通信のTLS暗号化、シングルサインオン（Google OAuth）対応、厳格な行レベルアクセス制御（RLS）により、社外との共有時も企業の機密データを強力に保護します。</p>
-      </div>
-
-      <!-- 自動繰り下げ（ビジュアル拡大） -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="demo-cursor"></div>
-          <div class="demo-grid">
-            <div class="demo-card-slot">
-              <div class="demo-card-item demo-drag-card" data-anim-ja="新 P" data-anim-en="New P">新 P</div>
-            </div>
-            <div class="demo-card-slot">
-              <div class="demo-card-item demo-shift-card">1 P</div>
-            </div>
-            <div class="demo-card-slot"></div>
-          </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>06 自動繰り下げ</div>
-        <h3 data-ja="<span class=&quot;hl-feature&quot;>自動繰り下げ機能</span>でレイアウト調整事故を防止" data-en="Accident-Proof <span class=&quot;hl-feature&quot;>Auto-Shift</span>"><span class="hl-feature">自動繰り下げ機能</span>でレイアウト調整事故を防止</h3>
-        <p data-ja="ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。" data-en="Automatic page shifting on card insertion prevents layout misalignment and human errors.">ページ挿入時に以降のページを自動シフト。「順序入替」「グループ管理」など柔軟な制御で、ページズレや編集ミスを未然に防ぎます。</p>
       </div>
 
-      <!-- メール通知（ビジュアル拡大） -->
+      <!-- コメント通知 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="chat-demo-box">
-            <div class="chat-msg" style="background:#0284c7;" data-anim-ja="コメントを投稿" data-anim-en="Posted Comment">コメントを投稿</div>
+            <div class="chat-msg" style="background:var(--primary); color:#fff;" data-anim-ja="コメントを投稿" data-anim-en="Posted Comment">コメントを投稿</div>
             <div class="chat-msg chat-msg-new" data-anim-ja="メールで即時通知" data-anim-en="Instant Email Notification">メールで即時通知</div>
-            <span class="attach-tag" style="background:#38bdf8;" data-anim-ja="通知完了" data-anim-en="Notified">通知完了</span>
+            <span class="attach-tag" style="background:var(--primary);" data-anim-ja="通知完了" data-anim-en="Notified">通知完了</span>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>07 コメント通知</div>
-        <h3 data-ja="修正指示は<span class=&quot;hl-feature&quot;>コメントで即通知</span>、返信漏れなし" data-en="<span class=&quot;hl-feature&quot;>Instant Comment Notifications</span>, No Missed Replies">修正指示は<span class="hl-feature">コメントで即通知</span>、返信漏れなし</h3>
-        <p data-ja="各ページに書き込まれた修正指示やコメントをメールで自動通知。「言った・聞いてない」を防ぎ、サークル内のやり取りがスムーズになります。" data-en="Get automatic email alerts whenever comments or revision notes are added to a page, so nothing slips through.">各ページに書き込まれた修正指示やコメントをメールで自動通知。「言った・聞いてない」を防ぎ、サークル内のやり取りがスムーズになります。</p>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>06 COMMENTS</div>
+        <h3 data-ja="修正指示は<span class=&quot;hl-feature&quot;>コメントで即通知</span>、<br>返信漏れなし" data-en="<span class=&quot;hl-feature&quot;>Instant Comment Notifications</span>,<br>No Missed Replies">修正指示は<span class="hl-feature">コメントで即通知</span>、<br>返信漏れなし</h3>
+        <p data-ja="各ページに書き込まれた修正指示やコメントをメールで自動通知。「言った・聞いてない」を防ぎ、チーム内のやり取りがスムーズになります。" data-en="Get automatic email alerts whenever comments or revision notes are added to a page, so nothing slips through.">各ページに書き込まれた修正指示やコメントをメールで自動通知。「言った・聞いてない」を防ぎ、チーム内のやり取りがスムーズになります。</p>
+        </div>
       </div>
 
-      <!-- 進捗可視化（ビジュアル拡大） -->
+      <!-- 進捗可視化 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="card-tag-demo">
-            <div id="statusBadgeDemo" class="status-badge-anim" style="background:#0079bf;">一次確認</div>
+            <div id="statusBadgeDemo" class="status-badge-anim" style="background:var(--primary);">一次確認</div>
             <div style="font-size:10px; font-weight:bold; color:#1e293b;" data-anim-ja="1P 概要" data-anim-en="1P Intro">1P 概要</div>
             <div style="flex:1; background:#f1f5f9; border-radius:4px;"></div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>08 進捗管理</div>
-        <h3 data-ja="進捗ステータスの<span class=&quot;hl-feature&quot;>一律可視化</span>で遅れを防止" data-en="Unified <span class=&quot;hl-feature&quot;>Progress Status Tracking</span>">進捗ステータスの<span class="hl-feature">一律可視化</span>で遅れを防止</h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>07 PROGRESS</div>
+        <h3 data-ja="進捗ステータスの<span class=&quot;hl-feature&quot;>一律可視化</span>で<br>遅れを防止" data-en="Unified<br><span class=&quot;hl-feature&quot;>Progress Status Tracking</span>">進捗ステータスの<span class="hl-feature">一律可視化</span>で<br>遅れを防止</h3>
         <p data-ja="「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。" data-en="Visualize workflow status with tags like In Progress, 1st Review, Revision, Completed, and Approved.">「作成中」「一次確認」「修正中」「完了」「承認済」などのステータスタグで進捗状況を見える化。業務のボトルネックを素早く把握できます。</p>
+        </div>
       </div>
 
-      <!-- プレビュー拡大（ビジュアル拡大） -->
+      <!-- プレビュー拡大 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="flip-book-container">
@@ -759,12 +794,14 @@
             <div class="flip-page" style="z-index: 0;">1 P</div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>09 プレビュー</div>
-        <h3 data-ja="<span class=&quot;hl-feature&quot;>高解像度プレビュー</span>で最終チェックをスムーズに" data-en="<span class=&quot;hl-feature&quot;>High-Precision Preview</span> Inspection"><span class="hl-feature">高解像度プレビュー</span>で最終チェックをスムーズに</h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>08 PREVIEW</div>
+        <h3 data-ja="<span class=&quot;hl-feature&quot;>高解像度プレビュー</span>で<br>最終チェックをスムーズに" data-en="<span class=&quot;hl-feature&quot;>High-Precision Preview</span><br>Inspection"><span class="hl-feature">高解像度プレビュー</span>で<br>最終チェックをスムーズに</h3>
         <p data-ja="詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。" data-en="Enlarge design drafts in detail mode and flip through pages naturally for efficient internal quality checks.">詳細画面でデザイン原稿を拡大表示。実際の冊子をめくる感覚でページ遷移でき、社内検品や最終チェック作業を効率化します。</p>
+        </div>
       </div>
 
-      <!-- 右開き/左開き（ビジュアル拡大） -->
+      <!-- 右開き/左開き -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="demo-book-wrapper">
@@ -772,12 +809,14 @@
             <div class="demo-page-box page-right">2 P</div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>10 綴じ方向</div>
-        <h3 data-ja="小説・漫画<span class=&quot;hl-feature&quot;>どちらの綴じ方向にも対応</span>" data-en="Supports <span class=&quot;hl-feature&quot;>Any Binding Direction</span>">小説・漫画<span class="hl-feature">どちらの綴じ方向にも対応</span></h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>09 BINDING</div>
+        <h3 data-ja="小説・漫画<br><span class=&quot;hl-feature&quot;>どちらの綴じ方向にも対応</span>" data-en="Supports<br><span class=&quot;hl-feature&quot;>Any Binding Direction</span>">小説・漫画<br><span class="hl-feature">どちらの綴じ方向にも対応</span></h3>
         <p data-ja="縦書き小説の「右開き」、漫画・技術書の「左開き」をワンタップで切り替え。見開き配置も自動で最適化されます。" data-en="Switch between right-bound (novels) and left-bound (manga/technical books) layouts with one tap. Spread positioning is optimized automatically.">縦書き小説の「右開き」、漫画・技術書の「左開き」をワンタップで切り替え。見開き配置も自動で最適化されます。</p>
+        </div>
       </div>
 
-      <!-- サムネイル生成（ビジュアル拡大） -->
+      <!-- サムネイル生成 -->
       <div class="feature-card">
         <div class="demo-viewport">
           <div class="drop-box">
@@ -788,27 +827,16 @@
             </div>
           </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>11 サムネイル</div>
-        <h3 data-ja="ファイルを置くだけで全体像を<span class=&quot;hl-feature&quot;>視覚的に把握</span>" data-en="Instant <span class=&quot;hl-feature&quot;>Visual Document Map</span>">ファイルを置くだけで全体像を<span class="hl-feature">視覚的に把握</span></h3>
+        <div class="feature-text-col">
+        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>10 THUMBNAIL</div>
+        <h3 data-ja="ファイルを置くだけで<br>全体像を<span class=&quot;hl-feature&quot;>視覚的に把握</span>" data-en="Instant<br><span class=&quot;hl-feature&quot;>Visual Document Map</span>">ファイルを置くだけで<br>全体像を<span class="hl-feature">視覚的に把握</span></h3>
         <p data-ja="原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。" data-en="Drag and drop PDF/JPG/PNG documents to generate instant page thumbnails and visualize overall progress.">原稿・資料ファイル（PDF・JPG・PNG）をドラッグ＆ドロップするだけでサムネイルを自動生成。進行状況を一覧で一目瞭然にできます。</p>
-      </div>
-
-      <!-- PDF/JPG出力（ビジュアル拡大） -->
-      <div class="feature-card">
-        <div class="demo-viewport">
-          <div class="export-box">
-            <div class="export-card" data-anim-ja="構成データ" data-anim-en="Layout Data">構成データ</div>
-            <div class="export-arrow">↓</div>
-            <div class="export-file">PDF / JPG</div>
-          </div>
         </div>
-        <div class="feature-eyebrow"><span class="eyebrow-dot"></span>12 入稿出力</div>
-        <h3 data-ja="入稿用に高解像度PDFへ<span class=&quot;hl-feature&quot;>ワンクリック出力</span>" data-en="<span class=&quot;hl-feature&quot;>One-Click</span> High-Res PDF for Printing">入稿用に高解像度PDFへ<span class="hl-feature">ワンクリック出力</span></h3>
-        <p data-ja="完成した構成をそのまま印刷所提出用の高解像度PDFやJPGに出力。バックアップとしての保管にも使えます。" data-en="Export your finished layout directly to a high-resolution PDF or JPG ready for your print shop, and keep a backup too.">完成した構成をそのまま印刷所提出用の高解像度PDFやJPGに出力。バックアップとしての保管にも使えます。</p>
       </div>
 
     </div>
   </section>
+
 
   <!-- 🌟 料金セクション（アイコン除去・シンプル化） -->
   <section class="pricing" id="pricing">
@@ -827,7 +855,7 @@
         <span class="popular-tag" data-ja="おすすめ" data-en="Popular">おすすめ</span>
         <h3 data-ja="スタンダードプラン" data-en="Standard Plan">スタンダードプラン</h3>
         <div class="price">¥490<span data-ja="/ 月" data-en="/ Month">/ 月</span></div>
-        <div class="price-annual-note" data-ja="年払いなら ¥4,900/年（月あたり¥408相当）" data-en="Or ¥4,900/year (≈¥408/month)">年払いなら ¥4,900/年（月あたり¥408相当）</div>
+        <div class="price-annual-note" data-ja="<span class=&quot;save-tag&quot;>お得</span>年払いなら ¥4,900/年（月あたり¥408相当）" data-en="<span class=&quot;save-tag&quot;>Save</span>Or ¥4,900/year (≈¥408/month)"><span class="save-tag">お得</span>年払いなら ¥4,900/年（月あたり¥408相当）</div>
         <div class="trial-sub-txt" data-ja="14日間無料でお試しいただけます" data-en="Includes 14-day Free Trial">14日間無料でお試しいただけます</div>
         <ul class="pricing-features">
           <li data-ja="総ページ数 〜48Pまで対応" data-en="Up to 48 pages">総ページ数 〜48Pまで対応</li>
@@ -843,8 +871,8 @@
       <!-- プレミアムプラン -->
       <div class="pricing-card premium">
         <h3 data-ja="プレミアムプラン" data-en="Premium Plan">プレミアムプラン</h3>
-        <div class="price">¥990<span data-ja="/ 月" data-en="/ Month">/ Month</span></div>
-        <div class="price-annual-note" data-ja="年払いなら ¥9,900/年（月あたり¥825相当）" data-en="Or ¥9,900/year (≈¥825/month)">年払いなら ¥9,900/年（月あたり¥825相当）</div>
+        <div class="price">¥990<span data-ja="/ 月" data-en="/ Month">/ 月</span></div>
+        <div class="price-annual-note" data-ja="<span class=&quot;save-tag&quot;>お得</span>年払いなら ¥9,900/年（月あたり¥825相当）" data-en="<span class=&quot;save-tag&quot;>Save</span>Or ¥9,900/year (≈¥825/month)"><span class="save-tag">お得</span>年払いなら ¥9,900/年（月あたり¥825相当）</div>
         <div class="trial-sub-txt" style="opacity: 0;" aria-hidden="true">-</div>
         <ul class="pricing-features">
           <li data-ja="総ページ数 制限なし（52P以上もOK）" data-en="Unlimited pages (52P+)">総ページ数 制限なし（52P以上もOK）</li>
