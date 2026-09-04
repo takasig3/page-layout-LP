@@ -55,8 +55,8 @@ async function initPricingLogic() {
       var userEmail = currentUser ? currentUser.email : "";
 
       if (!userId) {
-        alert("プランの購入にはログインが必要です。ログイン後、もう一度お試しください。");
-        window.open("https://app.p-layout.com", "_blank");
+        alert("プランの購入にはログインが必要です。ログイン後、自動的に決済画面へ進みます。");
+        window.open("https://app.p-layout.com/?pending_checkout=" + encodeURIComponent(baseUrl), "_blank");
         return;
       }
 
