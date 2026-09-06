@@ -163,19 +163,23 @@
       .worries-persona-illustration { width: 130px; top: -40px; }
     }
 
-    .worries-resolved-banner { display: flex; align-items: flex-end; justify-content: center; gap: 4px; margin: 44px auto 0; max-width: 900px; padding: 0 20px; position: relative; }
-    .resolved-illustration-img { height: 220px; width: auto; object-fit: contain; flex-shrink: 0; }
-    .resolved-left { order: 1; margin-right: auto; }
-    .worries-resolved-text { order: 2; font-size: 22px; font-weight: 700; color: var(--primary); padding: 10px 24px; white-space: nowrap; background: var(--bg-light); border-radius: 14px; margin-bottom: 60px; }
-    .resolved-right { order: 3; margin-left: auto; }
-    @media (max-width: 700px) {
+    .worries-resolved-banner { display: flex; align-items: center; justify-content: center; gap: 24px; margin: 44px auto 0; max-width: 1140px; padding: 0 20px; position: relative; }
+    .resolved-illustration-img { height: 340px; width: auto; object-fit: contain; flex-shrink: 0; }
+    .resolved-left { order: 1; }
+    .resolved-center-content { order: 2; display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 420px; }
+    .worries-resolved-text { font-size: 20px; font-weight: 700; color: var(--primary); padding: 10px 24px; white-space: nowrap; background: var(--bg-light); border-radius: 14px; margin-bottom: 18px; }
+    .resolved-heading { font-size: 28px; font-weight: 700; color: var(--text-main); line-height: 1.4; margin: 0; }
+    .resolved-subtext { color: var(--text-muted); margin-top: 12px; font-size: 14.5px; line-height: 1.7; }
+    .resolved-right { order: 3; }
+    @media (max-width: 900px) {
       .worries-resolved-banner { flex-wrap: wrap; padding-top: 16px; }
-      .resolved-illustration-img { height: 130px; }
-      .worries-resolved-text { order: 0; width: 100%; text-align: center; white-space: normal; margin-bottom: 4px; }
+      .resolved-illustration-img { height: 160px; }
+      .resolved-center-content { order: 0; max-width: 100%; }
+      .worries-resolved-text { white-space: normal; }
     }
 
     /* 🌟 機能カード */
-    .features { padding: 70px 4%; }
+    .features { padding: 20px 4% 70px; }
     .section-title { text-align: center; margin-bottom: 40px; }
     .section-title h2 { font-size: 28px; font-weight: 700; color: var(--text-main); }
     .section-title p { color: var(--text-muted); margin-top: 8px; font-size: 14.5px; }
@@ -365,7 +369,7 @@
   <!-- 最前面固定ヘッダー -->
   <header>
     <a href="#top" class="logo-img-wrapper">
-      <img src="https://i.imgur.com/your_logo_placeholder.png" alt="Logo" class="custom-logo-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%2338bdf8\'><path d=\'M10 50 L50 10 L90 50 L50 90 Z\'/></svg>'">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2338bdf8'><path d='M10 50 L50 10 L90 50 L50 90 Z'/></svg>" alt="Logo" class="custom-logo-icon">
       <span class="logo-text">PageLayout</span>
     </a>
     
@@ -643,17 +647,17 @@
 
     <div class="worries-resolved-banner">
       <img src="man2_cutout.png" alt="" class="resolved-illustration-img resolved-left">
-      <span class="worries-resolved-text" data-ja="PageLayoutで解決します" data-en="PageLayout solves it">PageLayoutで解決します</span>
+      <div class="resolved-center-content">
+        <span class="worries-resolved-text" data-ja="PageLayoutで解決します" data-en="PageLayout solves it">PageLayoutで解決します</span>
+        <h2 class="resolved-heading" data-ja="サークルの台割管理を、もっと軽く、もっと確実に" data-en="Doujinshi Layout Management, Made Simple">サークルの台割管理を、もっと軽く、もっと確実に</h2>
+        <p class="resolved-subtext" data-ja="Excelやチャットでのやり取りから解放され、締切前でも慌てない構成管理を実現します。" data-en="Ditch spreadsheets and scattered chat messages for calm, deadline-proof layout management.">Excelやチャットでのやり取りから解放され、締切前でも慌てない構成管理を実現します。</p>
+      </div>
       <img src="woman2_cutout.png" alt="" class="resolved-illustration-img resolved-right">
     </div>
   </section>
 
   <!-- 全機能紹介セクション（ビジュアル領域拡大・消えていた2機能の復元） -->
   <section class="features" id="features">
-    <div class="section-title">
-      <h2 data-ja="サークルの台割管理を、もっと軽く、もっと確実に" data-en="Doujinshi Layout Management, Made Simple">サークルの台割管理を、もっと軽く、もっと確実に</h2>
-      <p data-ja="Excelやチャットでのやり取りから解放され、締切前でも慌てない構成管理を実現します。" data-en="Ditch spreadsheets and scattered chat messages for calm, deadline-proof layout management.">Excelやチャットでのやり取りから解放され、締切前でも慌てない構成管理を実現します。</p>
-    </div>
 
     <div class="features-grid">
       <!-- 🌟 リアルタイム同時編集 -->
