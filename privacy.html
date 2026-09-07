@@ -9,130 +9,110 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-light: #eef5ff;
-    --bg-white: #ffffff;
-    --primary: #2f7bf5;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --border-light: #e2e8f0;
-    --card-shadow: 0 10px 30px rgba(47, 123, 245, 0.08);
+    --bg-light: #eef5ff; --bg-white: #ffffff; --primary: #2f7bf5;
+    --text-main: #1e293b; --text-muted: #64748b; --border-light: #e2e8f0;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: var(--text-main);
-    background: linear-gradient(180deg, var(--bg-light) 0%, #ffffff 320px);
-    line-height: 1.85;
-  }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 60px 5% 100px; }
-  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: bold; color: var(--primary); text-decoration: none; margin-bottom: 24px; }
-  h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
-  .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 36px; }
-  .doc { background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 14px; box-shadow: var(--card-shadow); padding: 12px 32px 8px; }
-  article { padding: 26px 0; border-top: 1px solid var(--border-light); }
-  article:first-of-type { border-top: none; }
-  article h2 { font-size: 15.5px; font-weight: 700; margin-bottom: 12px; }
-  article p, article li { font-size: 13.5px; color: var(--text-main); }
-  article ul, article ol { padding-left: 1.3em; margin-top: 6px; }
-  article li { margin-bottom: 6px; }
-  article p + p { margin-top: 10px; }
-  table.simple { width: 100%; border-collapse: collapse; margin-top: 10px; }
-  table.simple th, table.simple td { text-align: left; font-size: 13px; padding: 8px 10px; border: 1px solid var(--border-light); vertical-align: top; }
-  table.simple th { background: var(--bg-light); width: 34%; font-weight: 700; }
-  footer { text-align: center; margin-top: 48px; }
-  .footer-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-  .footer-logo-icon { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-light); }
-  .footer-logo-text { font-size: 15px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; }
-  .footer-links { margin-top: 10px; font-size: 12px; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; margin: 0 8px; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg-light); color: var(--text-main); margin: 0; line-height: 1.8; }
+  header { background: var(--bg-white); padding: 18px 5%; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+  header a.logo { font-weight: 900; font-size: 18px; color: var(--primary); text-decoration: none; }
+  header a.back { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 5% 100px; }
+  h1 { font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+  .updated { font-size: 13px; color: var(--text-muted); margin-bottom: 40px; }
+  h2 { font-size: 17px; font-weight: 700; margin-top: 40px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border-light); }
+  p, li { font-size: 14.5px; color: var(--text-main); }
+  ul, ol { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13.5px; }
+  th, td { border: 1px solid var(--border-light); padding: 10px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--bg-light); font-weight: 700; width: 30%; }
+  .note-box { background: #fff8e1; border: 1px solid #ffe08a; border-radius: 8px; padding: 16px 18px; font-size: 13px; color: #7a5c00; margin-bottom: 32px; }
+  .placeholder { background: #fff0f0; color: #c0392b; padding: 1px 4px; border-radius: 3px; font-size: 0.95em; }
+  footer { text-align: center; font-size: 12px; color: var(--text-muted); padding: 30px 0; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="/" class="back-link">← PageLayout トップへ戻る</a>
-    <h1>プライバシーポリシー</h1>
-    <p class="lead">最終改定日：2026年9月3日</p>
 
-    <div class="doc">
-      <article>
-        <h2>1. 基本方針</h2>
-        <p>P-LAYOUT（以下「当方」といいます）は、クラウドサービス「PageLayout」（以下「本サービス」といいます）において取得する個人情報の重要性を認識し、個人情報の保護に関する法律その他の関連法令を遵守し、以下のとおり個人情報を適切に取り扱います。</p>
-      </article>
+<header>
+  <a class="logo" href="index.html">PageLayout</a>
+  <a class="back" href="index.html">← トップページに戻る</a>
+</header>
 
-      <article>
-        <h2>2. 取得する情報</h2>
-        <p>本サービスでは、アカウント登録・ご利用にあたり、以下の情報を取得します。</p>
-        <table class="simple">
-          <tr><th>アカウント情報</th><td>メールアドレス、パスワード（ハッシュ化して保存）、またはGoogleアカウントによる認証情報</td></tr>
-          <tr><th>決済情報</th><td>決済代行会社（Stripe）を通じて処理される、契約プラン・課金状況等の情報。クレジットカード番号自体は当方のサーバーには保存されません。</td></tr>
-          <tr><th>コンテンツ情報</th><td>ユーザーが作成する台割データ、プロジェクト名、アップロードされた画像・サムネイル等</td></tr>
-          <tr><th>共同編集者情報</th><td>ユーザーが招待するメンバーのメールアドレス等</td></tr>
-          <tr><th>利用状況</th><td>アクセスログ、IPアドレス、ブラウザ情報等の技術的な利用状況</td></tr>
-        </table>
-      </article>
+<main>
+  <h1>プライバシーポリシー</h1>
+  <p class="updated">制定日：2026年9月7日　最終改定日：2026年9月7日</p>
 
-      <article>
-        <h2>3. 利用目的</h2>
-        <p>取得した情報は、以下の目的で利用します。</p>
-        <ul>
-          <li>本サービスの提供、維持、運用、改善のため</li>
-          <li>アカウントの認証、本人確認のため</li>
-          <li>料金の請求および決済処理のため</li>
-          <li>コメント・招待等に関するメール通知の送信のため</li>
-          <li>お問い合わせへの対応のため</li>
-          <li>利用規約に違反する行為への対応のため</li>
-          <li>本サービスに関する重要なお知らせの配信のため</li>
-        </ul>
-      </article>
-
-      <article>
-        <h2>4. 第三者提供・業務委託</h2>
-        <p>当方は、法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に提供することはありません。ただし、本サービスの提供のため、以下の外部サービスに業務を委託しており、必要な範囲で情報を預託しています。</p>
-        <ul>
-          <li>Supabase（データベース、認証基盤、ファイルストレージ）</li>
-          <li>Stripe（決済処理）</li>
-          <li>Resend（メール配信）</li>
-        </ul>
-        <p>これらの委託先は、いずれも適切な安全管理措置を講じている事業者を選定しています。</p>
-      </article>
-
-      <article>
-        <h2>5. Cookie等の利用</h2>
-        <p>本サービスでは、ログイン状態の維持や利用状況の分析のため、Cookie等の技術を利用する場合があります。ブラウザの設定によりCookieを無効化することができますが、その場合、本サービスの一部機能がご利用いただけなくなることがあります。</p>
-      </article>
-
-      <article>
-        <h2>6. 安全管理措置</h2>
-        <p>当方は、取得した個人情報の漏えい、滅失またはき損の防止その他の安全管理のため、通信の暗号化（TLS）、アクセス制御、行レベルセキュリティ（RLS）等の技術的・組織的な措置を講じます。</p>
-      </article>
-
-      <article>
-        <h2>7. 保有個人データの開示・訂正・削除等</h2>
-        <p>ユーザーは、当方が保有する自己の個人情報について、開示、訂正、利用停止、削除等を請求することができます。ご希望の場合は、下記お問い合わせ窓口までご連絡ください。本人確認のうえ、法令に従い合理的な期間内に対応します。</p>
-      </article>
-
-      <article>
-        <h2>8. お問い合わせ窓口</h2>
-        <p>個人情報の取り扱いに関するお問い合わせは、下記までご連絡ください。</p>
-        <p>P-LAYOUT　運営統括責任者：尾田 孝<br>メールアドレス：support@p-layout.com</p>
-      </article>
-
-      <article>
-        <h2>9. 本ポリシーの変更</h2>
-        <p>当方は、法令の変更や本サービスの内容変更等に応じて、本ポリシーを予告なく変更することがあります。変更後のポリシーは、本サービスサイトに掲載した時点から効力を生じるものとします。</p>
-      </article>
-    </div>
-
-    <footer>
-      <a href="/" class="footer-logo">
-        <img src="https://i.imgur.com/your_logo_placeholder.png" alt="Logo" class="footer-logo-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%232f7bf5\'><path d=\'M10 50 L50 10 L90 50 L50 90 Z\'/></svg>'">
-        <span class="footer-logo-text">PageLayout</span>
-      </a>
-      <div class="footer-links">
-        <a href="/terms.html">利用規約</a>
-        <a href="/tokushoho.html">特定商取引法に基づく表記</a>
-      </div>
-    </footer>
+  <div class="note-box">
+    ⚠️ これは一般的な内容の下書きです。実際の公開・運用にあたっては、内容に問題がないか一度専門家にご確認いただくことをおすすめします。
   </div>
+
+  <p>P-LAYOUT（以下「当方」といいます）は、当方が提供するサービス「PageLayout」（以下「本サービス」といいます）における、ユーザーの個人情報の取り扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」といいます）を定めます。</p>
+
+  <h2>第1条（取得する情報）</h2>
+  <p>当方は、本サービスの提供にあたり、以下の情報を取得します。</p>
+  <table>
+    <tr><th>情報の種類</th><td>メールアドレス、氏名・プロフィール画像（Googleアカウントでログインした場合）、パスワード（暗号化して保存）</td></tr>
+    <tr><th>アップロードデータ</th><td>ユーザーが本サービスにアップロードする原稿・イラスト等の画像／PDFファイル、プロジェクトの構成情報（タイトル、ページ数、綴じ方向等）、カード情報（タイトル、メモ、ステータス、コメント等）</td></tr>
+    <tr><th>決済関連情報</th><td>決済処理は決済代行会社Stripe, Inc.を通じて行われ、クレジットカード番号等の情報は当方のサーバーには保存されません。当方が保持するのは、Stripeが発行する顧客ID・契約状況（プラン種別、契約状態）のみです。</td></tr>
+    <tr><th>利用状況に関する情報</th><td>ログイン日時、アクセスログ等</td></tr>
+  </table>
+
+  <h2>第2条（利用目的）</h2>
+  <p>当方は、取得した情報を以下の目的で利用します。</p>
+  <ul>
+    <li>本サービスの提供、維持、保護、改善のため</li>
+    <li>ユーザー認証及び本人確認のため</li>
+    <li>利用料金の請求及び決済処理のため</li>
+    <li>カードへのコメント投稿等に関する通知メールの送信のため</li>
+    <li>本サービスに関するご案内、お問い合わせへの対応のため</li>
+    <li>利用規約に違反する行為への対応のため</li>
+    <li>本サービスの新機能、更新情報等をお知らせするため</li>
+  </ul>
+
+  <h2>第3条（第三者提供・業務委託先）</h2>
+  <p>当方は、以下の外部サービスに業務の一部を委託しており、その提供に必要な範囲でユーザーの情報を預けています。</p>
+  <table>
+    <tr><th>Supabase, Inc.</th><td>データベース・ファイルストレージ・認証基盤として利用しています。データはシンガポールリージョン（AWS ap-southeast-1）のサーバーに保存されます。</td></tr>
+    <tr><th>Stripe, Inc.</th><td>決済処理のために利用しています。カード情報等はStripeが直接管理し、当方では保有しません。</td></tr>
+    <tr><th>Resend</th><td>コメント通知等のメール配信のために利用しています。</td></tr>
+    <tr><th>Google LLC</th><td>Googleアカウントによるログイン機能（OAuth認証）のために利用しています。</td></tr>
+  </table>
+  <p>当方は、法令に基づく場合を除き、あらかじめユーザーの同意を得ることなく、上記以外の第三者に個人情報を提供することはありません。</p>
+
+  <h2>第4条（共同編集者への情報の共有について）</h2>
+  <p>ユーザーが招待機能を使用して他のユーザーをプロジェクトに招待した場合、招待されたユーザーは、当該プロジェクト内のアップロードデータ、コメント、進行状況等を閲覧・編集できるようになります。また、共同編集メンバーの一覧には、参加メンバーの表示名（またはメールアドレスの一部）が表示されます。</p>
+
+  <h2>第5条（データの保存期間）</h2>
+  <p>当方は、アカウントが有効である期間中、取得した情報を保存します。ユーザーがアカウントの削除を希望する場合は、お問い合わせ窓口までご連絡ください。法令の定めにより保存が必要な情報を除き、合理的な期間内に削除いたします。</p>
+
+  <h2>第6条（セキュリティ対策）</h2>
+  <p>当方は、取得した情報の漏えい、滅失またはき損の防止その他の安全管理のために、通信の暗号化、アクセス権限の制御（招待されたメンバー以外は他のプロジェクトのデータにアクセスできない仕組み）等の必要な措置を講じます。ただし、インターネット上のサービスである以上、絶対的な安全性を保証するものではありません。</p>
+
+  <h2>第7条（ユーザーの権利）</h2>
+  <p>ユーザーは、当方が保有する自己の個人情報について、開示、訂正、削除等を求めることができます。お問い合わせ窓口までご連絡いただいた場合、当方は本人確認のうえ、合理的な範囲で速やかに対応いたします。</p>
+
+  <h2>第8条（Cookie等の利用）</h2>
+  <p>本サービスは、ログイン状態の維持等のため、Cookieおよびこれに類する技術を利用する場合があります。</p>
+
+  <h2>第9条（未成年の方のご利用について）</h2>
+  <p>未成年の方が本サービスをご利用になる場合は、あらかじめ親権者等の同意を得たうえでご利用ください。</p>
+
+  <h2>第10条（プライバシーポリシーの変更）</h2>
+  <p>当方は、必要に応じて、本ポリシーの内容を変更することがあります。変更後のプライバシーポリシーは、本サービス上に掲載した時点から効力を生じるものとします。</p>
+
+  <h2>第11条（お問い合わせ窓口）</h2>
+  <p>本ポリシーに関するお問い合わせは、下記までご連絡ください。</p>
+  <table>
+    <tr><th>運営者</th><td>P-LAYOUT</td></tr>
+    <tr><th>連絡先</th><td>support@p-layout.com</td></tr>
+  </table>
+
+  <p style="margin-top: 48px; color: var(--text-muted); font-size: 13px;">以上</p>
+</main>
+
+<footer>© <span id="year"></span> PageLayout</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
 </body>
 </html>

@@ -9,138 +9,132 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-light: #eef5ff;
-    --bg-white: #ffffff;
-    --primary: #2f7bf5;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --border-light: #e2e8f0;
-    --card-shadow: 0 10px 30px rgba(47, 123, 245, 0.08);
+    --bg-light: #eef5ff; --bg-white: #ffffff; --primary: #2f7bf5;
+    --text-main: #1e293b; --text-muted: #64748b; --border-light: #e2e8f0;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: var(--text-main);
-    background: linear-gradient(180deg, var(--bg-light) 0%, #ffffff 320px);
-    line-height: 1.85;
-  }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 60px 5% 100px; }
-  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: bold; color: var(--primary); text-decoration: none; margin-bottom: 24px; }
-  h1 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
-  .lead { font-size: 13.5px; color: var(--text-muted); margin-bottom: 36px; }
-  .doc { background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 14px; box-shadow: var(--card-shadow); padding: 12px 32px 8px; }
-  article { padding: 26px 0; border-top: 1px solid var(--border-light); }
-  article:first-of-type { border-top: none; }
-  article h2 { font-size: 15.5px; font-weight: 700; margin-bottom: 12px; }
-  article p, article li { font-size: 13.5px; color: var(--text-main); }
-  article ul, article ol { padding-left: 1.3em; margin-top: 6px; }
-  article li { margin-bottom: 6px; }
-  article p + p { margin-top: 10px; }
-  footer { text-align: center; margin-top: 48px; }
-  .footer-logo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-  .footer-logo-icon { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; border: 1px solid var(--border-light); }
-  .footer-logo-text { font-size: 15px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; }
-  .footer-links { margin-top: 10px; font-size: 12px; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; margin: 0 8px; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg-light); color: var(--text-main); margin: 0; line-height: 1.8; }
+  header { background: var(--bg-white); padding: 18px 5%; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; }
+  header a.logo { font-weight: 900; font-size: 18px; color: var(--primary); text-decoration: none; }
+  header a.back { font-size: 13px; color: var(--text-muted); text-decoration: none; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 5% 100px; }
+  h1 { font-size: 26px; font-weight: 900; margin-bottom: 8px; }
+  .updated { font-size: 13px; color: var(--text-muted); margin-bottom: 40px; }
+  h2 { font-size: 17px; font-weight: 700; margin-top: 40px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border-light); }
+  p, li { font-size: 14.5px; color: var(--text-main); }
+  ul, ol { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  .note-box { background: #fff8e1; border: 1px solid #ffe08a; border-radius: 8px; padding: 16px 18px; font-size: 13px; color: #7a5c00; margin-bottom: 32px; }
+  .placeholder { background: #fff0f0; color: #c0392b; padding: 1px 4px; border-radius: 3px; font-size: 0.95em; }
+  footer { text-align: center; font-size: 12px; color: var(--text-muted); padding: 30px 0; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="/" class="back-link">← PageLayout トップへ戻る</a>
-    <h1>利用規約</h1>
-    <p class="lead">最終改定日：2026年9月3日</p>
 
-    <div class="doc">
-      <article>
-        <h2>第1条（適用）</h2>
-        <p>本規約は、P-LAYOUT（以下「当方」といいます）が提供するクラウドサービス「PageLayout」（以下「本サービス」といいます）の利用条件を定めるものです。ユーザーは、本規約に同意のうえ本サービスをご利用ください。</p>
-      </article>
+<header>
+  <a class="logo" href="index.html">PageLayout</a>
+  <a class="back" href="index.html">← トップページに戻る</a>
+</header>
 
-      <article>
-        <h2>第2条（サービス内容）</h2>
-        <p>本サービスは、同人誌・冊子等の台割（ページ構成）をオンラインで作成・共有・管理するためのツールです。当方は、事前の告知の有無を問わず、本サービスの内容を変更、追加、または廃止することができます。</p>
-      </article>
+<main>
+  <h1>利用規約</h1>
+  <p class="updated">制定日：2026年9月7日　最終改定日：2026年9月7日</p>
 
-      <article>
-        <h2>第3条（利用登録）</h2>
-        <p>本サービスの利用を希望する方は、当方の定める方法によりアカウントを登録するものとします。登録情報に虚偽、誤記、または記載漏れがあった場合、当方は登録を拒否または取り消すことができます。</p>
-      </article>
-
-      <article>
-        <h2>第4条（料金および支払い）</h2>
-        <p>本サービスの有料プランの利用料金は、本サービスサイト上に表示する金額（消費税込み）とします。料金はクレジットカード決済により、契約プランに応じて毎月または毎年の更新日に自動で課金されます。</p>
-        <p>スタンダードプランには14日間の無料トライアル期間を設けます。トライアル期間中に解約しなかった場合、トライアル終了後に自動的に有料契約へ移行し、課金が開始されます。</p>
-        <p>当方は、合理的な範囲で料金プランおよび金額を変更できるものとし、変更時は本サービスサイト上で事前に告知します。</p>
-      </article>
-
-      <article>
-        <h2>第5条（解約・返金）</h2>
-        <p>ユーザーは、次回更新日の前日までにマイページから手続きを行うことで、いつでも解約できます。解約手続き完了後、次回更新日以降の課金は発生しません。</p>
-        <p>本サービスはデジタルサービスの性質上、決済完了後の返金は原則として行いません。ただし、当方の責めに帰すべき重大な不具合により本サービスの提供ができなかった場合はこの限りではなく、個別に対応します。</p>
-      </article>
-
-      <article>
-        <h2>第6条（禁止事項）</h2>
-        <p>ユーザーは、本サービスの利用にあたり、以下の行為をしてはなりません。</p>
-        <ul>
-          <li>法令または公序良俗に違反する行為</li>
-          <li>当方または第三者の知的財産権、肖像権、プライバシー等の権利を侵害する行為</li>
-          <li>本サービスのサーバーやネットワークに過度な負荷をかける行為、または不正にアクセスする行為</li>
-          <li>本サービスを通じて得た他のユーザーの情報を、目的外に利用または第三者に提供する行為</li>
-          <li>本サービスの運営を妨害するおそれのある行為</li>
-          <li>その他、当方が不適切と判断する行為</li>
-        </ul>
-      </article>
-
-      <article>
-        <h2>第7条（ユーザーが作成したコンテンツの権利）</h2>
-        <p>ユーザーが本サービス上で作成・アップロードした台割データ、原稿、画像等（以下「ユーザーコンテンツ」）の著作権その他の権利は、ユーザーまたは正当な権利者に帰属します。当方は、本サービスの提供・維持・改善に必要な範囲でのみユーザーコンテンツを利用します。</p>
-        <p>ユーザーは、自ら投稿するユーザーコンテンツについて、必要な権利を有していることを保証するものとします。</p>
-      </article>
-
-      <article>
-        <h2>第8条（サービスの停止・中断）</h2>
-        <p>当方は、システムの保守・点検、天災、通信回線の障害その他やむを得ない事由がある場合、事前の通知なく本サービスの全部または一部を停止または中断できるものとします。これによりユーザーに生じた損害について、当方は責任を負いません。</p>
-      </article>
-
-      <article>
-        <h2>第9条（免責事項）</h2>
-        <p>当方は、本サービスに事実上または法律上の瑕疵がないことを明示的にも黙示的にも保証しません。当方の故意または重過失による場合を除き、本サービスに起因してユーザーに生じた損害について、当方は一切の責任を負わないものとします。</p>
-        <p>当方が損害賠償責任を負う場合であっても、その賠償額は、当該ユーザーが直近12か月間に当方に支払った利用料金の総額を上限とします。</p>
-      </article>
-
-      <article>
-        <h2>第10条（アカウントの停止・削除）</h2>
-        <p>ユーザーが本規約に違反した場合、当方は事前の通知なくアカウントの利用を停止し、または登録を抹消することができます。</p>
-      </article>
-
-      <article>
-        <h2>第11条（規約の変更）</h2>
-        <p>当方は、必要と判断した場合、ユーザーへの事前の通知なく本規約を変更できるものとします。変更後の規約は、本サービスサイトに掲示した時点から効力を生じるものとします。</p>
-      </article>
-
-      <article>
-        <h2>第12条（準拠法・管轄裁判所）</h2>
-        <p>本規約の解釈にあたっては日本法を準拠法とします。本サービスに関して紛争が生じた場合には、当方の所在地を管轄する裁判所を専属的合意管轄とします。</p>
-      </article>
-
-      <article>
-        <h2>第13条（お問い合わせ）</h2>
-        <p>本規約に関するお問い合わせは、下記までご連絡ください。</p>
-        <p>P-LAYOUT　運営統括責任者：尾田 孝<br>メールアドレス：support@p-layout.com</p>
-      </article>
-    </div>
-
-    <footer>
-      <a href="/" class="footer-logo">
-        <img src="https://i.imgur.com/your_logo_placeholder.png" alt="Logo" class="footer-logo-icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%232f7bf5\'><path d=\'M10 50 L50 10 L90 50 L50 90 Z\'/></svg>'">
-        <span class="footer-logo-text">PageLayout</span>
-      </a>
-      <div class="footer-links">
-        <a href="/privacy.html">プライバシーポリシー</a>
-        <a href="/tokushoho.html">特定商取引法に基づく表記</a>
-      </div>
-    </footer>
+  <div class="note-box">
+    ⚠️ これは一般的な内容の下書きです。実際の公開・運用にあたっては、内容に問題がないか一度専門家にご確認いただくことをおすすめします。
   </div>
+
+  <p>P-LAYOUT（以下「当方」といいます）は、当方が提供するサービス「PageLayout」（以下「本サービス」といいます）の利用条件を、この利用規約（以下「本規約」といいます）に定めます。本サービスをご利用になる方（以下「ユーザー」といいます）には、本規約に同意いただいたうえでご利用いただきます。</p>
+
+  <h2>第1条（適用）</h2>
+  <p>本規約は、ユーザーと当方との間の本サービスの利用に関わる一切の関係に適用されるものとします。当方は本サービスに関し、本規約のほか、ご利用にあたってのルール等、各種の定め（以下「個別規定」といいます）をすることがあります。個別規定はその名称のいかんに関わらず、本規約の一部を構成するものとします。</p>
+
+  <h2>第2条（サービス内容）</h2>
+  <p>本サービスは、同人誌・冊子等のページ構成（台割）を管理するためのクラウド型ツールです。ユーザーは、原稿・イラスト等のファイルをアップロードし、台割の作成、共同編集者との共有、進行状況の管理等を行うことができます。</p>
+
+  <h2>第3条（アカウント登録）</h2>
+  <ol>
+    <li>本サービスの利用には、メールアドレスとパスワードによる登録、またはGoogleアカウントによる認証が必要です。</li>
+    <li>ユーザーは、登録情報を常に最新かつ正確な内容に保つものとします。</li>
+    <li>ユーザーは、自己の責任において、アカウントを適切に管理するものとし、第三者に利用させ、または貸与、譲渡、名義変更、売買等をしてはならないものとします。</li>
+  </ol>
+
+  <h2>第4条（料金及び支払方法）</h2>
+  <ol>
+    <li>本サービスには、無料トライアル期間を含む有料プラン（スタンダードプラン・プレミアムプラン）があり、それぞれの料金は本サービスのウェブサイト上に表示するとおりとします。</li>
+    <li>決済は決済代行会社であるStripe, Inc.（以下「Stripe」といいます）を通じて処理されます。Stripeの利用規約・プライバシーポリシーも併せてご確認ください。</li>
+    <li>スタンダードプランには14日間の無料トライアル期間を設けています。トライアル期間中に解約されない場合、自動的に有料プランへ移行し、以降、選択した課金周期（月次または年次）で自動更新・自動課金されます。</li>
+    <li>ユーザーは、次回課金日の前までに解約手続きを行うことで、以降の課金を停止することができます。既にお支払いいただいた料金は、法令上返金が必要とされる場合を除き、日割り等による返金は行いません。</li>
+  </ol>
+
+  <h2>第5条（解約後の取り扱い）</h2>
+  <ol>
+    <li>有料プランを解約した場合、ユーザーが既に作成したプロジェクトのデータは保持されますが、新規プロジェクトの作成、既存プロジェクトの編集（カードの追加・移動・内容の変更、メンバーの招待等）はできなくなり、閲覧のみ可能な状態となります。</li>
+    <li>再度有料プランへご契約いただくことで、編集機能が再開されます。</li>
+  </ol>
+
+  <h2>第6条（禁止事項）</h2>
+  <p>ユーザーは、本サービスの利用にあたり、以下の各号のいずれかに該当する行為をしてはなりません。</p>
+  <ul>
+    <li>法令または公序良俗に違反する行為</li>
+    <li>犯罪行為に関連する行為</li>
+    <li>当方、他のユーザー、または第三者の著作権、商標権等の知的財産権を侵害する行為（第三者が著作権を有するイラスト・原稿等を、正当な権利なくアップロードする行為を含みます）</li>
+    <li>当方、他のユーザー、または第三者の名誉または信用を毀損する行為</li>
+    <li>本サービスのサーバーまたはネットワークの機能を破壊したり、妨害したりする行為</li>
+    <li>本サービスのシステムに対して不正にアクセスし、またはこれを試みる行為</li>
+    <li>他のユーザーに関する個人情報等を収集または蓄積する行為</li>
+    <li>不正な目的を持って本サービスを利用する行為</li>
+    <li>他のユーザーに成りすます行為</li>
+    <li>その他、当方が不適切と判断する行為</li>
+  </ul>
+
+  <h2>第7条（ユーザーコンテンツの権利）</h2>
+  <ol>
+    <li>ユーザーが本サービスにアップロードした原稿、イラスト、その他の著作物（以下「ユーザーコンテンツ」といいます）に関する権利は、ユーザーまたは正当な権利者に帰属します。当方は、本サービスの提供、維持、改善に必要な範囲においてのみ、ユーザーコンテンツを利用（保存、表示、複製、共同編集者への表示等）することができるものとします。</li>
+    <li>ユーザーは、自身がアップロードするユーザーコンテンツについて、必要な権利を有していることを保証するものとします。</li>
+  </ol>
+
+  <h2>第8条（共同編集・招待機能について）</h2>
+  <p>ユーザーは、本サービスの招待機能を利用して、他のユーザーをプロジェクトの共同編集者として招待することができます。招待したユーザーおよびその行為について生じた損害等について、当方は責任を負わないものとします。招待を行うユーザーは、招待先が信頼できる相手であることを自らの責任で確認するものとします。</p>
+
+  <h2>第9条（本サービスの停止・変更・終了）</h2>
+  <ol>
+    <li>当方は、以下のいずれかの事由があると判断した場合、ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。
+      <ul>
+        <li>本サービスにかかるコンピュータシステムの保守点検または更新を行う場合</li>
+        <li>地震、落雷、火災、停電または天災などの不可抗力により、本サービスの提供が困難となった場合</li>
+        <li>コンピュータまたは通信回線等が事故により停止した場合</li>
+        <li>その他、当方が本サービスの提供が困難と判断した場合</li>
+      </ul>
+    </li>
+    <li>当方は、本サービスの提供の停止または中断により、ユーザーまたは第三者が被ったいかなる不利益または損害についても、一切の責任を負わないものとします。</li>
+    <li>当方は、本サービスの内容を変更、または提供を終了することができるものとします。本サービスを終了する場合、当方は合理的な期間を設けてユーザーに事前に通知するよう努めるものとします。</li>
+  </ol>
+
+  <h2>第10条（免責事項）</h2>
+  <ol>
+    <li>当方は、本サービスに事実上または法律上の瑕疵（安全性、信頼性、正確性、完全性、有効性、特定の目的への適合性、セキュリティ等に関する欠陥、エラーやバグ、権利侵害等を含みます）がないことを明示的にも黙示的にも保証しておりません。</li>
+    <li>当方は、通信障害、サーバーの不具合、その他の技術的な要因によりユーザーコンテンツの消失、破損、または本サービスの利用ができなかったことにより生じた損害について、当方の故意または重大な過失による場合を除き、一切の責任を負わないものとします。ユーザーは、重要なデータについて、自己の責任において適宜バックアップを取得することを推奨します。</li>
+    <li>当方は、本サービスに起因してユーザーと他のユーザーまたは第三者との間において生じた取引、連絡、紛争等について一切責任を負いません。</li>
+  </ol>
+
+  <h2>第11条（損害賠償の制限）</h2>
+  <p>当方の債務不履行責任または不法行為責任その他法律上の責任に基づき、当方がユーザーに対して損害賠償責任を負う場合、当方に故意または重過失がある場合を除き、当方の賠償責任は、当該損害が発生した月にユーザーが当方に支払った利用料金の額を上限とします。</p>
+
+  <h2>第12条（利用規約の変更）</h2>
+  <p>当方は、必要と判断した場合には、ユーザーに通知することなくいつでも本規約を変更することができるものとします。なお、本規約の変更後、本サービスの利用を継続した場合には、ユーザーは変更後の規約に同意したものとみなします。</p>
+
+  <h2>第13条（連絡・通知）</h2>
+  <p>本サービスに関するお問い合わせは、support@p-layout.com までご連絡ください。</p>
+
+  <h2>第14条（準拠法・裁判管轄）</h2>
+  <p>本規約の解釈にあたっては、日本法を準拠法とします。本サービスに関して紛争が生じた場合には、大阪地方裁判所を第一審の専属的合意管轄とします。</p>
+
+  <p style="margin-top: 48px; color: var(--text-muted); font-size: 13px;">以上</p>
+</main>
+
+<footer>© <span id="year"></span> PageLayout</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
 </body>
 </html>
