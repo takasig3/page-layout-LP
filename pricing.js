@@ -56,7 +56,7 @@ async function initPricingLogic() {
 
       if (!userId) {
         alert("プランの購入にはログインが必要です。ログイン後、自動的に決済画面へ進みます。");
-        window.open("https://app.p-layout.com/?pending_checkout=" + encodeURIComponent(baseUrl), "_blank");
+        window.location.href = "https://app.p-layout.com/?pending_checkout=" + encodeURIComponent(baseUrl);
         return;
       }
 
