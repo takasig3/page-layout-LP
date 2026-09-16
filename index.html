@@ -147,6 +147,18 @@
     .st-red { background: #f5e2df; color: #a83e3e; } .st-green { background: #e2ecdf; color: #3f6b4f; }
     .card-title-txt { font-weight: bold; font-size: 11px; color: #232323; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+    /* 🌟 ヒーロー内マンガビューアー（実際にPageLayoutで作った8ページ） */
+    .manga-stage { position: relative; background: #fbfbfa; border: 1px solid #d8d4c9; border-radius: 8px; aspect-ratio: 1 / 1; max-height: 520px; margin: 0 auto; overflow: hidden; touch-action: pan-y; }
+    .manga-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .35s ease; }
+    .manga-slide.active { opacity: 1; visibility: visible; z-index: 2; }
+    .manga-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .manga-thumbs { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 2px; scrollbar-width: thin; direction: ltr; }
+    .manga-thumb { flex: 0 0 auto; width: 54px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; background: #fff; cursor: pointer; padding: 0; }
+    .manga-thumb img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+    .manga-thumb.is-active { border-color: var(--primary); }
+    .manga-caption { text-align: center; font-size: 12.5px; color: #6f6b62; font-weight: bold; margin-top: 6px; }
+    .manga-caption b { color: var(--primary); }
+
     /* 🌟 こんなお悩みありませんか セクション */
     .worries { padding: 20px 4% 60px; }
     .worries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 900px; margin: 56px auto 0; }
@@ -409,7 +421,7 @@
     <p style="font-size:12.5px; color: var(--text-muted); margin-top:10px;" data-ja="社内報・IR資料などチームでのページ物制作にも、そのままご利用いただけます" data-en="Also great for team projects like internal newsletters and IR reports">社内報・IR資料などチームでのページ物制作にも、そのままご利用いただけます</p>
 
     <div class="hero-mockup-header-guide">
-      <span>カードをドラッグ＆ドロップしてページ配置を入れ替えできます</span>
+      <span>この8ページの漫画も、実際にPageLayoutで台割管理しながら作りました</span>
     </div>
 
     <!-- モックアップ（実際のアプリUIに準拠：インクサイドバー＋和紙調キャンバス） -->
@@ -426,191 +438,18 @@
         <div class="app-main-col">
         <div class="app-toolbar">
           <div class="toolbar-left">
-            <div class="history-pills">↩️ 戻る (0) | ↪️ 進む (0)</div>
+            <button type="button" class="tool-btn" id="mangaPrev" style="cursor:pointer;">◀ 戻る</button>
+            <button type="button" class="tool-btn" id="mangaNext" style="cursor:pointer;">進む ▶</button>
           </div>
           <div class="toolbar-right">
-            <span class="tool-btn">📋 順序変更</span>
-            <span class="tool-btn">⚙️ 書き出し / 保存 ▾</span>
-            <span class="add-btn">+ 新規カード追加</span>
+            <span class="tool-btn" id="mangaPageIndicator">1 / 8</span>
+            <a href="https://app.p-layout.com" target="_blank" class="add-btn" style="text-decoration:none;">+ 自分の台割を作る</a>
           </div>
         </div>
 
-        <div class="app-grid-view">
-          <div class="pair-box">
-            <div class="pair-title-bar">表紙・裏表紙</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">表紙(H1)</div>
-                <div class="real-card-item" id="card_h1" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">校了</span></div>
-                  <div class="card-title-txt">表紙イラスト</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">裏表紙(H4)</div>
-                <div class="real-card-item" id="card_h4" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
-                  <div class="card-title-txt">裏表紙・奥付</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">1 - 2 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">1 P</div>
-                <div class="real-card-item" id="card_p1" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
-                  <div class="card-title-txt">扉ページ・目次</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">2 P</div>
-                <div class="real-card-item" id="card_p2" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
-                  <div class="card-title-txt">本編 第1話</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">3 - 4 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">3 P</div>
-                <div class="real-card-item" id="card_p3" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
-                  <div class="card-title-txt">本編 第2話</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">4 P</div>
-                <div class="real-card-item" id="card_p4" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
-                  <div class="card-title-txt">扉絵・カラーページ</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">5 - 6 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">5 P</div>
-                <div class="real-card-item" id="card_p5" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
-                  <div class="card-title-txt">人材育成</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">6 P</div>
-                <div class="real-card-item" id="card_p6" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
-                  <div class="card-title-txt">サブキャラ紹介</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">7 - 8 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">7 P</div>
-                <div class="real-card-item" id="card_p7" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
-                  <div class="card-title-txt">本編 第3話</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">8 P</div>
-                <div class="real-card-item" id="card_p8" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
-                  <div class="card-title-txt">イラストギャラリー</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">9 - 10 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">9 P</div>
-                <div class="real-card-item" id="card_p9" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
-                  <div class="card-title-txt">設定資料</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">10 P</div>
-                <div class="real-card-item" id="card_p10" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
-                  <div class="card-title-txt">本編 第4話</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">11 - 12 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">11 P</div>
-                <div class="real-card-item" id="card_p11" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
-                  <div class="card-title-txt">おまけ漫画</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">12 P</div>
-                <div class="real-card-item" id="card_p12" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
-                  <div class="card-title-txt">書き下ろしSS</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="pair-box">
-            <div class="pair-title-bar">13 - 14 P</div>
-            <div class="pair-pages-body">
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">13 P</div>
-                <div class="real-card-item" id="card_p13" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
-                  <div class="card-title-txt">あとがき</div>
-                </div>
-              </div>
-              <div class="single-p-slot" ondragover="allowDrop(event)" ondrop="dropCard(event)">
-                <div class="slot-num-label">14 P</div>
-                <div class="real-card-item" id="card_p14" draggable="true" ondragstart="dragCard(event)">
-                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
-                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">校了</span></div>
-                  <div class="card-title-txt">奥付・告知</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="manga-stage" id="mangaStage"></div>
+        <div class="manga-thumbs" id="mangaThumbs"></div>
+        <div class="manga-caption"><b id="mangaLabel">表紙</b> ― <span id="mangaNum">1</span> / 8</div>
 
         </div>
         </div>
@@ -1057,6 +896,71 @@
         if (text) el.innerText = text;
       });
     });
+  </script>
+  <!-- ヒーロー内マンガビューアー：セリフは画像に焼き込み済みなので、ここでは表示切り替えのみ -->
+  <script>
+    (function () {
+      const mangaPages = [
+        { img: "manga-assets-final/manga-01.jpg", label: "表紙 ― 台割地獄からの脱出" },
+        { img: "manga-assets-final/manga-02.jpg", label: "1P ― あったらいいな" },
+        { img: "manga-assets-final/manga-03.jpg", label: "2P ― 出会い" },
+        { img: "manga-assets-final/manga-04.jpg", label: "3P ― 入れ替えも、綴じ方向も、思いのまま。" },
+        { img: "manga-assets-final/manga-05.jpg", label: "4P ― 見せたくない人には、絶対見せない。" },
+        { img: "manga-assets-final/manga-06.jpg", label: "5P ― 場所も作業も、バラバラでいい。" },
+        { img: "manga-assets-final/manga-07.jpg", label: "6P ― 台割地獄、卒業しました。" },
+        { img: "manga-assets-final/manga-08.jpg", label: "裏表紙 ― 入稿、もう怖くない。" }
+      ];
+
+      const stage = document.getElementById('mangaStage');
+      const thumbs = document.getElementById('mangaThumbs');
+      const numEl = document.getElementById('mangaNum');
+      const labelEl = document.getElementById('mangaLabel');
+      const indicatorEl = document.getElementById('mangaPageIndicator');
+      const prevBtn = document.getElementById('mangaPrev');
+      const nextBtn = document.getElementById('mangaNext');
+      if (!stage) return;
+
+      let mangaCurrent = 0;
+
+      mangaPages.forEach((p, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'manga-slide' + (i === 0 ? ' active' : '');
+        slide.innerHTML = `<img src="${p.img}" alt="${p.label}" loading="${i === 0 ? 'eager' : 'lazy'}">`;
+        stage.appendChild(slide);
+
+        const thumb = document.createElement('button');
+        thumb.type = 'button';
+        thumb.className = 'manga-thumb' + (i === 0 ? ' is-active' : '');
+        thumb.innerHTML = `<img src="${p.img}" alt="" loading="lazy">`;
+        thumb.addEventListener('click', () => mangaGoTo(i));
+        thumbs.appendChild(thumb);
+      });
+
+      function mangaGoTo(i) {
+        mangaCurrent = (i + mangaPages.length) % mangaPages.length;
+        stage.querySelectorAll('.manga-slide').forEach((s, idx) => s.classList.toggle('active', idx === mangaCurrent));
+        thumbs.querySelectorAll('.manga-thumb').forEach((t, idx) => t.classList.toggle('is-active', idx === mangaCurrent));
+        numEl.textContent = mangaCurrent + 1;
+        labelEl.textContent = mangaPages[mangaCurrent].label;
+        indicatorEl.textContent = (mangaCurrent + 1) + ' / ' + mangaPages.length;
+        const activeThumb = thumbs.children[mangaCurrent];
+        if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+
+      prevBtn.addEventListener('click', () => mangaGoTo(mangaCurrent - 1));
+      nextBtn.addEventListener('click', () => mangaGoTo(mangaCurrent + 1));
+
+      let mangaTouchX = null;
+      stage.addEventListener('touchstart', (e) => { mangaTouchX = e.touches[0].clientX; }, { passive: true });
+      stage.addEventListener('touchend', (e) => {
+        if (mangaTouchX === null) return;
+        const diff = e.changedTouches[0].clientX - mangaTouchX;
+        if (Math.abs(diff) > 40) mangaGoTo(mangaCurrent + (diff < 0 ? 1 : -1));
+        mangaTouchX = null;
+      }, { passive: true });
+
+      mangaGoTo(0);
+    })();
   </script>
   <script src="pricing.js" defer></script>
 </body>
