@@ -147,17 +147,54 @@
     .st-red { background: #f5e2df; color: #a83e3e; } .st-green { background: #e2ecdf; color: #3f6b4f; }
     .card-title-txt { font-weight: bold; font-size: 11px; color: #232323; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* 🌟 ヒーロー内マンガビューアー（実際にPageLayoutで作った8ページ） */
-    .manga-stage { position: relative; background: #fbfbfa; border: 1px solid #d8d4c9; border-radius: 8px; aspect-ratio: 1 / 1; max-height: 520px; margin: 0 auto; overflow: hidden; touch-action: pan-y; }
-    .manga-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .35s ease; }
-    .manga-slide.active { opacity: 1; visibility: visible; z-index: 2; }
-    .manga-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
-    .manga-thumbs { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 2px; scrollbar-width: thin; direction: ltr; }
-    .manga-thumb { flex: 0 0 auto; width: 54px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; background: #fff; cursor: pointer; padding: 0; }
-    .manga-thumb img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
-    .manga-thumb.is-active { border-color: var(--primary); }
-    .manga-caption { text-align: center; font-size: 12.5px; color: #6f6b62; font-weight: bold; margin-top: 6px; }
-    .manga-caption b { color: var(--primary); }
+    /* 🌟 ヒーロー：実アプリらしい全体モックアップ（サイドバー＋台割ボード＋カード詳細モーダル） */
+    .app-sidebar-full { background: #1c1d21; color: #e9e7e0; width: 200px; flex-shrink: 0; padding: 20px 16px; display: flex; flex-direction: column; }
+    .sidebar-full-brand { display: flex; align-items: center; gap: 7px; color: #5eb8f5; font-weight: 900; font-size: 16px; margin-bottom: 22px; white-space: nowrap; }
+    .sidebar-full-field { margin-bottom: 16px; }
+    .sidebar-full-label { font-size: 10px; color: #9a978f; font-weight: bold; letter-spacing: .3px; margin-bottom: 5px; }
+    .sidebar-full-select { background: #26272c; border: 1px solid #3a3b40; border-radius: 6px; padding: 7px 10px; font-size: 11.5px; color: #e9e7e0; }
+    .sidebar-full-member { background: #26272c; border-radius: 20px; padding: 5px 10px; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+    .sidebar-full-invite { font-size: 11px; color: #5eb8f5; }
+    .sidebar-full-spacer { flex: 1; }
+    .sidebar-full-lang { font-size: 11px; color: #9a978f; border-top: 1px solid #33343a; padding-top: 14px; }
+
+    .board-heading { padding: 2px 2px 4px; }
+    .board-heading h3 { font-size: 19px; font-weight: 700; color: #232323; margin-bottom: 4px; }
+    .board-heading p { font-size: 11.5px; color: #6f6b62; margin: 0; }
+
+    .real-card-item { cursor: pointer; }
+
+    /* ヒーローの台割ボード：カーソルが自動でページを入れ替えたり、プレビューを開いたりするデモ */
+    .hero-autoplay-cursor {
+      position: absolute; width: 16px; height: 16px; z-index: 60; pointer-events: none; opacity: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231e293b"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain;
+      transition: left .9s ease, top .9s ease, opacity .3s ease;
+    }
+    .hero-ghost-card {
+      position: absolute; z-index: 55; border-radius: 4px; overflow: hidden; opacity: 0; pointer-events: none;
+      box-shadow: 0 12px 24px rgba(30,28,20,.28);
+      transition: left .9s ease, top .9s ease, opacity .25s ease, transform .9s ease;
+    }
+    .real-card-item.is-autoplay-hidden { opacity: 0; }
+    .real-card-item.is-autoplay-focus { box-shadow: 0 0 0 2px var(--primary); }
+
+    .card-modal-overlay { position: absolute; inset: 0; background: rgba(30,41,59,.55); backdrop-filter: blur(4px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; border-radius: 12px; }
+    .card-modal-overlay.active { display: flex; }
+    .card-modal-box { background: #fbfaf7; border-radius: 14px; padding: 18px; max-width: 520px; width: 100%; box-shadow: 0 30px 60px rgba(0,0,0,.3); }
+    .card-modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .card-modal-tag { font-size: 12.5px; font-weight: bold; color: #232323; background: #eeece6; padding: 4px 10px; border-radius: 20px; }
+    .card-modal-tag b { color: var(--primary); }
+    .card-modal-close { background: none; border: none; font-size: 22px; color: #6f6b62; cursor: pointer; line-height: 1; }
+    .card-modal-body { display: flex; align-items: center; gap: 10px; }
+    .card-modal-frame { flex: 1; min-width: 0; border: 2px dashed #c7c2b3; border-radius: 8px; overflow: hidden; aspect-ratio: 1/1; background: #fff; }
+    .card-modal-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .card-modal-arrow { background: #fff; border: 1px solid #d8d4c9; width: 34px; height: 34px; border-radius: 50%; font-size: 14px; cursor: pointer; flex-shrink: 0; color: #232323; }
+    .card-modal-arrow:hover { border-color: var(--primary); color: var(--primary); }
+    .card-modal-filename { text-align: center; margin-top: 10px; font-size: 11px; color: #6f6b62; }
+    @media (max-width: 480px) {
+      .card-modal-box { padding: 12px; }
+      .card-modal-arrow { width: 28px; height: 28px; font-size: 12px; }
+    }
 
     /* 🌟 こんなお悩みありませんか セクション */
     .worries { padding: 20px 4% 60px; }
@@ -231,10 +268,71 @@
     }
 
     /* 拡大アニメーション要素 */
-    .sync-demo-box { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-    .sync-icon { width: 88px; height: 88px; color: var(--primary); display: flex; align-items: center; justify-content: center; animation: spinSync 6s linear infinite; }
-    .sync-icon svg { width: 100%; height: 100%; }
-    @keyframes spinSync { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* 03 AUTO-SYNC：12ページのミニ台割で、カーソルが自動でページを入れ替え＆プレビューを開くデモ */
+    .autosync-demo { position: relative; width: 100%; height: 100%; }
+    .autosync-grid { position: absolute; inset: 0; }
+    .autosync-card {
+      position: absolute; width: 19%; height: 24%;
+      background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9.5px; font-weight: bold; color: var(--text-muted);
+      box-shadow: 0 1px 3px rgba(30,41,59,.06);
+    }
+    .autosync-card.autosync-drag {
+      background: var(--primary); color: #fff; z-index: 5;
+      box-shadow: 0 6px 14px rgba(47,123,245,.35);
+      animation: autoSyncDragCard 9s infinite ease-in-out;
+    }
+    .autosync-cursor {
+      width: 16px; height: 16px; position: absolute; z-index: 20;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%231e293b"><path d="M3 3l7 18 3-7 7-3L3 3z"/></svg>') no-repeat center/contain;
+      animation: autoSyncCursorMove 9s infinite ease-in-out;
+    }
+    .autosync-preview {
+      position: absolute; inset: 10% 8%; background: var(--bg-white);
+      border: 1px solid var(--border-light); border-radius: 10px;
+      box-shadow: 0 10px 26px rgba(30,41,59,.18);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      z-index: 15; opacity: 0; transform: scale(.85);
+      animation: autoSyncPreviewShow 9s infinite ease-in-out;
+    }
+    .autosync-preview-num { font-size: 26px; font-weight: 900; color: var(--primary); }
+    .autosync-preview-label { font-size: 10.5px; color: var(--text-muted); font-weight: bold; }
+    .autosync-cloud-badge {
+      position: absolute; top: 6%; right: 6%; z-index: 25;
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px;
+      animation: autoSyncCloudPulse 3.2s infinite ease-in-out;
+    }
+    .cloud-shape { position: relative; width: 26px; height: 15px; background: var(--primary); border-radius: 14px; }
+    .cloud-shape::before, .cloud-shape::after { content: ""; position: absolute; background: var(--primary); border-radius: 50%; }
+    .cloud-shape::before { width: 14px; height: 14px; top: -7px; left: 2px; }
+    .cloud-shape::after { width: 10px; height: 10px; top: -5px; right: 3px; }
+    .autosync-check { position: absolute; bottom: 3px; right: 3px; color: #fff; background: var(--accent-green); border-radius: 50%; width: 13px; height: 13px; font-size: 9px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+
+    @keyframes autoSyncDragCard {
+      0%, 11%   { left: 27%; top: 40%; }
+      27%, 41%  { left: 4%;  top: 72%; }
+      56%, 100% { left: 27%; top: 40%; }
+    }
+    @keyframes autoSyncCursorMove {
+      0%, 8%    { left: 34%; top: 47%; opacity: 1; }
+      27%, 41%  { left: 11%; top: 79%; opacity: 1; }
+      56%, 62%  { left: 34%; top: 47%; opacity: 1; }
+      74%, 88%  { left: 57%; top: 15%; opacity: 1; }
+      96%       { left: 34%; top: 47%; opacity: 0; }
+      100%      { left: 34%; top: 47%; opacity: 0; }
+    }
+    @keyframes autoSyncPreviewShow {
+      0%, 62%   { opacity: 0; transform: scale(.85); }
+      74%, 88%  { opacity: 1; transform: scale(1); }
+      97%, 100% { opacity: 0; transform: scale(.9); }
+    }
+    @keyframes autoSyncCloudPulse {
+      0%, 100% { opacity: .85; transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.1); }
+    }
 
     .device-demo-box { display: flex; align-items: center; gap: 24px; }
     .device-icon { color: var(--primary); width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; }
@@ -424,34 +522,202 @@
       <span>この8ページの漫画も、実際にPageLayoutで台割管理しながら作りました</span>
     </div>
 
-    <!-- モックアップ（実際のアプリUIに準拠：インクサイドバー＋和紙調キャンバス） -->
+    <!-- モックアップ（実際のアプリUIに準拠：サイドバー＋台割ボード） -->
     <div class="hero-mockup">
       <div class="app-window-frame">
-        <div class="app-sidebar-mini">
-          <div class="sidebar-mini-brand">◆</div>
-          <div class="sidebar-mini-members" style="flex-direction: column;">
-            <span class="mini-avatar" style="background:#2f4a5e;">サ</span>
-            <span class="mini-avatar" style="background:#8a6a2a;">絵</span>
-            <span class="mini-avatar" style="background:#3f6b4f;">校</span>
+        <div class="app-sidebar-full">
+          <div class="sidebar-full-brand">◆ PageLayout</div>
+          <div class="sidebar-full-field">
+            <div class="sidebar-full-label">プロジェクト</div>
+            <div class="sidebar-full-select">アプリ紹介 ▾</div>
           </div>
+          <div class="sidebar-full-field">
+            <div class="sidebar-full-label">綴じ方向</div>
+            <div class="sidebar-full-select">右開き（縦書き・書籍）</div>
+          </div>
+          <div class="sidebar-full-field">
+            <div class="sidebar-full-label">総ページ数</div>
+            <div class="sidebar-full-select">12 P</div>
+          </div>
+          <div class="sidebar-full-field">
+            <div class="sidebar-full-label">共同編集メンバー</div>
+            <div class="sidebar-full-member">👤 あなた（作成者）</div>
+            <div class="sidebar-full-invite">＋ メンバーを招待</div>
+          </div>
+          <div class="sidebar-full-spacer"></div>
+          <div class="sidebar-full-lang">🌐 日本語</div>
         </div>
         <div class="app-main-col">
         <div class="app-toolbar">
           <div class="toolbar-left">
-            <button type="button" class="tool-btn" id="mangaPrev" style="cursor:pointer;">◀ 戻る</button>
-            <button type="button" class="tool-btn" id="mangaNext" style="cursor:pointer;">進む ▶</button>
+            <span class="tool-btn" style="opacity:.5;">↩️ 戻る (11)</span>
+            <span class="tool-btn" style="opacity:.3;">↪️ 進む (0)</span>
+            <span class="tool-btn">🖼️ 背景を設定</span>
           </div>
           <div class="toolbar-right">
-            <span class="tool-btn" id="mangaPageIndicator">1 / 8</span>
-            <a href="https://app.p-layout.com" target="_blank" class="add-btn" style="text-decoration:none;">+ 自分の台割を作る</a>
+            <span class="tool-btn">📋 順序変更</span>
+            <span class="tool-btn">⚙️ 書き出し / 保存 ▾</span>
+            <a href="https://app.p-layout.com" target="_blank" class="add-btn" style="text-decoration:none;">＋ 自分の台割を作る</a>
           </div>
         </div>
 
-        <div class="manga-stage" id="mangaStage"></div>
-        <div class="manga-thumbs" id="mangaThumbs"></div>
-        <div class="manga-caption"><b id="mangaLabel">表紙</b> ― <span id="mangaNum">1</span> / 8</div>
-
+        <div class="board-heading">
+          <p>総ページ数: 12 P ｜ 綴じ方向: 右開き</p>
+          <p>共同編集メンバー：あなた（作成者）</p>
         </div>
+
+        <div class="app-grid-view">
+          <div class="pair-box">
+            <div class="pair-title-bar">表紙・裏表紙</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">表紙(H1)</div>
+                <div class="real-card-item" data-index="0">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-01.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-01</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">裏表紙(H4)</div>
+                <div class="real-card-item" data-index="7">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-08.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-08</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pair-box">
+            <div class="pair-title-bar">1 - 2 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">1 P</div>
+                <div class="real-card-item" data-index="1">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-02.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-02</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">2 P</div>
+                <div class="real-card-item" data-index="2">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-03.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-03</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pair-box">
+            <div class="pair-title-bar">3 - 4 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">3 P</div>
+                <div class="real-card-item" data-index="3">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-04.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-04</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">4 P</div>
+                <div class="real-card-item" data-index="4">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-05.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-05</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pair-box">
+            <div class="pair-title-bar">5 - 6 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">5 P</div>
+                <div class="real-card-item" data-index="5">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-06.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-06</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">6 P</div>
+                <div class="real-card-item" data-index="6">
+                  <div class="card-img-placeholder" style="background-image:url('manga-assets-final/manga-07.jpg');"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">校了</span></div>
+                  <div class="card-title-txt">manga-07</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pair-box">
+            <div class="pair-title-bar">7 - 8 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">7 P</div>
+                <div class="real-card-item">
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f1e6cb, #e9dab8);"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">修正中</span></div>
+                  <div class="card-title-txt">本編 第4話</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">8 P</div>
+                <div class="real-card-item">
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e2ecdf, #d2e2cd);"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-green">構想案</span></div>
+                  <div class="card-title-txt">サブキャラ紹介</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pair-box">
+            <div class="pair-title-bar">9 - 10 P</div>
+            <div class="pair-pages-body">
+              <div class="single-p-slot">
+                <div class="slot-num-label">9 P</div>
+                <div class="real-card-item">
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #f5e2df, #eecfca);"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st st-red">一次確認</span></div>
+                  <div class="card-title-txt">設定資料</div>
+                </div>
+              </div>
+              <div class="single-p-slot">
+                <div class="slot-num-label">10 P</div>
+                <div class="real-card-item">
+                  <div class="card-img-placeholder" style="background: linear-gradient(135deg, #e3ebee, #d3e0e5);"></div>
+                  <div class="badge-flex-row"><span class="tag-cat">画像</span><span class="tag-st">承認済</span></div>
+                  <div class="card-title-txt">あとがき</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-ghost-card" id="heroGhostCard"></div>
+        <div class="hero-autoplay-cursor" id="heroAutoCursor"></div>
+        </div>
+
+        <!-- カード詳細プレビュー（クリックしたページを大きく表示。アプリ画面の内側だけを覆う） -->
+        <div class="card-modal-overlay" id="cardModalOverlay">
+          <div class="card-modal-box">
+            <div class="card-modal-head">
+              <span class="card-modal-tag">カードの詳細編集 <b id="cardModalLabel">表紙(H1)</b></span>
+              <button type="button" class="card-modal-close" id="cardModalClose">×</button>
+            </div>
+            <div class="card-modal-body">
+              <button type="button" class="card-modal-arrow" id="cardModalPrev">◀</button>
+              <div class="card-modal-frame"><img id="cardModalImg" src="" alt=""></div>
+              <button type="button" class="card-modal-arrow" id="cardModalNext">▶</button>
+            </div>
+            <div class="card-modal-filename" id="cardModalFilename">manga-01.jpg</div>
+          </div>
         </div>
       </div>
     </div>
@@ -538,14 +804,33 @@
         </div>
       </div>
 
-      <!-- クラウドサーバー自動保存＆同期 -->
+      <!-- クラウドサーバー自動保存＆同期：12ページの台割でカーソルが自動でページ入れ替え＆プレビューを見せるデモ -->
       <div class="feature-card">
         <div class="demo-viewport">
-          <div class="sync-demo-box">
-            <span class="sync-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a4.5 4.5 0 1 1 .566-8.963A5 5 0 1 1 17.5 19z"/></svg>
-            </span>
-            <span class="sec-chip" style="font-size: 12.5px; padding: 5px 14px;">自動リアルタイム同期</span>
+          <div class="autosync-demo">
+            <div class="autosync-grid">
+              <span class="autosync-card" style="left:4%;top:8%;">1</span>
+              <span class="autosync-card" style="left:27%;top:8%;">2</span>
+              <span class="autosync-card" style="left:50%;top:8%;">3</span>
+              <span class="autosync-card" style="left:73%;top:8%;">4</span>
+              <span class="autosync-card" style="left:4%;top:40%;">5</span>
+              <span class="autosync-card autosync-drag">6</span>
+              <span class="autosync-card" style="left:50%;top:40%;">7</span>
+              <span class="autosync-card" style="left:73%;top:40%;">8</span>
+              <span class="autosync-card" style="left:4%;top:72%;">9</span>
+              <span class="autosync-card" style="left:27%;top:72%;">10</span>
+              <span class="autosync-card" style="left:50%;top:72%;">11</span>
+              <span class="autosync-card" style="left:73%;top:72%;">12</span>
+            </div>
+            <span class="autosync-cursor"></span>
+            <div class="autosync-preview">
+              <span class="autosync-preview-num">3P</span>
+              <span class="autosync-preview-label">プレビュー</span>
+            </div>
+            <div class="autosync-cloud-badge">
+              <span class="cloud-shape"></span>
+              <span class="autosync-check">✓</span>
+            </div>
           </div>
         </div>
         <div class="feature-text-col">
@@ -897,69 +1182,193 @@
       });
     });
   </script>
-  <!-- ヒーロー内マンガビューアー：セリフは画像に焼き込み済みなので、ここでは表示切り替えのみ -->
+  <!-- カード詳細プレビュー：セリフは画像に焼き込み済み。カードクリックで拡大表示し、矢印で前後へ移動できる -->
   <script>
     (function () {
-      const mangaPages = [
-        { img: "manga-assets-final/manga-01.jpg", label: "表紙 ― 台割地獄からの脱出" },
-        { img: "manga-assets-final/manga-02.jpg", label: "1P ― あったらいいな" },
-        { img: "manga-assets-final/manga-03.jpg", label: "2P ― 出会い" },
-        { img: "manga-assets-final/manga-04.jpg", label: "3P ― 入れ替えも、綴じ方向も、思いのまま。" },
-        { img: "manga-assets-final/manga-05.jpg", label: "4P ― 見せたくない人には、絶対見せない。" },
-        { img: "manga-assets-final/manga-06.jpg", label: "5P ― 場所も作業も、バラバラでいい。" },
-        { img: "manga-assets-final/manga-07.jpg", label: "6P ― 台割地獄、卒業しました。" },
-        { img: "manga-assets-final/manga-08.jpg", label: "裏表紙 ― 入稿、もう怖くない。" }
+      const cardPages = [
+        { img: "manga-assets-final/manga-01.jpg", label: "表紙(H1)" },
+        { img: "manga-assets-final/manga-02.jpg", label: "1P" },
+        { img: "manga-assets-final/manga-03.jpg", label: "2P" },
+        { img: "manga-assets-final/manga-04.jpg", label: "3P" },
+        { img: "manga-assets-final/manga-05.jpg", label: "4P" },
+        { img: "manga-assets-final/manga-06.jpg", label: "5P" },
+        { img: "manga-assets-final/manga-07.jpg", label: "6P" },
+        { img: "manga-assets-final/manga-08.jpg", label: "裏表紙(H4)" }
       ];
 
-      const stage = document.getElementById('mangaStage');
-      const thumbs = document.getElementById('mangaThumbs');
-      const numEl = document.getElementById('mangaNum');
-      const labelEl = document.getElementById('mangaLabel');
-      const indicatorEl = document.getElementById('mangaPageIndicator');
-      const prevBtn = document.getElementById('mangaPrev');
-      const nextBtn = document.getElementById('mangaNext');
-      if (!stage) return;
+      const overlay = document.getElementById('cardModalOverlay');
+      const modalImg = document.getElementById('cardModalImg');
+      const modalLabel = document.getElementById('cardModalLabel');
+      const modalFilename = document.getElementById('cardModalFilename');
+      const closeBtn = document.getElementById('cardModalClose');
+      const prevBtn = document.getElementById('cardModalPrev');
+      const nextBtn = document.getElementById('cardModalNext');
+      if (!overlay) return;
 
-      let mangaCurrent = 0;
+      let cardCurrent = 0;
 
-      mangaPages.forEach((p, i) => {
-        const slide = document.createElement('div');
-        slide.className = 'manga-slide' + (i === 0 ? ' active' : '');
-        slide.innerHTML = `<img src="${p.img}" alt="${p.label}" loading="${i === 0 ? 'eager' : 'lazy'}">`;
-        stage.appendChild(slide);
-
-        const thumb = document.createElement('button');
-        thumb.type = 'button';
-        thumb.className = 'manga-thumb' + (i === 0 ? ' is-active' : '');
-        thumb.innerHTML = `<img src="${p.img}" alt="" loading="lazy">`;
-        thumb.addEventListener('click', () => mangaGoTo(i));
-        thumbs.appendChild(thumb);
-      });
-
-      function mangaGoTo(i) {
-        mangaCurrent = (i + mangaPages.length) % mangaPages.length;
-        stage.querySelectorAll('.manga-slide').forEach((s, idx) => s.classList.toggle('active', idx === mangaCurrent));
-        thumbs.querySelectorAll('.manga-thumb').forEach((t, idx) => t.classList.toggle('is-active', idx === mangaCurrent));
-        numEl.textContent = mangaCurrent + 1;
-        labelEl.textContent = mangaPages[mangaCurrent].label;
-        indicatorEl.textContent = (mangaCurrent + 1) + ' / ' + mangaPages.length;
-        const activeThumb = thumbs.children[mangaCurrent];
-        if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      function renderModal() {
+        const p = cardPages[cardCurrent];
+        modalImg.src = p.img;
+        modalImg.alt = p.label;
+        modalLabel.textContent = p.label;
+        modalFilename.textContent = p.img.split('/').pop();
       }
 
-      prevBtn.addEventListener('click', () => mangaGoTo(mangaCurrent - 1));
-      nextBtn.addEventListener('click', () => mangaGoTo(mangaCurrent + 1));
+      function openModal(i) {
+        cardCurrent = (i + cardPages.length) % cardPages.length;
+        renderModal();
+        overlay.classList.add('active');
+      }
 
-      let mangaTouchX = null;
-      stage.addEventListener('touchstart', (e) => { mangaTouchX = e.touches[0].clientX; }, { passive: true });
-      stage.addEventListener('touchend', (e) => {
-        if (mangaTouchX === null) return;
-        const diff = e.changedTouches[0].clientX - mangaTouchX;
-        if (Math.abs(diff) > 40) mangaGoTo(mangaCurrent + (diff < 0 ? 1 : -1));
-        mangaTouchX = null;
-      }, { passive: true });
+      function closeModal() {
+        overlay.classList.remove('active');
+      }
 
-      mangaGoTo(0);
+      window.__pageLayoutOpenModal = openModal;
+      window.__pageLayoutCloseModal = closeModal;
+
+      document.querySelectorAll('.real-card-item').forEach((card) => {
+        card.addEventListener('click', () => {
+          if (card.dataset.index === undefined) return;
+          openModal(parseInt(card.dataset.index, 10));
+        });
+      });
+
+      prevBtn.addEventListener('click', () => openModal(cardCurrent - 1));
+      nextBtn.addEventListener('click', () => openModal(cardCurrent + 1));
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+      document.addEventListener('keydown', (e) => {
+        if (!overlay.classList.contains('active')) return;
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowRight') openModal(cardCurrent + 1);
+        if (e.key === 'ArrowLeft') openModal(cardCurrent - 1);
+      });
+    })();
+  </script>
+
+  <!-- 台割ボードの自動デモ：カーソルが自動でページを入れ替えたり、プレビューを開いたりする -->
+  <script>
+    (function () {
+      const frame = document.querySelector('.app-window-frame');
+      const ghost = document.getElementById('heroGhostCard');
+      const cursor = document.getElementById('heroAutoCursor');
+      const overlay = document.getElementById('cardModalOverlay');
+      if (!frame || !ghost || !cursor || !overlay) return;
+
+      const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      const cards = () => Array.from(document.querySelectorAll('.app-main-col .real-card-item'));
+
+      function relRect(el) {
+        const f = frame.getBoundingClientRect();
+        const r = el.getBoundingClientRect();
+        return { left: r.left - f.left, top: r.top - f.top, width: r.width, height: r.height };
+      }
+
+      function getContent(el) {
+        const img = el.querySelector('.card-img-placeholder');
+        const cat = el.querySelector('.tag-cat');
+        const st = el.querySelector('.tag-st');
+        const title = el.querySelector('.card-title-txt');
+        return {
+          bg: img.style.backgroundImage,
+          catText: cat ? cat.textContent : '',
+          stText: st ? st.textContent : '',
+          stClass: st ? st.className : '',
+          title: title.textContent,
+          index: el.dataset.index
+        };
+      }
+
+      function setContent(el, c) {
+        el.querySelector('.card-img-placeholder').style.backgroundImage = c.bg;
+        const cat = el.querySelector('.tag-cat'); if (cat) cat.textContent = c.catText;
+        const st = el.querySelector('.tag-st'); if (st) { st.textContent = c.stText; st.className = c.stClass; }
+        el.querySelector('.card-title-txt').textContent = c.title;
+        if (c.index !== undefined) { el.dataset.index = c.index; } else { delete el.dataset.index; }
+      }
+
+      async function swapCycle() {
+        const list = cards();
+        const boxes = document.querySelectorAll('.app-main-col .pair-pages-body');
+        const box = boxes[Math.floor(Math.random() * boxes.length)];
+        const slots = box.querySelectorAll('.real-card-item');
+        if (slots.length < 2) return;
+        const [a, b] = slots;
+
+        const ra = relRect(a);
+        const rb = relRect(b);
+        const contentA = getContent(a);
+
+        ghost.style.width = ra.width + 'px';
+        ghost.style.height = ra.height + 'px';
+        ghost.style.backgroundImage = contentA.bg;
+        ghost.style.backgroundSize = 'cover';
+        ghost.style.backgroundPosition = 'center';
+        ghost.style.left = ra.left + 'px';
+        ghost.style.top = ra.top + 'px';
+        ghost.style.opacity = '1';
+
+        cursor.style.left = (ra.left + ra.width / 2 - 8) + 'px';
+        cursor.style.top = (ra.top + ra.height / 2 - 8) + 'px';
+        cursor.style.opacity = '1';
+
+        a.classList.add('is-autoplay-hidden');
+        await sleep(250);
+
+        ghost.style.left = rb.left + 'px';
+        ghost.style.top = rb.top + 'px';
+        cursor.style.left = (rb.left + rb.width / 2 - 8) + 'px';
+        cursor.style.top = (rb.top + rb.height / 2 - 8) + 'px';
+
+        await sleep(950);
+
+        const contentB = getContent(b);
+        setContent(b, contentA);
+        setContent(a, contentB);
+
+        ghost.style.opacity = '0';
+        cursor.style.opacity = '0';
+        a.classList.remove('is-autoplay-hidden');
+      }
+
+      async function previewCycle() {
+        if (overlay.classList.contains('active')) return;
+        const list = cards().filter((el) => el.dataset.index !== undefined);
+        if (!list.length) return;
+        const target = list[Math.floor(Math.random() * list.length)];
+        const rt = relRect(target);
+
+        cursor.style.left = (rt.left + rt.width / 2 - 8) + 'px';
+        cursor.style.top = (rt.top + rt.height / 2 - 8) + 'px';
+        cursor.style.opacity = '1';
+        target.classList.add('is-autoplay-focus');
+
+        await sleep(700);
+        if (typeof window.__pageLayoutOpenModal === 'function') {
+          window.__pageLayoutOpenModal(parseInt(target.dataset.index, 10));
+        }
+        await sleep(2200);
+        if (typeof window.__pageLayoutCloseModal === 'function') {
+          window.__pageLayoutCloseModal();
+        }
+        target.classList.remove('is-autoplay-focus');
+        cursor.style.opacity = '0';
+      }
+
+      async function loop() {
+        await sleep(2200);
+        while (true) {
+          await swapCycle();
+          await sleep(1300);
+          await previewCycle();
+          await sleep(1800);
+        }
+      }
+
+      loop();
     })();
   </script>
   <script src="pricing.js" defer></script>
