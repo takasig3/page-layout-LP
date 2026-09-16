@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>PageLayout マンガビューアー（メインビュー用）</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PageLayout マンガビューアー（メインビュー）
+     セリフは画像に焼き込み済みのため、このコンポーネントは
+     画像を並べてページ送りするだけのシンプルな構成です。
+     既存LPの :root トークンと同じ配色。クラス名は "plv-" で
+     プレフィックスしてあるので既存CSSと衝突しません。
+     <section class="plv-wrap">…</section> をまるごと
+     LPに貼り付けてください。
+     画像は同じ階層の manga-assets-final/ フォルダを参照。
+     ========================================================= */
+  .plv-wrap {
+    --primary: #2f7bf5;
+    --primary-hover: #1e63d6;
+    --bg-light: #eef5ff;
+    --bg-white: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-light: #e2e8f0;
+    --card-shadow: 0 10px 30px rgba(47, 123, 245, 0.08);
+
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main);
+    padding: clamp(28px, 5vw, 64px) 4%;
+    background: linear-gradient(180deg, var(--bg-light) 0%, #ffffff 70%);
+  }
+
+  .plv-inner { max-width: 980px; margin: 0 auto; }
+
+  .plv-lead { text-align: center; margin-bottom: 24px; }
+  .plv-badge {
+    display: inline-block; color: var(--primary); font-weight: 900;
+    font-size: 13px; letter-spacing: .5px; margin-bottom: 10px;
+  }
+  .plv-lead h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; line-height: 1.5; }
+  .plv-lead p { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
+
+  /* ---------- アプリ風ウィンドウ枠 ---------- */
+  .plv-window {
+    background: var(--bg-white);
+    border: 1px solid var(--border-light);
+    border-radius: 18px;
+    box-shadow: 0 30px 60px rgba(47, 123, 245, 0.12);
+    overflow: hidden;
+  }
+
+  .plv-toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; flex-wrap: wrap;
+    padding: 10px 16px;
+    background: rgba(238, 245, 255, 0.7);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .plv-toolbar-left, .plv-toolbar-right { display: flex; align-items: center; gap: 8px; }
+  .plv-nav-btn {
+    background: var(--bg-white); border: 1px solid var(--border-light);
+    padding: 6px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700;
+    color: var(--text-main); cursor: pointer; white-space: nowrap;
+  }
+  .plv-nav-btn:disabled { opacity: .35; cursor: default; }
+  .plv-nav-btn:not(:disabled):hover { border-color: var(--primary); color: var(--primary); }
+  .plv-page-title {
+    font-size: 13px; font-weight: 700; color: var(--text-main);
+    text-align: center; flex: 1; min-width: 140px;
+  }
+  .plv-page-title span { color: var(--primary); }
+  .plv-try-link {
+    background: var(--primary); color: #fff !important; text-decoration: none;
+    font-size: 12px; font-weight: 700; padding: 7px 14px; border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ---------- メインステージ ---------- */
+  .plv-stage {
+    position: relative;
+    background: #fbfbfa;
+    aspect-ratio: 1 / 1;
+    max-height: 640px;
+    margin: 0 auto;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+  .plv-slide {
+    position: absolute; inset: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity .35s ease;
+  }
+  .plv-slide.active { opacity: 1; visibility: visible; z-index: 2; }
+  .plv-slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  /* ---------- サムネイル帯（実アプリのカード風） ---------- */
+  .plv-thumbs {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding: 12px 14px 16px;
+    background: rgba(238, 245, 255, 0.45);
+    border-top: 1px solid var(--border-light);
+    scrollbar-width: thin;
+  }
+  .plv-thumb {
+    flex: 0 0 auto; width: 68px;
+    border-radius: 8px; overflow: hidden;
+    border: 2.5px solid transparent;
+    background: var(--bg-white);
+    cursor: pointer; padding: 0;
+    display: flex; flex-direction: column;
+  }
+  .plv-thumb img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; }
+  .plv-thumb-label {
+    font-size: 9.5px; font-weight: 700; text-align: center;
+    color: var(--text-muted); padding: 3px 2px; white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .plv-thumb.is-active { border-color: var(--primary); }
+  .plv-thumb.is-active .plv-thumb-label { color: var(--primary); }
+
+  /* ---------- 下部CTA ---------- */
+  .plv-cta { margin-top: 26px; text-align: center; }
+  .plv-cta p { color: var(--text-muted); font-size: 13.5px; margin-bottom: 14px; }
+  .plv-cta a {
+    display: inline-block; background: var(--primary); color: #fff;
+    padding: 13px 30px; font-size: 15px; font-weight: 700;
+    border-radius: 30px; text-decoration: none;
+    box-shadow: 0 8px 20px rgba(47, 123, 245, 0.3);
+  }
+
+  @media (max-width: 640px) {
+    .plv-toolbar { justify-content: center; }
+    .plv-page-title { order: -1; width: 100%; margin-bottom: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="plv-wrap">
+  <div class="plv-inner">
+
+    <div class="plv-lead">
+      <span class="plv-badge">台割地獄からの脱出 ― 全8ページ</span>
+      <h2>実際にページをめくって、体験してみてください。</h2>
+      <p>矢印やサムネイルをクリックすると、まるでPageLayoutを操作しているようにページが切り替わります。</p>
+    </div>
+
+    <div class="plv-window">
+
+      <div class="plv-toolbar">
+        <div class="plv-toolbar-left">
+          <button class="plv-nav-btn" id="plvPrev">◀ 戻る</button>
+        </div>
+        <div class="plv-page-title"><span id="plvNum">1</span> / 8 &nbsp;―&nbsp; <span id="plvLabel">表紙</span></div>
+        <div class="plv-toolbar-right">
+          <button class="plv-nav-btn" id="plvNext">進む ▶</button>
+          <a href="https://app.p-layout.com" target="_blank" class="plv-try-link">アプリを開く</a>
+        </div>
+      </div>
+
+      <div class="plv-stage" id="plvStage"></div>
+
+      <div class="plv-thumbs" id="plvThumbs"></div>
+    </div>
+
+    <div class="plv-cta">
+      <p>実際のアプリでも、ドラッグ＆ドロップやコメントで、こんな風に直感的に台割を管理できます。</p>
+      <a href="https://app.p-layout.com" target="_blank">14日間無料で試す</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  // セリフは画像に焼き込み済み。ここではファイルとラベルだけ管理する。
+  const pages = [
+    { img: "manga-assets-final/manga-01.jpg", label: "表紙 ― 台割地獄からの脱出" },
+    { img: "manga-assets-final/manga-02.jpg", label: "1P ― あったらいいな" },
+    { img: "manga-assets-final/manga-03.jpg", label: "2P ― 出会い" },
+    { img: "manga-assets-final/manga-04.jpg", label: "3P ― 入れ替えも、綴じ方向も、思いのまま。" },
+    { img: "manga-assets-final/manga-05.jpg", label: "4P ― 見せたくない人には、絶対見せない。" },
+    { img: "manga-assets-final/manga-06.jpg", label: "5P ― 場所も作業も、バラバラでいい。" },
+    { img: "manga-assets-final/manga-07.jpg", label: "6P ― 台割地獄、卒業しました。" },
+    { img: "manga-assets-final/manga-08.jpg", label: "裏表紙 ― 入稿、もう怖くない。" }
+  ];
+
+  const stage = document.getElementById('plvStage');
+  const thumbs = document.getElementById('plvThumbs');
+  const numEl = document.getElementById('plvNum');
+  const labelEl = document.getElementById('plvLabel');
+  const prevBtn = document.getElementById('plvPrev');
+  const nextBtn = document.getElementById('plvNext');
+  let current = 0;
+
+  pages.forEach((p, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'plv-slide' + (i === 0 ? ' active' : '');
+    slide.innerHTML = `<img src="${p.img}" alt="${p.label}">`;
+    stage.appendChild(slide);
+
+    const thumb = document.createElement('button');
+    thumb.className = 'plv-thumb' + (i === 0 ? ' is-active' : '');
+    thumb.innerHTML = `<img src="${p.img}" alt=""><span class="plv-thumb-label">${i + 1}</span>`;
+    thumb.addEventListener('click', () => goTo(i));
+    thumbs.appendChild(thumb);
+  });
+
+  function goTo(i) {
+    current = (i + pages.length) % pages.length;
+    document.querySelectorAll('.plv-slide').forEach((s, idx) => s.classList.toggle('active', idx === current));
+    document.querySelectorAll('.plv-thumb').forEach((t, idx) => t.classList.toggle('is-active', idx === current));
+    numEl.textContent = current + 1;
+    labelEl.textContent = pages[current].label;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === pages.length - 1;
+    const activeThumb = thumbs.children[current];
+    if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+  });
+
+  let touchX = null;
+  stage.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const diff = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(diff) > 40) goTo(current + (diff < 0 ? 1 : -1));
+    touchX = null;
+  }, { passive: true });
+
+  goTo(0);
+})();
+</script>
+
+</body>
+</html>
