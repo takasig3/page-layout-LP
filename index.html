@@ -205,6 +205,44 @@
       .card-modal-arrow { width: 28px; height: 28px; font-size: 12px; }
     }
 
+    /* 🌟 スマホ表示：ヒーローのアプリモックアップ全体を縦積みに再構成 */
+    @media (max-width: 680px) {
+      .hero { padding: 110px 4% 30px; }
+      .hero h1 { font-size: 25px; }
+      .hero p { font-size: 13.5px; }
+
+      .hero-mockup { padding: 8px; border-radius: 14px; }
+      .app-window-frame { flex-direction: column; min-height: 0; font-size: 11.5px; }
+
+      /* サイドバーは上部に横並びの帯として表示（縦積みの黒い壁を防ぐ） */
+      .app-sidebar-full {
+        width: 100%; flex-direction: row; flex-wrap: wrap;
+        align-items: flex-start; gap: 10px 14px; padding: 12px 14px;
+      }
+      .sidebar-full-brand { width: 100%; margin-bottom: 4px; }
+      .sidebar-full-field { margin-bottom: 0; min-width: 90px; }
+      .sidebar-full-member { margin-bottom: 0; }
+      .sidebar-full-spacer { display: none; }
+      .sidebar-full-lang { display: none; }
+
+      .app-main-col { padding: 12px; gap: 10px; }
+      .app-toolbar { padding: 8px 10px; gap: 8px; }
+      .board-heading h3 { font-size: 16px; }
+
+      /* カードボードは1カラムにして、各カードの文字が縦1文字折り返しにならないようにする */
+      .app-grid-view { grid-template-columns: 1fr; gap: 10px; }
+      .pair-pages-body { min-height: 0; }
+      .single-p-slot { min-height: 0; }
+      .card-img-placeholder { height: 54px; }
+      .card-title-txt { font-size: 10.5px; }
+    }
+
+    /* 🌟 スマホ表示：機能カードのグリッドが420px未満に収まらず崩れるのを修正 */
+    @media (max-width: 460px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .pricing-card { width: 100%; max-width: 340px; }
+    }
+
     /* 🌟 こんなお悩みありませんか セクション */
     .worries { padding: 20px 4% 60px; }
     .worries-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 900px; margin: 56px auto 0; }
@@ -512,9 +550,9 @@
 
   <!-- 1. メインヒーローエリア -->
   <section class="hero" id="top">
-    <span class="hero-badge" data-ja="同人誌・冊子制作のための台割ツール" data-en="Doujinshi & Booklet Layout Tool">同人誌・冊子制作のための台割ツール</span>
-    <h1 data-ja="同人誌の台割、<br><span class=&quot;hl&quot;>もうExcelとにらめっこしない</span>" data-en="Doujinshi Page Layout,<br><span class=&quot;hl&quot;>Without the Excel Headache</span>">同人誌の台割、<br><span class="hl">もうExcelとにらめっこしない</span></h1>
-    <p data-ja="ページ構成をドラッグ＆ドロップで整理。サークルメンバーとリアルタイムで共有できるから、締切前の差し替えも一瞬で終わります。" data-en="Organize your page layout with drag-and-drop. Share it live with your circle members, so last-minute changes before deadline take seconds.">ページ構成をドラッグ＆ドロップで整理。<br>サークルメンバーとリアルタイムで共有できるから、締切前の差し替えも一瞬で終わります。</p>
+    <span class="hero-badge" data-ja="同人誌・冊子制作のためのリアルタイム共同編集ツール" data-en="Real-Time Co-Editing for Doujinshi & Booklet Production">同人誌・冊子制作のためのリアルタイム共同編集ツール</span>
+    <h1 data-ja="ページ構成を、<br><span class=&quot;hl&quot;>チームでリアルタイムに。</span>" data-en="Your Page Layout,<br><span class=&quot;hl&quot;>Together in Real Time.</span>">ページ構成を、<br><span class="hl">チームでリアルタイムに。</span></h1>
+    <p data-ja="サークルメンバーと同時編集できるから、もう「誰かが古いファイルを見てる」は起きません。同人誌の台割管理も、これ一つで。" data-en="Edit together with your circle members at the same time — no more “someone's looking at an old file.” Doujinshi page layout management, all in one place.">サークルメンバーと同時編集できるから、もう「誰かが古いファイルを見てる」は起きません。<br>同人誌の台割管理も、これ一つで。</p>
 
     <div class="hero-cta">
       <a href="https://app.p-layout.com" target="_blank" class="btn-main" data-ja="14日間無料で試す" data-en="Try Free for 14 Days">14日間無料で試す ➔</a>
@@ -1066,6 +1104,8 @@
   <footer>
     <p class="footer-note" data-ja="※表示価格や提供機能・サービス仕様は予告なく変更される場合があります。" data-en="*Prices, features, and service specifications are subject to change without notice.">※表示価格や提供機能・サービス仕様は予告なく変更される場合があります。</p>
     <p style="margin-bottom: 8px;">
+      <a href="blog-manga.html" style="color: inherit; text-decoration: underline;" data-ja="ブログ" data-en="Blog">ブログ</a>
+      <span style="margin: 0 8px;">|</span>
       <a href="terms.html" style="color: inherit; text-decoration: underline;" data-ja="利用規約" data-en="Terms of Service">利用規約</a>
       <span style="margin: 0 8px;">|</span>
       <a href="privacy.html" style="color: inherit; text-decoration: underline;" data-ja="プライバシーポリシー" data-en="Privacy Policy">プライバシーポリシー</a>

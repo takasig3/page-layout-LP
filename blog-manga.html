@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>同人サークルの締切地獄を、漫画にしてみた話 - PageLayout</title>
+  <meta name="description" content="台割管理ツール「PageLayout」がなぜ生まれたのか、8ページの漫画でご紹介します。">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0f1d' stroke='%2338bdf8' stroke-width='3'/%3E%3Cpolygon points='50,18 82,50 50,82 18,50' fill='%2338bdf8'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #eef5ff;
+      --bg-white: #ffffff;
+      --primary: #2f7bf5;
+      --primary-hover: #1e63d6;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --card-shadow: 0 10px 30px rgba(47, 123, 245, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(180deg, var(--bg-light) 0%, #ffffff 480px);
+      line-height: 1.9;
+    }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 4%; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-light); box-shadow: 0 2px 16px rgba(47, 123, 245, 0.06);
+    }
+    .logo-img-wrapper { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .custom-logo-icon { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border-light); }
+    .logo-text { font-size: 18px; font-weight: 900; color: var(--primary); letter-spacing: 0.5px; }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-app-launch { background: var(--primary); color: #fff !important; padding: 7px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; text-decoration: none; }
+    .back-link { font-size: 13px; font-weight: 700; color: var(--text-muted) !important; text-decoration: none; }
+
+    .article-hero { padding: 150px 4% 30px; text-align: center; }
+    .article-kicker { display: inline-block; color: var(--primary); font-weight: 900; font-size: 13px; letter-spacing: 1px; margin-bottom: 14px; }
+    .article-hero h1 { font-size: clamp(24px, 4vw, 36px); font-weight: 700; line-height: 1.5; max-width: 760px; margin: 0 auto 16px; }
+    .article-meta { color: var(--text-muted); font-size: 13px; }
+
+    .article-body { max-width: 720px; margin: 40px auto 0; padding: 0 5% 80px; }
+    .article-body p { font-size: 16px; color: var(--text-main); margin-bottom: 28px; }
+    .article-body p.lead { font-size: 17px; color: var(--text-muted); }
+
+    .panel { margin: 36px 0; }
+    .panel img { width: 100%; border-radius: 12px; border: 1px solid var(--border-light); box-shadow: var(--card-shadow); display: block; }
+    .panel-caption { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 10px; }
+
+    .divider { border: none; border-top: 1px solid var(--border-light); margin: 48px 0; }
+
+    .aside-box {
+      background: var(--bg-light); border: 1px solid var(--border-light); border-radius: 14px;
+      padding: 24px 26px; margin: 36px 0;
+    }
+    .aside-box h2 { font-size: 19px; margin-bottom: 12px; }
+    .aside-box p { margin-bottom: 0; font-size: 15px; }
+
+    .feature-list { list-style: none; margin: 20px 0 28px; }
+    .feature-list li { font-size: 15px; padding: 8px 0 8px 26px; position: relative; color: var(--text-main); }
+    .feature-list li::before { content: "✓"; position: absolute; left: 0; color: var(--primary); font-weight: 900; }
+
+    .cta-block { text-align: center; margin-top: 40px; }
+    .btn-main { background: var(--primary); color: #fff; padding: 14px 34px; font-size: 15.5px; font-weight: bold; border-radius: 30px; text-decoration: none; box-shadow: 0 8px 20px rgba(47, 123, 245, 0.3); display: inline-block; }
+
+    footer { text-align: center; padding: 40px 4% 60px; color: var(--text-muted); font-size: 12.5px; }
+    footer a { color: inherit; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo-img-wrapper">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2338bdf8'><path d='M10 50 L50 10 L90 50 L50 90 Z'/></svg>" alt="Logo" class="custom-logo-icon">
+      <span class="logo-text">PageLayout</span>
+    </a>
+    <div class="header-actions">
+      <a href="index.html" class="back-link">← トップに戻る</a>
+      <a href="https://app.p-layout.com" target="_blank" class="btn-app-launch">アプリを開く</a>
+    </div>
+  </header>
+
+  <article>
+    <div class="article-hero">
+      <span class="article-kicker">PAGELAYOUT BLOG</span>
+      <h1>同人サークルの締切地獄を、漫画にしてみた話</h1>
+      <div class="article-meta">PageLayout 開発チーム</div>
+    </div>
+
+    <div class="article-body">
+      <p class="lead">こんにちは、PageLayoutを作っているものです。今日は少し趣向を変えて、「なぜPageLayoutを作ったのか」を、漫画でお見せしようと思います。台割管理で消耗した経験がある方には、たぶん最初の1ページで「あ、これ知ってる」となるはずです。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-01.jpg" alt="深夜2時、入稿締切まであと1日">
+      </div>
+      <p>深夜2時、入稿締切まであと1日。「また誰かが古いファイルを見ている」「もう誰か一括で管理して」——このセリフ、心当たりのあるサークルさん、結構多いんじゃないでしょうか。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-02.jpg" alt="こんなツールがあったら">
+      </div>
+      <p>締切前のデスクで、ぼんやりこんなことを考えていました。「これが、こうパッと整理されて、みんなで確認できたらいいのに」と。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-03.jpg" alt="友人からPageLayoutを教えてもらう">
+      </div>
+      <p>そんな時、他サークルの友人から教えてもらったのが「PageLayout」というアプリでした。台割をみんなでリアルタイムに編集できる、というシンプルな話だったのですが、正直「え、こんなに簡単なの？」と驚きました。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-04.jpg" alt="綴じ方向もページ順もワンタップ">
+      </div>
+      <p>「右とじで作ったのに左とじだった」を、ゼロに。綴じ方向はワンタップで切り替えられて、ページの順番もドラッグで簡単に入れ替えられます。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-05.jpg" alt="招待していない人には見せない">
+      </div>
+      <p>招待していない人には、絶対に見せない。未発表の表紙も、安心して作業できるようにセキュリティまわりはかなり丁寧に作り込みました。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-06.jpg" alt="場所も作業もバラバラでいい">
+      </div>
+      <p>場所も作業もバラバラでいい。台割だけは、いつも一つ。カフェで作業する人、家でイラストを描く人、オフィスでレイアウトを詰める人——みんな違う場所にいても、見ているものは同じです。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-07.jpg" alt="もう全部終わってる">
+      </div>
+      <p>そして——あれ、もう全部終わってる。台割の確認が、こんなに楽でいいのか、と拍子抜けするくらいでした。</p>
+
+      <div class="panel">
+        <img src="manga-assets-final/manga-08.jpg" alt="入稿、もう怖くない">
+      </div>
+      <p>入稿指示書もボタン一つで出せるし、印刷所への確認ももう迷わない。あの夜の自分に、これを教えてあげたいです。</p>
+
+      <hr class="divider">
+
+      <div class="aside-box">
+        <h2>実はこの漫画自体も、PageLayoutで台割を組んで作りました</h2>
+        <p>ここまで読んでいただいた8ページの漫画、実は制作段階で「表紙・1P〜6P・裏表紙」という構成をPageLayoutのボード上に並べて、順番やセリフを確認しながら作りました。台割管理ツールで漫画の台割を管理する、というちょっとメタな話ですが、それくらい「ページものを作る作業全般」に使えるツールだと思っています。</p>
+      </div>
+
+      <h2 style="margin-bottom: 16px; font-size: 20px;">PageLayoutについて</h2>
+      <p style="margin-bottom: 8px;">同人誌・技術書典の頒布物・冊子制作など、「ページ構成をチームで管理する」作業のためのツールです。</p>
+      <ul class="feature-list">
+        <li>ページ構成をドラッグ＆ドロップで整理</li>
+        <li>サークルメンバーとリアルタイムで共有・編集</li>
+        <li>右開き・左開き、どちらの綴じ方向にも対応</li>
+        <li>招待したメンバー以外は閲覧・編集できない安心設計</li>
+        <li>作業内容はすべてクラウドへ自動保存</li>
+      </ul>
+
+      <div class="cta-block">
+        <a href="https://app.p-layout.com" target="_blank" class="btn-main">14日間無料で試す</a>
+      </div>
+    </div>
+  </article>
+
+  <footer>
+    <p style="margin-bottom: 8px;">
+      <a href="index.html" style="text-decoration: underline;">トップページ</a>
+      <span style="margin: 0 8px;">|</span>
+      <a href="terms.html" style="text-decoration: underline;">利用規約</a>
+      <span style="margin: 0 8px;">|</span>
+      <a href="privacy.html" style="text-decoration: underline;">プライバシーポリシー</a>
+    </p>
+    <p>© 2026 PageLayout. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
